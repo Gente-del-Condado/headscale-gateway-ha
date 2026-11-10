@@ -1,0 +1,14 @@
+{
+  "domain": "headscale_gateway",
+  "name": "Headscale Gateway",
+  "codeowners": [
+    "@Gente-del-Condado"
+  ],
+  "config_flow": true,
+  "documentation": "https://github.com/Gente-del-Condado/headscale-gateway-ha",
+  "integration_type": "hub",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/Gente-del-Condado/headscale-gateway-ha/issues",
+  "requirements": [],
+  "version": "1.4.5"
+}
