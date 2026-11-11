@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>Acceso al Git privado · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" >Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" >Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" >Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" >Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" >Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" >Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" >YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" >Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" aria-current="page">Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" >Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" >Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" >Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" >Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" >Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" >Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" >Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" >Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" >Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" >Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" >Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" >Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" >Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" >Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" >Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" >Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <p class="breadcrumb"><a href="index.html">Manual</a><span aria-hidden="true"> / </span>Acceso al Git privado</p>
+      <article class="prose"><h1 id="instalación-privada-desde-forgejo-con-git-pull">Instalación privada desde Forgejo con git pull</h1>
+<p>El código y las carpetas instalables están en la misma rama <code>main</code>. No hacen
+falta ZIP, repositorios públicos ni ramas para cada plataforma.</p>
+<table>
+<thead>
+<tr>
+<th scope="col">Carpeta del clon</th>
+<th scope="col">Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>addons/headscale_gateway/</code></td>
+<td>Copiar a la carpeta local de aplicaciones de Home Assistant</td>
+</tr>
+<tr>
+<td><code>custom_components/headscale_gateway/</code></td>
+<td>Copiar a <code>config/custom_components/</code> para las entidades</td>
+</tr>
+<tr>
+<td><code>yunohost/</code></td>
+<td>Instalar o actualizar mediante YunoHost desde una carpeta local</td>
+</tr>
+<tr>
+<td><code>packaging/</code></td>
+<td>Fuentes de los instaladores; no se instalan directamente</td>
+</tr>
+</tbody>
+</table>
+<p><code>addons/</code> y <code>yunohost/</code> se generan del mismo código y se incluyen en Git.
+Home Assistant compila el contenedor al instalar o reconstruir; no necesitas Go
+en su terminal. YunoHost incluye ejecutables Linux amd64/arm64 verificados,
+aproximadamente 113 MiB en total sin compresión. La descarga inicial por Git es
+mayor por este motivo; el servidor YunoHost tampoco necesita Go.</p>
+<h2 id="acceso-privado">Acceso privado</h2>
+<p>En cada equipo configura acceso SSH a Forgejo antes de clonar. Es preferible una
+clave de despliegue de solo lectura para cada equipo, registrada en el repositorio.
+No incluyas claves privadas en Git. La clave para descargar código es independiente
+de la identidad VPN del Gateway.</p>
+<p>Las direcciones SSH de esta guía son ficticias. Sustituye
+<code>ssh://git@forgejo.example.net:2222/usuario/headscale-gateway.git</code> por la URL
+SSH que muestra tu repositorio: incluye el usuario SSH, el servidor, el puerto
+y el propietario del repositorio. No utilices contraseñas ni tokens en la URL.</p>
+<h2 id="home-assistant-os-primera-instalación">Home Assistant OS: primera instalación</h2>
+<h3 id="preparar-o-reutilizar-la-clave-ssh">Preparar o reutilizar la clave SSH</h3>
+<p>En la terminal de Home Assistant, con Git y OpenSSH disponibles:</p>
+<pre tabindex="0"><code class="language-bash">mkdir -p /data/.ssh
+chmod 700 /data/.ssh
+
+if [ ! -f /data/.ssh/headscale_gateway_forgejo ]; then
+  ssh-keygen -t ed25519 -a 100 \
+    -f /data/.ssh/headscale_gateway_forgejo \
+    -C &quot;homeassistant-headscale-gateway&quot;
+fi
+
+cp /data/.ssh/headscale_gateway_forgejo.pub /config/headscale_gateway_clave_publica.txt
+</code></pre>
+<p>Abre <code>headscale_gateway_clave_publica.txt</code> desde File Editor y copia la línea
+completa que empieza por <code>ssh-ed25519</code>. En Forgejo, entra en <strong>Configuración del
+repositorio → Claves de despliegue → Añadir clave</strong> y regístrala con permiso de
+solo lectura. Si la clave ya estaba autorizada, reutilízala.</p>
+<p>El TXT contiene la clave pública. El archivo sin <code>.pub</code> es privado y debe
+permanecer en Home Assistant. Si has protegido la clave con una frase de
+contraseña, SSH la solicitará al conectar. En la primera conexión verifica
+también la huella del servidor antes de aceptarla.</p>
+<h3 id="clonar-e-instalar-el-complemento">Clonar e instalar el complemento</h3>
+<p>Si ya existe el clon, utiliza el procedimiento de actualización siguiente.
+Para una primera instalación:</p>
+<pre tabindex="0"><code class="language-bash">GIT_SSH_COMMAND='ssh -i /data/.ssh/headscale_gateway_forgejo -o IdentitiesOnly=yes' \
+git clone ssh://git@forgejo.example.net:2222/usuario/headscale-gateway.git /data/headscale-gateway-src &amp;&amp;
+
+git -C /data/headscale-gateway-src config core.sshCommand \
+  'ssh -i /data/.ssh/headscale_gateway_forgejo -o IdentitiesOnly=yes' &amp;&amp;
+mkdir -p /local_apps/headscale_gateway &amp;&amp;
+cp -a /data/headscale-gateway-src/addons/headscale_gateway/. /local_apps/headscale_gateway/ &amp;&amp;
+head -n 3 /local_apps/headscale_gateway/config.yaml
+</code></pre>
+<p><code>/local_apps</code> es la carpeta de aplicaciones locales utilizada en esta guía. Si tu terminal expone
+las aplicaciones locales en <code>/addons</code>, sustituye <code>/local_apps</code> por <code>/addons</code>.
+No copies estos archivos dentro de <code>/data/gateway/</code> del complemento.</p>
+<p>En la tienda busca actualizaciones e instala <strong>Headscale Gateway</strong> desde
+<strong>Aplicaciones locales</strong>. Arranca y abre su interfaz. El nombre interno de la
+aplicación es <code>headscale_gateway</code>.</p>
+<p>Para entrar desde el móvil o PC: <strong>Ajustes → Aplicaciones/Complementos →
+Headscale Gateway → Abrir interfaz web</strong>. Activa <strong>Mostrar en la barra lateral</strong>
+en la ficha para tener acceso directo en el menú. Usa una cuenta administradora
+de Home Assistant. El servidor no necesita un navegador y no tienes que abrir
+el puerto interno 62000–65500 ni configurar antes VPN, DNS o certificados.
+Entrarás directamente con tu sesión de administrador de Home Assistant, sin
+otra contraseña. La identidad y el grupo <code>system-admin</code> deben ser enviados por
+Supervisor en cada petición. Si no llegan, se deniega el acceso: actualiza
+Home Assistant/Supervisor. El cierre de sesión y MFA se gestionan en Home Assistant.
+Las opciones <code>admin_username</code> y <code>admin_password</code> son opcionales y solo inicializan
+una cuenta separada para acceso directo; las cuentas existentes se conservan.</p>
+<h2 id="home-assistant-os-actualizar-desde-el-clon">Home Assistant OS: actualizar desde el clon</h2>
+<pre tabindex="0"><code class="language-bash">git -C /data/headscale-gateway-src config core.sshCommand \
+  'ssh -i /data/.ssh/headscale_gateway_forgejo -o IdentitiesOnly=yes' &amp;&amp;
+git -C /data/headscale-gateway-src pull --ff-only &amp;&amp;
+if [ -f /local_apps/headscale_gateway/config.yaml ]; then
+  cp -a /data/headscale-gateway-src/addons/headscale_gateway/. /local_apps/headscale_gateway/ &amp;&amp;
+  head -n 3 /local_apps/headscale_gateway/config.yaml &amp;&amp;
+  echo &quot;Código actualizado. Reconstruye Headscale Gateway desde Home Assistant.&quot;
+else
+  echo &quot;No encuentro la instalación anterior. No se ha copiado nada.&quot;
+fi
+</code></pre>
+<p>Después pulsa <strong>Reconstruir</strong> en la aplicación local; copiar archivos no reemplaza
+el contenedor en ejecución. Conserva antes una copia de seguridad. No desinstales
+para actualizar. Los datos persistentes siguen en <code>/data/gateway/</code> dentro de su
+contenedor y no se copian desde Git.</p>
+<h2 id="integración-de-entidades-instalación-y-actualización">Integración de entidades: instalación y actualización</h2>
+<p>Este paso es opcional y distinto de ejecutar el complemento. Desde Home
+Assistant 2026.11, Marketplace sustituye a HACS, pero ambos requieren repositorios
+públicos de GitHub. Para Forgejo privado, copia la integración desde el clon:</p>
+<pre tabindex="0"><code class="language-bash">git -C /data/headscale-gateway-src pull --ff-only &amp;&amp;
+mkdir -p /config/custom_components/headscale_gateway &amp;&amp;
+cp -a /data/headscale-gateway-src/custom_components/headscale_gateway/. /config/custom_components/headscale_gateway/
+
+cat /config/custom_components/headscale_gateway/manifest.json
+</code></pre>
+<p>Reinicia Home Assistant Core y añade <strong>Headscale Gateway</strong> desde Dispositivos y
+servicios. Usa una URL administrativa alcanzable desde Core y un token del Gateway
+<code>viewer</code> con alcance <code>read</code>. El enlace Ingress del navegador no sirve como URL de
+API para la integración.</p>
+<h2 id="yunohost-primera-instalación">YunoHost: primera instalación</h2>
+<p>En una sesión SSH de tu usuario administrador de YunoHost:</p>
+<pre tabindex="0"><code class="language-bash">git clone ssh://git@forgejo.example.net:2222/usuario/headscale-gateway.git &quot;$HOME/headscale-gateway-src&quot;
+
+sudo yunohost app install &quot;$HOME/headscale-gateway-src/yunohost&quot;
+</code></pre>
+<p>YunoHost solicita dominio, ruta y permisos. Instala
+desde el clon local: su proceso Git no necesita autenticarse contra Forgejo.
+No instales <code>packaging/yunohost/</code>, que contiene solo las fuentes del paquete.</p>
+<p>Abre la aplicación desde el portal con tu cuenta del grupo <code>admins</code>: entrarás
+sin otra contraseña del Gateway. El grupo se comprueba en cada petición mediante
+NSS. Las cuentas existentes se conservan para el acceso directo. El cierre de
+sesión y MFA pertenecen al portal de YunoHost. La instalación y actualización
+comprueban SSOwat 12.1.1+ y la disponibilidad del grupo <code>admins</code>.</p>
+<h2 id="yunohost-actualizar-desde-el-clon">YunoHost: actualizar desde el clon</h2>
+<pre tabindex="0"><code class="language-bash">git -C &quot;$HOME/headscale-gateway-src&quot; pull --ff-only &amp;&amp;
+sudo yunohost app upgrade headscale_gateway --file &quot;$HOME/headscale-gateway-src/yunohost&quot;
+</code></pre>
+<p>Para una segunda instancia sustituye <code>headscale_gateway</code> por su ID real, por
+ejemplo <code>headscale_gateway__2</code>. Para probar cambios del paquete sin cambiar su
+versión, añade <code>--force</code> al comando de actualización. Conserva la copia de
+seguridad automática de YunoHost. No reemplaces a mano los ejecutables: el script
+gestiona servicio, nginx, permisos y configuración. Los datos siguen fuera del clon.</p>
+<h2 id="preparar-una-nueva-entrega-desde-el-pc-de-desarrollo">Preparar una nueva entrega desde el PC de desarrollo</h2>
+<p>Después de modificar el programa o las plantillas:</p>
+<pre tabindex="0"><code class="language-bash"># Solo para una versión nueva:
+# python3 tools/set_version.py 1.4.2
+
+python3 tools/prepare_git_install.py
+python3 tools/prepare_git_install.py --check
+</code></pre>
+<p>Requiere Go y Python 3.11+, compila ambos binarios Linux y prepara el contexto
+completo de Home Assistant sin ZIP. No modifica la aplicación en ejecución,
+<code>bin/</code>, <code>releases/</code>, SQLite, credenciales ni identidades de los equipos.
+Rechaza sobrescribir cambios manuales en las carpetas generadas.</p>
+<p>Revisa los cambios y súbelos al mismo repositorio:</p>
+<pre tabindex="0"><code class="language-bash">git add .
+git commit -m &quot;Actualizar código y paquetes instalables&quot;
+git push origin main
+</code></pre>
+<p>Incluye <code>addons/</code>, <code>yunohost/</code> y <code>git-install-manifest.json</code> en el commit. Después
+los equipos solo necesitan <code>git pull</code> y los pasos de copia/actualización anteriores.
+La verificación comprueba huellas del código, plantillas y archivos instalables;
+detecta paquetes antiguos, incompletos o modificados.</p>
+<p>Sigue pendiente la aceptación en instalaciones reales de Home Assistant OS y
+YunoHost, incluida la restauración. Las pruebas locales no equivalen a esa validación.</p>
+<p>Referencias: <a href="https://contributors.home-assistant.io/apps/first-app/">aplicaciones locales de Home Assistant</a>,
+<a href="https://doc.yunohost.org/dev/packaging/test/">paquetes locales de YunoHost</a> y
+<a href="https://contributors.home-assistant.io/marketplace/reference/repository-structure/">estructura y orígenes admitidos por Marketplace</a>.</p></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+          <li><a href="#acceso-privado">Acceso privado</a></li>
+        
+          <li><a href="#home-assistant-os-primera-instalación">Home Assistant OS: primera instalación</a></li>
+        
+          <li><a href="#home-assistant-os-actualizar-desde-el-clon">Home Assistant OS: actualizar desde el clon</a></li>
+        
+          <li><a href="#integración-de-entidades-instalación-y-actualización">Integración de entidades: instalación y actualización</a></li>
+        
+          <li><a href="#yunohost-primera-instalación">YunoHost: primera instalación</a></li>
+        
+          <li><a href="#yunohost-actualizar-desde-el-clon">YunoHost: actualizar desde el clon</a></li>
+        
+          <li><a href="#preparar-una-nueva-entrega-desde-el-pc-de-desarrollo">Preparar una nueva entrega desde el PC de desarrollo</a></li>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>

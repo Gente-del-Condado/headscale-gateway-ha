@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>Confianza y federación · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" >Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" >Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" >Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" >Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" >Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" >Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" >YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" >Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" >Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" >Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" >Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" aria-current="page">Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" >Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" >Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" >Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" >Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" >Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" >Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" >Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" >Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" >Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" >Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" >Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" >Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" >Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <p class="breadcrumb"><a href="index.html">Manual</a><span aria-hidden="true"> / </span>Confianza y federación</p>
+      <article class="prose"><h1 id="ca-manager-y-federación-de-confianza-primera-entrega">CA Manager y federación de confianza (primera entrega)</h1>
+<h2 id="alcance-actual">Alcance actual</h2>
+<p>Esta entrega conserva sin cambios el primer inicio y la creación de la CA
+local. Añade una pestaña <strong>CA y confianza</strong>, un inventario de certificados
+públicos CA, alta pendiente de autoridades remotas, aprobación por huella
+SHA-256, revocación de la aprobación, descarga pública, comprobación remota
+por HTTPS, instalación/desinstalación en Linux y Windows cuando el proceso
+tiene privilegios, y descubrimiento opcional de candidatos.</p>
+<p>La <strong>CA privada</strong> y la clave <code>ca.key</code> no se exportan ni comparten. El fichero
+<code>data_dir/local-ca/&lt;dominio&gt;/ca.crt</code> sigue siendo la raíz de la CA actual.
+Los peers públicos aprobados se almacenan en <code>data_dir/pki/trust/</code> con
+permisos restrictivos. Una copia TODO cifrada de <code>data_dir</code> los incluye.</p>
+<h2 id="emparejamiento-paso-a-paso">Emparejamiento paso a paso</h2>
+<ol>
+<li>Activa «Publicar certificado público» en el Gateway A. El recurso
+   <code>/pki/v1/public-ca</code> entrega únicamente el certificado PEM público.</li>
+<li>Obtén el <code>.crt</code> por un canal seguro y compara la huella SHA-256 con el
+   administrador del Gateway A por un canal independiente.</li>
+<li>En Gateway B, importa el <code>.crt</code>, asigna un nombre y una URL HTTPS base
+   opcional (por ejemplo <code>https://nas.intra.example.net</code>).</li>
+<li><strong>No se confía todavía</strong> en la nueva CA. En B, pulsa «Verificar y aprobar»
+   e introduce manualmente la huella completa. Realiza el procedimiento
+   análogo en A si deseas confianza bidireccional.</li>
+<li>Opcionalmente pulsa «Instalar en SO». Aceptar el peer en el inventario
+   <strong>no</strong> cambia el almacén global del sistema.</li>
+<li>«Sincronizar» consulta al otro Gateway mediante HTTPS validado y comprueba
+   que el certificado CA ofrecido siga teniendo exactamente la misma huella.
+   Una nueva raíz exige una nueva aprobación; nunca se confía automáticamente
+   en un cambio de clave o raíz.</li>
+</ol>
+<p>La comprobación se repite cada seis horas mientras el Gateway está en marcha
+para los peers autorizados que tengan URL. Se actualiza su última fecha de
+verificación. No hay replicación de claves privadas ni instalación de CA
+como consecuencia de la sincronización.</p>
+<h2 id="descubrimiento">Descubrimiento</h2>
+<p>Los puertos pueden personalizarse. El intercambio inicial de CA pública por HTTP LAN es opcional y queda siempre pendiente de aprobación; consulta <a href="RED_Y_CA_LAN.html">RED_Y_CA_LAN.md</a>.</p>
+<p>El descubrimiento combina candidatos de Headscale, DNS y anuncios LAN UDP en <code>239.255.42.91:47991</code>; puede complementarse con DNS-SD/Avahi donde esté disponible. Los anuncios son pistas no autenticadas. No hay confianza automática ni un escaneo de todos los servicios de la zona DNS.</p>
+<p>En CA y confianza, «Descubrir y descargar CA pendientes» intenta primero Tailscale HTTPS 443 mediante la identidad tsnet del Gateway; después las direcciones LAN conocidas, normalmente 8443. Para cada destino intenta <code>https://admin.&lt;nodo&gt;/pki/v1/public-ca</code> y después el dominio principal. La descarga de bootstrap puede aceptar una raíz aún desconocida, pero exige hostname y fechas correctos y la guarda <strong>sin aprobar</strong>. Compara la huella por otro canal antes de aprobar.</p>
+<p>El catálogo de servicios solo se consulta mediante HTTPS validado, usando CA aprobadas y/o el almacén del sistema. Una descarga de CA pendiente no autoriza catálogos, instalación en SO ni administración remota. El procedimiento entre Windows y Linux está en <a href="FEDERACION_WINDOWS.html">FEDERACION_WINDOWS.txt</a>.</p>
+<h2 id="almacenes-de-confianza-del-sistema-operativo">Almacenes de confianza del sistema operativo</h2>
+<p>La instalación de una CA es una <strong>operación de alta confianza</strong>: podría
+permitir que esa autoridad expidiera certificados TLS aceptados por numerosas
+aplicaciones. Nunca instales una CA sin reconocer y verificar al titular.</p>
+<p>Pulsa «Descargar CA pública» y verifica el SHA-256 antes de instalarla. El
+botón del panel intenta instalarla sin elevación automática; en la mayoría
+de instalaciones Gateway funciona como usuario sin privilegios y, por tanto,
+dará el mensaje de permisos necesarios.</p>
+<h3 id="fedora-rhel">Fedora / RHEL</h3>
+<pre tabindex="0"><code class="language-bash"># Reemplaza HUELLASHA256 y ./ca-peer.crt por los valores reales.
+sudo install -m 0644 ./ca-peer.crt /etc/pki/ca-trust/source/anchors/hgw-HUELLASHA256.crt
+sudo update-ca-trust extract
+</code></pre>
+<p>Desinstalación:</p>
+<pre tabindex="0"><code class="language-bash">sudo rm /etc/pki/ca-trust/source/anchors/hgw-HUELLASHA256.crt
+sudo update-ca-trust extract
+</code></pre>
+<h3 id="debian-ubuntu">Debian / Ubuntu</h3>
+<pre tabindex="0"><code class="language-bash">sudo install -m 0644 ./ca-peer.crt /usr/local/share/ca-certificates/hgw-HUELLASHA256.crt
+sudo update-ca-certificates
+</code></pre>
+<p>Desinstalación:</p>
+<pre tabindex="0"><code class="language-bash">sudo rm /usr/local/share/ca-certificates/hgw-HUELLASHA256.crt
+sudo update-ca-certificates --fresh
+</code></pre>
+<h3 id="windows-powershell-como-administrador">Windows (PowerShell como administrador)</h3>
+<p>Comprueba la huella SHA-256 del certificado DER antes de confiar:</p>
+<pre tabindex="0"><code class="language-powershell">$cert = [System.Security.Cryptography.X509Certificates.X509Certificate2]::new(&quot;C:\ruta\ca-peer.crt&quot;)
+$hash = [System.Security.Cryptography.SHA256]::Create()
+$sha256 = ([BitConverter]::ToString($hash.ComputeHash($cert.RawData))).Replace(&quot;-&quot;, &quot;&quot;).ToLowerInvariant()
+$hash.Dispose()
+$sha256 # Comprueba con la huella ofrecida por el otro Gateway
+Import-Certificate -FilePath &quot;C:\ruta\ca-peer.crt&quot; -CertStoreLocation Cert:\LocalMachine\Root
+</code></pre>
+<p>Para retirarla, localiza <strong>exactamente</strong> ese certificado en <code>certlm.msc</code> o usa
+<code>Remove-Item Cert:\LocalMachine\Root\&lt;SHA1Thumbprint&gt;</code> tras verificar
+que corresponde a la misma huella SHA-256. El botón automático utiliza
+<code>certutil</code> y requiere permisos administrativos; no activa UAC silenciosamente.</p>
+<h3 id="macos-android-y-navegadores">macOS, Android y navegadores</h3>
+<p>Por ahora, importación manual de la CA pública. En macOS se utiliza el
+Llavero del sistema con verificación manual de huella. Android puede requerir
+instalación a través de Ajustes y muchas aplicaciones <strong>no confían</strong> en las
+CA instaladas por el usuario. Firefox, perfiles aislados y contenedores
+pueden usar almacenes propios. Instalar una CA solo en Fedora no resuelve
+el aviso HTTPS en un teléfono Android.</p>
+<h2 id="estado-y-límites-actuales">Estado y límites actuales</h2>
+<ul>
+<li>No se modifica <code>ca.key</code>, no se rota la CA propia ni se emiten certificados
+  nuevos desde este módulo.</li>
+<li>Todavía no hay editor de perfiles de emisión, CRL ni OCSP, ni autoridad
+  intermediaria. La revocación implementada es de <strong>confianza entre peers</strong>,
+  no una CRL de certificados TLS previamente emitidos.</li>
+<li>El descubrimiento LAN requiere Avahi; no se anuncia de forma automática.</li>
+<li>La sincronización es de <strong>comprobación de identidad pública y vigencia</strong>,
+  no un sistema de emparejamiento mTLS bidireccional con políticas por peer.</li>
+<li>No se instalan certificados en otros dispositivos del tailnet de forma remota.</li>
+<li>En producción, evita ejecutar el Gateway completo como root para conseguir
+  que el botón «Instalar» funcione. Prefiere instalación supervisada por SSH
+  o un helper dedicado de privilegios mínimos y políticas estrictas.</li>
+<li>Una nueva CA en el almacén del sistema puede necesitar reiniciar procesos
+  que ya habían cargado las raíces de confianza.</li>
+<li>Antes de comercializar el módulo, realiza revisión de seguridad, pruebas
+  reales entre dos nodos y una estrategia de rotación y recuperación.</li>
+</ul></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+          <li><a href="#alcance-actual">Alcance actual</a></li>
+        
+          <li><a href="#emparejamiento-paso-a-paso">Emparejamiento paso a paso</a></li>
+        
+          <li><a href="#descubrimiento">Descubrimiento</a></li>
+        
+          <li><a href="#almacenes-de-confianza-del-sistema-operativo">Almacenes de confianza del sistema operativo</a></li>
+        
+          <li><a href="#estado-y-límites-actuales">Estado y límites actuales</a></li>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>Ejemplos completos · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" >Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" >Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" >Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" aria-current="page">Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" >Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" >Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" >YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" >Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" >Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" >Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" >Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" >Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" >Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" >Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" >Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" >Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" >Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" >Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" >Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" >Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" >Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" >Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" >Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" >Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" >Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <p class="breadcrumb"><a href="index.html">Manual</a><span aria-hidden="true"> / </span>Ejemplos completos</p>
+      <article class="prose"><h1 id="ejemplos-completos">Ejemplos completos</h1>
+<p>Estos ejemplos utilizan nombres y direcciones ficticios. Cada backend debe poder alcanzarse desde el proceso Gateway, y cada cliente debe resolver el nombre publicado hacia el listener correspondiente.</p>
+<h2 id="publicar-una-aplicación-de-la-lan">Publicar una aplicación de la LAN</h2>
+<p>Supongamos un Gateway llamado <code>casa</code>, una zona <code>intra.example.net</code> y una aplicación que escucha en <code>http://192.0.2.20:8080</code>.</p>
+<table>
+<thead>
+<tr>
+<th scope="col">Campo en Servicios</th>
+<th scope="col">Valor del ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nombre</td>
+<td><code>documentos</code></td>
+</tr>
+<tr>
+<td>Backend HTTP(S)</td>
+<td><code>http://192.0.2.20:8080</code></td>
+</tr>
+<tr>
+<td>Descripción</td>
+<td><code>Documentación de la red doméstica</code></td>
+</tr>
+<tr>
+<td>Habilitado</td>
+<td>Sí</td>
+</tr>
+<tr>
+<td>Salida</td>
+<td>La ruta que permita alcanzar esa dirección LAN</td>
+</tr>
+</tbody>
+</table>
+<p>La URL del servicio será <code>https://documentos.casa.intra.example.net/</code>. Para acceder por LAN al puerto 8443, añade ese puerto a la URL y resuelve el nombre hacia la IP LAN del Gateway. Para el acceso por VPN, utiliza la IP del nodo tsnet y el listener virtual 443.</p>
+<h3 id="comprobar-cada-tramo">Comprobar cada tramo</h3>
+<p>Primero prueba el backend desde el equipo del Gateway.</p>
+<pre tabindex="0"><code class="language-bash">curl --fail --show-error http://192.0.2.20:8080/
+</code></pre>
+<p>Después prueba el servicio publicado desde un cliente autorizado, con el certificado público de la CA si empleas CA local.</p>
+<pre tabindex="0"><code class="language-bash">curl --fail --show-error \
+  --cacert ca-gateway.pem \
+  https://documentos.casa.intra.example.net/
+</code></pre>
+<p>Si el backend responde pero la URL publicada falla, comprueba por separado DNS, conectividad al puerto, ACL y confianza TLS. Una resolución correcta de DNS solo confirma la dirección.</p>
+<h2 id="publicar-home-assistant">Publicar Home Assistant</h2>
+<p>El acceso administrativo al complemento se abre mediante Ingress. Si además quieres que el Gateway publique el propio Home Assistant como servicio, crea un servicio cuyo backend sea la dirección alcanzable desde el Gateway.</p>
+<p>En el complemento con red del anfitrión, un destino habitual es <code>http://127.0.0.1:8123</code>. Compruébalo en tu equipo. Home Assistant necesita aceptar las cabeceras del proxy desde su dirección real.</p>
+<pre tabindex="0"><code class="language-yaml"># Fragmento de configuration.yaml de Home Assistant.
+# Integra estas claves en el bloque http existente.
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 127.0.0.1  # Solo si esta es la IP de origen que Core observa.
+</code></pre>
+<p>Sustituye esa IP por la que observe Core si el Gateway está en otro contenedor o equipo. Tras reiniciar Home Assistant cuando corresponda, abre el servicio publicado, inicia sesión y comprueba que el panel mantiene su conexión WebSocket. El endpoint utilizado por Home Assistant es <code>/api/websocket</code>.</p>
+<h2 id="consultar-el-estado-con-un-token-delegado">Consultar el estado con un token delegado</h2>
+<p>Crea un token de lectura en <strong>Sistema → API / Permisos</strong>. Utiliza una URL administrativa HTTPS alcanzable por el cliente. Para consultar también inventario de red necesitas el alcance <code>network</code> además de <code>read</code>.</p>
+<p>En Bash, lee la credencial sin escribirla literalmente en el historial.</p>
+<pre tabindex="0"><code class="language-bash">read -rsp 'Token delegado: ' HGW_TOKEN
+printf '\n'
+export HGW_TOKEN
+curl --fail-with-body --show-error \
+  --cacert ca-gateway.pem \
+  -H &quot;Authorization: Bearer $HGW_TOKEN&quot; \
+  https://admin.casa.intra.example.net/api/v1/status
+unset HGW_TOKEN
+</code></pre>
+<p>Si el certificado ya es de confianza del sistema, puedes omitir <code>--cacert</code>. En PowerShell, guarda el token en una variable de entorno de la sesión y consulta la API.</p>
+<pre tabindex="0"><code class="language-powershell">$token = Read-Host 'Token delegado' -AsSecureString
+$env:HGW_TOKEN = [System.Net.NetworkCredential]::new('', $token).Password
+Invoke-RestMethod -Uri 'https://admin.casa.intra.example.net/api/v1/status' `
+  -Headers @{ Authorization = &quot;Bearer $env:HGW_TOKEN&quot; }
+Remove-Item Env:HGW_TOKEN
+</code></pre>
+<p>Las operaciones de copias, identidad y otros módulos administrativos pueden requerir sesión interactiva. Consulta los permisos de cada ruta en <strong>Sistema → API / CLI</strong>. Los tokens y sus roles no sustituyen esos requisitos.</p>
+<h2 id="exportar-un-perfil-o-una-copia">Exportar un perfil o una copia</h2>
+<table>
+<thead>
+<tr>
+<th scope="col">Necesidad</th>
+<th scope="col">Formato</th>
+<th scope="col">Qué revisar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reutilizar ajustes en otro nodo</td>
+<td>Perfil <code>.hgwcfg</code></td>
+<td>Verifica los campos seleccionados y la configuración del nodo receptor.</td>
+</tr>
+<tr>
+<td>Recuperar una instalación</td>
+<td>Copia cifrada <code>.hgw</code></td>
+<td>Conserva la contraseña y comprueba los componentes incluidos.</td>
+</tr>
+<tr>
+<td>Copiar una política de Headscale</td>
+<td>Exportación ACL</td>
+<td>Revisa la política antes de aplicarla en otro servidor.</td>
+</tr>
+</tbody>
+</table>
+<p>Una copia completa puede incluir la identidad VPN. Durante una migración, detén el nodo original antes de poner en marcha su identidad restaurada. El <a href="USO_COMPLETO.html#copias-actualización-y-migración">manual de uso</a> detalla las diferencias entre actualización, migración y alta de otro nodo.</p>
+<h2 id="ejemplos-descargables">Ejemplos descargables</h2>
+<p>El directorio <a href="examples/startup.json">startup.json</a> y <a href="examples/acl-templates.json">acl-templates.json</a> contiene los ejemplos de formato que acompañan al código. Revisa los identificadores y los campos del esquema de tu versión antes de importarlos. El índice API del panel se genera desde las rutas registradas por el motor.</p></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+          <li><a href="#publicar-una-aplicación-de-la-lan">Publicar una aplicación de la LAN</a></li>
+        
+          <li><a href="#publicar-home-assistant">Publicar Home Assistant</a></li>
+        
+          <li><a href="#consultar-el-estado-con-un-token-delegado">Consultar el estado con un token delegado</a></li>
+        
+          <li><a href="#exportar-un-perfil-o-una-copia">Exportar un perfil o una copia</a></li>
+        
+          <li><a href="#ejemplos-descargables">Ejemplos descargables</a></li>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>

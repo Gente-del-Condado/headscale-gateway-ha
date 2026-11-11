@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>Resolver problemas · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" >Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" >Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" >Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" >Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" >Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" >Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" >YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" >Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" >Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" >Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" >Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" >Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" aria-current="page">Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" >Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" >Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" >Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" >Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" >Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" >Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" >Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" >Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" >Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" >Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" >Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" >Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <p class="breadcrumb"><a href="index.html">Manual</a><span aria-hidden="true"> / </span>Resolver problemas</p>
+      <article class="prose"><h1 id="solución-de-problemas">Solución de problemas</h1>
+<p>Empieza por identificar dónde falla el recorrido. El navegador llega al panel o al listener de servicios, el Gateway resuelve el backend y la red permite la conexión. Cada tramo tiene sus propios permisos y certificados.</p>
+<h2 id="el-panel-no-abre">El panel no abre</h2>
+<table>
+<thead>
+<tr>
+<th scope="col">Forma de instalación</th>
+<th scope="col">Primera comprobación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Directa</td>
+<td>Proceso en marcha, ruta <code>--db</code> correcta y <code>http://127.0.0.1:9091/admin/</code> desde el mismo equipo.</td>
+</tr>
+<tr>
+<td>Home Assistant</td>
+<td>Cuenta administradora, complemento arrancado y acceso desde <strong>Abrir interfaz web</strong>.</td>
+</tr>
+<tr>
+<td>YunoHost</td>
+<td>Cuenta del grupo <code>admins</code>, enlace de la aplicación y servicio de la instancia activo.</td>
+</tr>
+<tr>
+<td>Android</td>
+<td>Motor iniciado, permisos de VPN y estado de la aplicación.</td>
+</tr>
+</tbody>
+</table>
+<p>En Home Assistant, actualiza la carpeta del complemento y reconstruye cuando cambie su contenido. En YunoHost, consulta el servicio de la instancia con <code>systemctl status headscale_gateway</code> y sus mensajes con <code>journalctl -u headscale_gateway -n 100 --no-pager</code>. Para una segunda instancia utiliza su nombre real, por ejemplo <code>headscale_gateway__2</code>.</p>
+<h2 id="el-panel-responde-401-o-403">El panel responde 401 o 403</h2>
+<p>Un 401 señala que la autenticación no se ha aceptado. Comprueba sesión, caducidad o token. Un 403 puede corresponder al rol, los alcances, la política Bearer, CSRF o un requisito de sesión interactiva.</p>
+<p>Con Ingress, verifica que Home Assistant transmite el identificador y grupo de administrador. Con YunoHost, revisa la pertenencia real a <code>admins</code>. Utiliza los mecanismos de acceso de cada anfitrión antes de recurrir al procedimiento de <a href="RECUPERAR_ACCESO.html">recuperación</a>.</p>
+<h2 id="el-nombre-resuelve-y-el-servicio-no-conecta">El nombre resuelve y el servicio no conecta</h2>
+<ol>
+<li>Confirma que la dirección corresponde a LAN o VPN según el cliente.</li>
+<li>Comprueba el puerto. El 443 de tsnet y el puerto LAN, inicialmente 8443, son listeners diferentes.</li>
+<li>Revisa ACL, rutas aprobadas y cortafuegos.</li>
+<li>Comprueba el backend desde el anfitrión del Gateway.</li>
+<li>Consulta los mensajes del canal proxy.</li>
+</ol>
+<p>Si el backend es HTTPS, su certificado también debe ser válido para el nombre que usa el Gateway. La confianza hacia el backend y la confianza del navegador hacia el Gateway se verifican en tramos distintos.</p>
+<h2 id="el-certificado-no-es-de-confianza">El certificado no es de confianza</h2>
+<p>Comprueba fecha del equipo, nombre o IP visitados y autoridad emisora. Con CA local, instala el certificado público tras comprobar la huella. El nombre debe figurar en el certificado. El puerto se utiliza para conectar y queda fuera de los nombres SAN.</p>
+<p>La descarga de una CA y su aprobación son pasos explícitos. La confianza en un navegador tampoco configura automáticamente Home Assistant Core ni todos los clientes del sistema.</p>
+<h2 id="se-ha-guardado-un-ajuste-y-sigue-el-comportamiento-anterior">Se ha guardado un ajuste y sigue el comportamiento anterior</h2>
+<p>Revisa el aviso de reinicio pendiente. Las opciones del proceso necesitan reinicio, mientras que los servicios y algunas opciones del portal se recargan. Consulta <strong>Acerca de</strong> para conocer la versión realmente ejecutada. En Home Assistant, copiar los archivos de instalación debe ir seguido de actualización o reconstrucción del complemento.</p>
+<h2 id="sqlite-está-ocupada-o-la-identidad-se-duplica">SQLite está ocupada o la identidad se duplica</h2>
+<p>Comprueba que solo hay un proceso utilizando esa ruta de datos. Conserva juntos <code>gateway.sqlite</code>, <code>master.key</code> y el estado necesario para recuperar la instalación. Para otro nodo, crea una instalación con datos e identidad nuevos. Para migrar una identidad, apaga la instancia original antes de iniciar la restaurada.</p>
+<h2 id="una-copia-no-se-puede-restaurar">Una copia no se puede restaurar</h2>
+<p>Verifica la contraseña, el archivo completo y sus componentes. Una restauración completa detiene el motor y sustituye datos locales. Realiza primero la prueba en un entorno aislado. La <a href="USO_COMPLETO.html#copias-actualización-y-migración">guía de uso</a> explica qué datos y operaciones remotas están incluidos.</p>
+<h2 id="cómo-comunicar-un-fallo">Cómo comunicar un fallo</h2>
+<p>Anota la versión, plataforma, hora del fallo, pasos para reproducirlo y resultado esperado. Adjunta el identificador del evento y un fragmento de registro revisado. Los ejemplos deben usar nombres ficticios y excluir contraseñas, claves privadas, tokens y copias de datos.</p>
+<p>Para desarrollo, reproduce el caso con las pruebas de <a href="PRUEBAS.html">PRUEBAS.md</a> y registra qué comprobaciones se han ejecutado. Un resultado histórico de otra versión solo sirve de referencia.</p></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+          <li><a href="#el-panel-no-abre">El panel no abre</a></li>
+        
+          <li><a href="#el-panel-responde-401-o-403">El panel responde 401 o 403</a></li>
+        
+          <li><a href="#el-nombre-resuelve-y-el-servicio-no-conecta">El nombre resuelve y el servicio no conecta</a></li>
+        
+          <li><a href="#el-certificado-no-es-de-confianza">El certificado no es de confianza</a></li>
+        
+          <li><a href="#se-ha-guardado-un-ajuste-y-sigue-el-comportamiento-anterior">Se ha guardado un ajuste y sigue el comportamiento anterior</a></li>
+        
+          <li><a href="#sqlite-está-ocupada-o-la-identidad-se-duplica">SQLite está ocupada o la identidad se duplica</a></li>
+        
+          <li><a href="#una-copia-no-se-puede-restaurar">Una copia no se puede restaurar</a></li>
+        
+          <li><a href="#cómo-comunicar-un-fallo">Cómo comunicar un fallo</a></li>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>

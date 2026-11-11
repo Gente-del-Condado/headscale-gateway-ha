@@ -1,0 +1,372 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>Home Assistant · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" >Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" >Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" >Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" >Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" >Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" aria-current="page">Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" >YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" >Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" >Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" >Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" >Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" >Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" >Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" >Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" >Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" >Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" >Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" >Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" >Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" >Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" >Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" >Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" >Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" >Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" >Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <p class="breadcrumb"><a href="index.html">Manual</a><span aria-hidden="true"> / </span>Home Assistant</p>
+      <article class="prose"><h1 id="instalación-y-uso-en-home-assistant">Instalación y uso en Home Assistant</h1>
+<h2 id="qué-vas-a-instalar">Qué vas a instalar</h2>
+<p>El <strong>complemento</strong> ejecuta el servidor Gateway y abre su panel mediante Ingress.
+La <strong>integración de entidades</strong> es opcional: consulta un Gateway ya instalado
+y muestra su estado en Home Assistant. Se instalan por separado.</p>
+<p>Necesitas una instalación de Home Assistant con Supervisor y soporte de
+aplicaciones/complementos, arquitectura amd64 o aarch64 y permiso de administrador.
+Para conectar la VPN necesitas un servidor Headscale existente. Prepara también
+un nombre estable para este nodo, un dominio de servicios y los datos del DNS
+que vayas a utilizar. El complemento se publica como <strong>estable</strong> en la tienda
+de Home Assistant.</p>
+<p>Recorrido recomendado: instalar → abrir el panel → configurar Headscale y DNS →
+publicar un servicio de prueba → guardar una copia. No necesitas configurar
+primero la integración de sensores para completar este recorrido.</p>
+<h2 id="abrir-el-panel-desde-home-assistant">Abrir el panel desde Home Assistant</h2>
+<p>Desde la aplicación móvil o la web de Home Assistant, entra en <strong>Ajustes →
+Aplicaciones/Complementos → Headscale Gateway → Abrir interfaz web</strong>. Activa
+<strong>Mostrar en la barra lateral</strong> en la ficha para tener acceso directo desde el
+menú. Utiliza una cuenta administradora de Home Assistant.</p>
+<p>No necesitas un navegador instalado en el servidor. El puerto interno entre
+62000 y 65500 pertenece a Ingress: no es un enlace para abrir en el navegador
+ni debes redirigirlo desde el router. El acceso inicial al panel mediante Home
+Assistant funciona antes de configurar la VPN, el DNS o los certificados del
+Gateway.</p>
+<p>Ingress utiliza directamente tu sesión de administrador de Home Assistant;
+no solicita otra contraseña del Gateway. Home Assistant gestiona su inicio y
+cierre de sesión y el segundo factor de autenticación. El Gateway comprueba en
+cada petición la IP de Supervisor, el prefijo de Ingress, el identificador del
+usuario y el grupo explícito <code>system-admin</code>. Se mantiene la protección CSRF y
+no se crea una cookie del Gateway reutilizable fuera de esta conexión.</p>
+<p>Supervisor debe enviar <code>X-Remote-User-Id</code> y <code>X-Remote-User-Groups</code>. Si faltan
+estos datos, el usuario no es administrador o la petición no procede del proxy
+confiable, se deniega el acceso. Mantén Home Assistant y Supervisor actualizados
+si no se reciben las cabeceras de identidad.</p>
+<h2 id="instalar-desde-forgejo-privado">Instalar desde Forgejo privado</h2>
+<p>En la terminal de Home Assistant, configura primero una clave SSH con permiso
+de lectura sobre el repositorio privado. Después clona el proyecto:</p>
+<p>La dirección SSH del ejemplo es ficticia: sustitúyela por la URL SSH de tu
+repositorio, con su usuario SSH, servidor, puerto y propietario reales.</p>
+<pre tabindex="0"><code class="language-bash">GIT_SSH_COMMAND='ssh -i /data/.ssh/headscale_gateway_forgejo -o IdentitiesOnly=yes' \
+git clone ssh://git@forgejo.example.net:2222/usuario/headscale-gateway.git /data/headscale-gateway-src &amp;&amp;
+git -C /data/headscale-gateway-src config core.sshCommand \
+  'ssh -i /data/.ssh/headscale_gateway_forgejo -o IdentitiesOnly=yes'
+</code></pre>
+<p>Este ejemplo utiliza la clave ya configurada en
+<code>/data/.ssh/headscale_gateway_forgejo</code>. La guía <code>docs/INSTALACION_PRIVADA.md</code>
+del repositorio explica cómo crearla y copiar su parte pública a un TXT para
+abrirlo desde File Editor.</p>
+<p>Copia el complemento preparado, sin compilarlo en la terminal:</p>
+<pre tabindex="0"><code class="language-bash">mkdir -p /local_apps/headscale_gateway &amp;&amp;
+cp -a /data/headscale-gateway-src/addons/headscale_gateway/. /local_apps/headscale_gateway/
+</code></pre>
+<p>Si tu terminal expone la carpeta local en <code>/addons</code>, utiliza esa ruta en lugar
+de <code>/local_apps</code>. En la tienda de aplicaciones, busca actualizaciones e instala
+<strong>Headscale Gateway</strong> desde <strong>Aplicaciones locales</strong>. Elige un <code>node_name</code>
+estable, arranca y pulsa <strong>Abrir interfaz web</strong>. Configura en el panel la URL de
+tu servidor Headscale y el dominio base de servicios.</p>
+<p>La guía del repositorio <code>docs/INSTALACION_PRIVADA.md</code> explica cómo seleccionar
+la clave SSH y copiar también la integración de entidades.</p>
+<p>La carpeta instalable es <code>addons/headscale_gateway/</code>. La carpeta
+<code>packaging/homeassistant/</code> contiene las fuentes del empaquetado y su
+<code>config.yaml.in</code> es una plantilla: no la copies como otro complemento.</p>
+<h2 id="primera-configuración-del-gateway">Primera configuración del Gateway</h2>
+<ol>
+<li>Abre la interfaz web con tu cuenta administradora de Home Assistant.</li>
+<li>En la configuración de conexión, introduce la URL HTTPS de Headscale y las
+   credenciales solicitadas. Usa una clave de registro apropiada para este nodo.</li>
+<li>Configura el dominio base y el proveedor DNS. Comprueba los valores antes
+   de aplicar los cambios que necesiten reiniciar la conexión.</li>
+<li>Comprueba el estado de la VPN y del listener HTTPS LAN en el panel.</li>
+<li>Añade un servicio cuyo destino sea alcanzable desde el complemento. Por
+   ejemplo, un servicio de laboratorio <code>http://192.168.1.50:8080</code> con el nombre
+   <code>notas</code>. Sustituye la dirección por la de tu propia aplicación.</li>
+<li>Abre la URL HTTPS que muestra el Gateway desde un cliente autorizado.
+   Si utilizas la CA local, instala su certificado público en ese cliente.</li>
+<li>Exporta una copia cifrada y guarda su contraseña fuera del dispositivo.</li>
+</ol>
+<h2 id="opciones-del-complemento">Opciones del complemento</h2>
+<table>
+<thead>
+<tr>
+<th scope="col">Opción</th>
+<th scope="col">Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>node_name</code></td>
+<td>Nombre DNS estable en minúsculas. No lo cambies en un nodo ya configurado.</td>
+</tr>
+<tr>
+<td><code>lan_port</code></td>
+<td>Puerto HTTPS LAN inicial; por defecto, 8443. Después se cambia desde el panel del Gateway.</td>
+</tr>
+<tr>
+<td><code>log_level</code></td>
+<td>Nivel opcional: <code>info</code>, <code>debug</code>, <code>trace</code>, <code>warn</code> o <code>error</code>.</td>
+</tr>
+<tr>
+<td><code>admin_username</code>, <code>admin_password</code></td>
+<td>Cuenta local inicial opcional para acceso directo; no hace falta para Ingress.</td>
+</tr>
+</tbody>
+</table>
+<p>Configuración inicial mínima, en la pestaña de opciones del complemento:</p>
+<pre tabindex="0"><code class="language-yaml">admin_username: admin
+node_name: homeassistant-gateway
+lan_port: 8443
+log_level: info
+</code></pre>
+<p>La URL de Headscale, el DNS y los servicios se configuran en el panel del
+Gateway, no añadiendo campos arbitrarios a este YAML.</p>
+<p>La contraseña inicial admite entre 12 y 72 bytes UTF-8. Solo se utiliza al
+inicializar una cuenta sin configurar. Cambiar estas opciones posteriormente
+no restablece una contraseña existente, LDAP, OIDC ni MFA. Las cuentas existentes
+se conservan al actualizar. Configurar el acceso directo no modifica tu cuenta
+ni tu sesión de Home Assistant.</p>
+<h2 id="red-y-publicación-de-servicios">Red y publicación de servicios</h2>
+<p>La red del anfitrión permite alcanzar servicios de la LAN y descubrir otros
+gateways mediante multidifusión. El complemento no solicita TUN, NET_ADMIN,
+acceso al motor Docker ni desactivar el modo de protección. Su nodo tsnet es
+independiente: no convierte automáticamente a Home Assistant en un router de
+subred. Las rutas necesitan permisos ACL y aprobación en Headscale.</p>
+<p>El puerto LAN elegido debe estar libre. El panel administrativo utiliza otro
+puerto de Ingress asignado dinámicamente y solo acepta a Supervisor en
+<code>172.30.32.2</code>. No publiques ese puerto directamente.</p>
+<p>Para publicar el propio Home Assistant como servicio del Gateway, utiliza la
+dirección de destino que sea alcanzable desde el complemento; con esta red,
+normalmente será <code>http://127.0.0.1:8123</code>. Configura <code>http.use_x_forwarded_for</code> y
+<code>http.trusted_proxies</code> en Home Assistant para la IP real de origen del Gateway,
+y comprueba <code>/api/websocket</code>. Esta publicación es independiente del acceso
+administrativo mediante Ingress.</p>
+<p>Los registros de Cloudflare para servicios privados deben utilizar solo DNS,
+sin su proxy HTTP. El DNS debe resolver al nodo LAN o VPN correspondiente.
+Confía en la CA local desde cada cliente o configura ACME: instalar una CA en
+el complemento no la instala automáticamente en Core ni en los navegadores.</p>
+<h2 id="actualizar-sin-perder-datos">Actualizar sin perder datos</h2>
+<p>Conserva una copia de seguridad antes de actualizar. En la terminal:</p>
+<pre tabindex="0"><code class="language-bash">git -C /data/headscale-gateway-src pull --ff-only &amp;&amp;
+cp -a /data/headscale-gateway-src/addons/headscale_gateway/. /local_apps/headscale_gateway/
+</code></pre>
+<p>Después busca actualizaciones y actualiza o <strong>reconstruye</strong> el complemento.
+Copiar archivos no reemplaza el contenedor que está ejecutándose. No hace falta
+desinstalar para actualizar.</p>
+<p>Todo el estado está en <code>/data/gateway/</code> dentro del contenedor: SQLite,
+<code>master.key</code>, identidad tsnet, certificados y copias. <code>/data/options.json</code>
+pertenece a Supervisor. La actualización conserva estos datos; no los copies
+desde Git ni los sustituyas por los de otro nodo.</p>
+<p>Las copias nativas son en frío, con el servicio detenido. También puedes usar
+las exportaciones <code>.hgw</code> del Gateway. Una restauración completa sustituye la
+subcarpeta <code>gateway/</code>, no el montaje <code>/data</code> ni las opciones de Supervisor.
+No ejecutes la misma identidad restaurada simultáneamente en dos equipos.</p>
+<h2 id="recuperar-el-acceso">Recuperar el acceso</h2>
+<p>Si <strong>Abrir interfaz web</strong> devuelve un 404, comprueba que has reconstruido el
+complemento con los archivos actuales. La entrada correcta en el manifiesto es
+<code>ingress_entry: admin/</code>, relativo al prefijo que añade Supervisor.
+Después de copiar los archivos actualizados, recarga la tienda de aplicaciones,
+actualiza o reconstruye el complemento y vuelve a abrirlo desde su ficha.
+Cierra las pestañas antiguas; si el navegador recuerda la redirección 301,
+prueba desde una ventana privada o borra la caché del sitio.
+El ajuste de publicación privada del Gateway no bloquea este acceso: Ingress
+utiliza el listener administrativo, separado del acceso HTTPS por LAN o VPN.</p>
+<p>Si el contenedor sigue mostrando errores de una versión antigua después de
+copiar los archivos, reconstruye la imagen y comprueba su versión. Conserva
+<code>panel_admin: true</code>: la opción de mostrar la barra lateral y el permiso de
+administración son ajustes diferentes.</p>
+<p>Para entrar normalmente, utiliza tu cuenta administradora de Home Assistant.
+El cierre de sesión y MFA de ese acceso se gestionan en Home Assistant.</p>
+<p>Para una recuperación de emergencia del acceso propio del Gateway, detén el
+proceso y ejecuta el servidor en una terminal interactiva con la misma ruta
+<code>--db</code> y <code>--reset-recovery</code>. Vuelve a iniciarlo interactivamente para obtener
+el código de un solo uso. No abras la misma base de datos con dos procesos a
+la vez. Los códigos no se escriben en los registros del complemento.</p>
+<p>Otra posibilidad es restaurar una copia verificada en un entorno aislado.
+El paquete conserva la licencia del proyecto y los avisos de terceros originales.
+Las compilaciones normales no activan el módulo comercial opcional.</p>
+<h2 id="diagnóstico-rápido">Diagnóstico rápido</h2>
+<table>
+<thead>
+<tr>
+<th scope="col">Síntoma</th>
+<th scope="col">Qué revisar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No aparece en aplicaciones locales</td>
+<td>Ruta que expone tu terminal (<code>/local_apps</code> o <code>/addons</code>), copia completa y recarga de la tienda</td>
+</tr>
+<tr>
+<td>Ingress responde 403</td>
+<td>Cuenta administradora, Supervisor actualizado y acceso desde la ficha del complemento</td>
+</tr>
+<tr>
+<td>No arranca HTTPS LAN</td>
+<td>Puerto ocupado y registro del complemento</td>
+</tr>
+<tr>
+<td>Un servicio devuelve 502</td>
+<td>Dirección, puerto y protocolo del backend vistos desde el complemento</td>
+</tr>
+<tr>
+<td>Certificado no confiable</td>
+<td>CA instalada en el cliente que abre el servicio o certificado ACME válido</td>
+</tr>
+<tr>
+<td>Sensores no disponibles</td>
+<td>URL administrativa y token de la integración; Ingress no es su endpoint API</td>
+</tr>
+</tbody>
+</table>
+<p>Al pedir ayuda, incluye versión, arquitectura, forma de acceso y el error sin
+credenciales. Evita compartir bases de datos, copias, opciones con contraseñas
+o registros completos sin revisar.</p></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+          <li><a href="#qué-vas-a-instalar">Qué vas a instalar</a></li>
+        
+          <li><a href="#abrir-el-panel-desde-home-assistant">Abrir el panel desde Home Assistant</a></li>
+        
+          <li><a href="#instalar-desde-forgejo-privado">Instalar desde Forgejo privado</a></li>
+        
+          <li><a href="#primera-configuración-del-gateway">Primera configuración del Gateway</a></li>
+        
+          <li><a href="#opciones-del-complemento">Opciones del complemento</a></li>
+        
+          <li><a href="#red-y-publicación-de-servicios">Red y publicación de servicios</a></li>
+        
+          <li><a href="#actualizar-sin-perder-datos">Actualizar sin perder datos</a></li>
+        
+          <li><a href="#recuperar-el-acceso">Recuperar el acceso</a></li>
+        
+          <li><a href="#diagnóstico-rápido">Diagnóstico rápido</a></li>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>

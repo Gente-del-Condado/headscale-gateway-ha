@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>Activación comercial · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" >Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" >Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" >Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" >Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" >Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" >Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" >YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" >Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" >Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" >Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" >Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" >Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" >Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" >Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" >Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" >Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" >Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" >Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" >Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" >Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" >Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" >Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" >Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" >Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" aria-current="page">Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <p class="breadcrumb"><a href="index.html">Manual</a><span aria-hidden="true"> / </span>Activación comercial</p>
+      <article class="prose"><h1 id="módulo-comercial-de-activación-y-suscripciones">Módulo comercial de activación y suscripciones</h1>
+<h2 id="alcance-de-esta-versión">Alcance de esta versión</h2>
+<p>El módulo está <strong>desactivado en las compilaciones normales entregadas</strong>. No cambia el funcionamiento de tu instalación. Para habilitarlo hay que recompilar con la etiqueta Go <code>commercial</code> y una clave pública Ed25519 del emisor. No se puede habilitar o deshabilitar mediante una preferencia del cliente.</p>
+<p>Es independiente de Stripe, PayPal o cualquier proveedor. Verifica localmente un documento firmado; no contiene claves de cobro, no realiza cargos y no llama a servidores de licencias. La renovación automática y el servicio de cobro se integran por separado. No se incluye todavía un portal de clientes ni un adaptador de pagos desplegado.</p>
+<p>Con el módulo activado, una licencia válida para esta instalación permite atender nuevas peticiones del proxy, portal y catálogo. Al finalizar la validez puede haber un periodo de gracia <strong>firmado</strong>, de hasta siete días. Después, esas peticiones reciben HTTP 402. Administración, recuperación, copias, configuración y publicación de CA siguen accesibles según sus permisos habituales. No se destruyen datos, no se detiene tsnet, no se revocan rutas y no se cortan conexiones de proxy ya abiertas.</p>
+<p>La mini GUI continúa permitiendo abrir el panel y consultar estado. El resumen administrativo muestra el estado de suscripción, identificador de instalación y vencimiento; <code>GET /api/v1/status</code> lo expone bajo <code>subscription</code> a quien tenga permiso de lectura.</p>
+<h2 id="preparación-del-emisor-solo-tú">Preparación del emisor (solo tú)</h2>
+<p>Guarda la clave <strong>privada fuera del proyecto, de Git y de las entregas</strong>. El directorio solicitado debe ser nuevo:</p>
+<pre tabindex="0"><code class="language-bash">go -C src run ./tools/license-admin keygen --dir &quot;$HOME/.local/share/hgw-issuer&quot;
+./build.sh --commercial-public-key &quot;$HOME/.local/share/hgw-issuer/issuer.pub&quot;
+</code></pre>
+<p>PowerShell:</p>
+<pre tabindex="0"><code class="language-powershell">go -C src run ./tools/license-admin keygen --dir &quot;$env:LOCALAPPDATA\HGW-Issuer&quot;
+.\build.ps1 --commercial-public-key &quot;$env:LOCALAPPDATA\HGW-Issuer\issuer.pub&quot;
+</code></pre>
+<p>El compilador exige una clave pública de 32 bytes y no acepta una clave privada como parámetro. El emisor genera <code>issuer.key</code> (privada) e <code>issuer.pub</code> (pública). Restringe los permisos NTFS del directorio privado en Windows; los permisos Unix no equivalen a ACL NTFS.</p>
+<p>Para desactivar completamente la restricción, recompila con <code>./build.sh</code> o <code>.\build.ps1</code> <strong>sin</strong> <code>--commercial-public-key</code>. No distribuyas esas compilaciones sin restricción a clientes a los que quieras exigir activación.</p>
+<h2 id="activación-manual-de-una-instalación">Activación manual de una instalación</h2>
+<ol>
+<li>Ejecuta la compilación comercial. Abre administración local y consulta el resumen: genera <code>license-instance.id</code> dentro del directorio de datos. También puedes leer ese archivo; no es una clave secreta. No cambies esa identidad mientras la licencia esté vigente.</li>
+<li>En el equipo del emisor, prepara un JSON con los campos siguientes. Las fechas son segundos Unix UTC. Deben ser fechas reales: <code>not_before &lt; expires_at &lt;= grace_until</code>, con un máximo de siete días de gracia. <code>features</code> debe contener <code>gateway</code>.</li>
+</ol>
+<pre tabindex="0"><code class="language-json">{
+  &quot;version&quot;: 1,
+  &quot;product&quot;: &quot;headscale-gateway&quot;,
+  &quot;license_id&quot;: &quot;licencia-unica-del-periodo&quot;,
+  &quot;customer_id&quot;: &quot;referencia-interna-del-cliente&quot;,
+  &quot;instance_id&quot;: &quot;COPIAR_ID_DE_LA_INSTALACION&quot;,
+  &quot;not_before&quot;: 1792886400,
+  &quot;expires_at&quot;: 1795478400,
+  &quot;grace_until&quot;: 1795651200,
+  &quot;features&quot;: [&quot;gateway&quot;]
+}
+</code></pre>
+<p>Estas fechas son únicamente un ejemplo de formato. Para obtener la hora Unix actual: <code>date +%s</code> en Linux o <code>[DateTimeOffset]::UtcNow.ToUnixTimeSeconds()</code> en PowerShell.</p>
+<ol>
+<li>Firma usando un archivo de salida nuevo:</li>
+</ol>
+<pre tabindex="0"><code class="language-bash">go -C src run ./tools/license-admin sign --key &quot;$HOME/.local/share/hgw-issuer/issuer.key&quot; --claims cliente.json --out subscription.license
+</code></pre>
+<ol>
+<li>Entrega <strong>solo</strong> <code>subscription.license</code> al cliente. Instálalo en su <code>data_dir</code>, junto a <code>license-instance.id</code>, mediante sustitución atómica de archivo. En Linux: copiar a un archivo temporal en el mismo directorio, <code>chmod 600</code> y <code>mv</code> al nombre final. En Windows, detener el proceso durante la sustitución evita lecturas parciales. Nunca distribuyas <code>issuer.key</code>.</li>
+<li>El servidor relee el estado con una caché de hasta cinco segundos. Comprueba <code>subscription.state</code> (<code>active</code> o <code>grace</code>) y una petición al portal. La instalación que use otro identificador no debe aceptarlo.</li>
+</ol>
+<h2 id="contrato-para-cualquier-plataforma-de-pago">Contrato para cualquier plataforma de pago</h2>
+<p>La arquitectura es:</p>
+<pre tabindex="0"><code class="language-text">Proveedor de cobro → webhook verificado → servicio privado de derechos
+                                         ↓ firma Ed25519
+                                  subscription.license → Gateway
+</code></pre>
+<p>El servicio de derechos se desarrolla/aloja fuera del Gateway. Debe validar la firma del proveedor, deduplicar por ID de evento, consultar el estado actual de la suscripción (los eventos pueden llegar desordenados), asociar cliente/instalación y emitir fechas concretas. Un aviso de checkout no basta para asumir que se ha cobrado.</p>
+<p>Estados activos o pruebas autorizadas pueden emitir un documento válido hasta la fecha concedida. Una cancelación deja de renovarlo; no envíes órdenes destructivas. Un impago puede usar la gracia firmada definida por tu contrato. El retorno HTTPS para obtener el archivo debe autenticar al cliente y no exponer la clave privada.</p>
+<p>La función Go <code>licensing.Sign(Claims, ed25519.PrivateKey)</code> y el comando <code>tools/license-admin sign</code> son los puntos de integración. El formato transportado es <code>base64url(JSON).base64url(firma)</code>, sin padding; se firma el JSON exacto, no una recomposición del receptor. El producto/version/instalación/fechas/features quedan cubiertos por la firma.</p>
+<p>Referencia de ejemplo para un adaptador futuro: <a href="https://docs.stripe.com/billing/subscriptions/webhooks">eventos de suscripciones Stripe</a>. No es una dependencia de esta implementación.</p>
+<h2 id="límites-que-debes-conocer-antes-de-vender">Límites que debes conocer antes de vender</h2>
+<p>Esta activación no es DRM invulnerable. Quien controla el equipo puede modificar el binario, clonar el directorio de instalación o alterar el reloj. No hay revocación inmediata offline: un documento firmado sigue siendo válido hasta su vencimiento/gracia. Usa concesiones cortas y un servicio de renovación autenticado si necesitas revocación y control de plazas. La rotación de clave pública requiere nuevas compilaciones en esta primera versión.</p>
+<p>El código fuente debe conservarse en un repositorio <strong>privado</strong> si tu objetivo es controlar su acceso. No publiques la clave privada ni los paquetes de fuente de propietario como releases para clientes. La protección jurídica del código propio no elimina los derechos que conceden las dependencias. Antes de comercializar, revisa <code>LICENCIAS.md</code> y completa el contrato de cliente, soporte, privacidad y condiciones de suscripción con asesoramiento jurídico adecuado.</p></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+          <li><a href="#alcance-de-esta-versión">Alcance de esta versión</a></li>
+        
+          <li><a href="#preparación-del-emisor-solo-tú">Preparación del emisor (solo tú)</a></li>
+        
+          <li><a href="#activación-manual-de-una-instalación">Activación manual de una instalación</a></li>
+        
+          <li><a href="#contrato-para-cualquier-plataforma-de-pago">Contrato para cualquier plataforma de pago</a></li>
+        
+          <li><a href="#límites-que-debes-conocer-antes-de-vender">Límites que debes conocer antes de vender</a></li>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>

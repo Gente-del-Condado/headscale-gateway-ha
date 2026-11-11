@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>Editar y publicar el manual · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" >Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" >Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" >Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" >Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" >Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" >Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" >YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" >Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" >Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" >Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" >Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" >Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" >Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" >Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" >Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" >Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" >Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" aria-current="page">Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" >Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" >Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" >Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" >Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" >Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" >Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" >Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <p class="breadcrumb"><a href="index.html">Manual</a><span aria-hidden="true"> / </span>Editar y publicar el manual</p>
+      <article class="prose"><h1 id="editar-y-publicar-el-manual-web">Editar y publicar el manual web</h1>
+<p>El manual se genera con MkDocs a partir de Markdown. Los textos se pueden leer
+en Forgejo, GitHub o un editor. El resultado es una carpeta HTML estática con
+navegación, búsqueda y capturas. Sus recursos se sirven desde la misma carpeta.</p>
+<h2 id="preparar-el-entorno">Preparar el entorno</h2>
+<p>Desde la raíz del proyecto, crea un entorno virtual en la carpeta de resultados.</p>
+<pre tabindex="0"><code class="language-bash">python3 -m venv builds/docs-env
+builds/docs-env/bin/python -m pip install -r requirements-docs.txt
+builds/docs-env/bin/python -m mkdocs build --strict
+python3 tools/check_manual.py builds/manual
+</code></pre>
+<p>En Windows, el ejecutable del entorno es <code>builds\docs-env\Scripts\python.exe</code>.
+La versión de MkDocs está fijada en <code>requirements-docs.txt</code>. Las dependencias de
+la documentación se instalan en ese entorno independiente.</p>
+<p>Abre <code>builds/manual/index.html</code> en el navegador. Para revisar cambios en vivo,
+arranca el servidor local de MkDocs.</p>
+<pre tabindex="0"><code class="language-bash">builds/docs-env/bin/python -m mkdocs serve --dev-addr 127.0.0.1:8000
+</code></pre>
+<p>Visita <code>http://127.0.0.1:8000/</code>. Usa Ctrl+C para detener el servidor. La web también
+se puede copiar completa a cualquier alojamiento estático, incluso bajo una
+subruta. La búsqueda utiliza un índice local y funciona al abrir los HTML.</p>
+<h2 id="dónde-editar-cada-cosa">Dónde editar cada cosa</h2>
+<table>
+<thead>
+<tr>
+<th scope="col">Cambio</th>
+<th scope="col">Archivo fuente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Portada y recorrido de inicio</td>
+<td><code>docs/index.md</code>, <code>docs/PRIMEROS_PASOS.md</code></td>
+</tr>
+<tr>
+<td>Manual funcional</td>
+<td><code>docs/USO_COMPLETO.md</code> y guías específicas de <code>docs/</code></td>
+</tr>
+<tr>
+<td>Complemento Home Assistant</td>
+<td><code>packaging/homeassistant/DOCS.md</code></td>
+</tr>
+<tr>
+<td>Integración de entidades</td>
+<td><code>packaging/hacs/README.md</code></td>
+</tr>
+<tr>
+<td>YunoHost</td>
+<td><code>packaging/yunohost/README.md</code> y <code>doc/</code></td>
+</tr>
+<tr>
+<td>Android</td>
+<td><code>android/README.md</code>, <code>docs/ANDROID.md</code></td>
+</tr>
+<tr>
+<td>Mapa y orden del menú</td>
+<td><code>mkdocs.yml</code></td>
+</tr>
+<tr>
+<td>Colores, espacios y adaptación móvil</td>
+<td><code>tools/manual_theme/assets/manual.css</code></td>
+</tr>
+<tr>
+<td>Plantilla HTML</td>
+<td><code>tools/manual_theme/main.html</code></td>
+</tr>
+<tr>
+<td>Búsqueda y menú móvil</td>
+<td><code>tools/manual_theme/assets/manual.js</code></td>
+</tr>
+<tr>
+<td>Incorporación de fuentes e índice</td>
+<td><code>tools/manual_hooks.py</code></td>
+</tr>
+<tr>
+<td>Guía para programadores e IA</td>
+<td><code>CONTRIBUTING.md</code>, <code>AGENTS.md</code></td>
+</tr>
+</tbody>
+</table>
+<p>Las páginas virtuales de plataforma se crean durante la compilación. La web y
+el paquete instalado toman su contenido de la misma fuente. Los TXT utilizados
+por los paquetes se presentan también como páginas navegables.</p>
+<p>Al añadir una guía, crea el Markdown, incorpora su entrada a <code>nav</code> en
+<code>mkdocs.yml</code> y enlázala desde el recorrido correspondiente. Usa enlaces relativos,
+textos alternativos en las imágenes y un solo título de primer nivel por página.
+Las capturas se mantienen según <a href="CAPTURAS.html">CAPTURAS.md</a>.</p>
+<h2 id="github-pages">GitHub Pages</h2>
+<p>El manual común se publica en los dos repositorios públicos de distribución:</p>
+<ul>
+<li><a href="https://gente-del-condado.github.io/headscale-gateway-ynh/">Manual de YunoHost</a>,
+  con su <a href="https://gente-del-condado.github.io/headscale-gateway-ynh/YUNOHOST.html">capítulo de instalación</a>.</li>
+<li><a href="https://gente-del-condado.github.io/headscale-gateway-ha/">Manual de Home Assistant</a>,
+  con los capítulos del <a href="https://gente-del-condado.github.io/headscale-gateway-ha/HOME_ASSISTANT.html">complemento</a>
+  y de la <a href="https://gente-del-condado.github.io/headscale-gateway-ha/INTEGRACION_HA.html">integración de entidades</a>.</li>
+</ul>
+<p>Las webs reutilizan el manual existente, sin mantener otras fuentes. El flujo
+<strong>Manual web</strong> compila y comprueba los enlaces; con <code>PUBLISH_PUBLIC_DOCS=true</code>
+en las variables Actions del proyecto principal, publica el resultado validado
+en la rama <code>gh-pages</code> de ambos repositorios de Forgejo. Sus espejos deben
+replicar también esa rama a GitHub. En cada destino, <strong>Settings → Pages</strong> usa
+<strong>Deploy from a branch → gh-pages → / (root)</strong>. Los cambios aprobados que llegan
+a <code>main</code> mediante la réplica vuelven a publicar automáticamente; los PR solo
+compilan y validan, sin acceder a las claves.</p>
+<p>El publicador usa <code>YNH_FORGEJO_DEPLOY_KEY</code> para YunoHost y una clave dedicada
+<code>DOCS_HA_FORGEJO_DEPLOY_KEY</code> con escritura limitada al repositorio
+<code>headscale-gateway-ha</code> de Forgejo. No necesita permisos de escritura en el
+proyecto principal. <code>tools/publish_manual.py</code> exige otro checkout en <code>gh-pages</code>
+y conserva su historial: nunca modifica el <code>main</code> del paquete. Solo publica
+los HTML y recursos del manual generado, con <code>.nojekyll</code>; no copia las fuentes
+del motor ni los ejecutables de los paquetes.</p>
+<p>El repositorio principal permanece privado. Si su plan de GitHub no permite
+Pages privados, se utiliza esta distribución del HTML mediante los repositorios
+públicos. Publicar el manual lo hace accesible sin autenticación.</p>
+<h3 id="alternativa-pages-en-el-propio-repositorio-principal">Alternativa: Pages en el propio repositorio principal</h3>
+<p>El repositorio contiene <code>.github/workflows/pages.yml</code>. La compilación se ejecuta
+en las solicitudes de cambio y comprueba enlaces. La publicación requiere que
+habilites GitHub Pages en el repositorio que quieras usar para el manual.</p>
+<ol>
+<li>Crea o utiliza el repositorio de GitHub autorizado para alojar esta documentación.</li>
+<li>Sube el proyecto allí conservando el remoto de Forgejo que utilizas para desarrollar.</li>
+<li>En <strong>Settings → Pages → Build and deployment</strong>, selecciona <strong>GitHub Actions</strong>.</li>
+<li>En <strong>Settings → Secrets and variables → Actions → Variables</strong>, crea la variable
+   de repositorio <code>PUBLISH_DOCS</code> con el valor <code>true</code>.</li>
+<li>En <strong>Actions → Manual web</strong>, ejecuta <strong>Run workflow</strong> sobre <code>main</code>.</li>
+<li>Abre la URL que muestre el despliegue y comprueba Inicio, búsqueda y una guía de plataforma.</li>
+</ol>
+<p>Los siguientes cambios en la documentación de <code>main</code> volverán a publicar el
+manual mientras esa variable esté habilitada. Revisa la visibilidad que ofrece
+el plan de GitHub antes de activar el alojamiento. La disponibilidad de Pages
+en repositorios privados depende del plan y del tipo de organización.</p>
+<p>El workflow usa los permisos de <code>contents: read</code>, <code>pages: write</code> e <code>id-token: write</code>
+en los trabajos que los necesitan. La construcción usa únicamente archivos de
+este repositorio y dependencias del generador. El resultado publicado es
+<code>builds/manual/</code>.</p>
+<p>La configuración sigue el <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages">flujo oficial de GitHub Pages</a>.</p>
+<h2 id="alojarlo-junto-a-forgejo">Alojarlo junto a Forgejo</h2>
+<p>El mismo resultado se puede servir desde un directorio estático configurado por
+el administrador del servidor. Primero ejecuta la compilación y comprueba la
+carpeta <code>builds/manual/</code>. Publica su contenido conservando las rutas relativas.
+Si el manual es privado, configura la autenticación del alojamiento antes de
+compartir la dirección. El acceso al repositorio y el acceso a esa web tienen
+su configuración propia.</p>
+<h2 id="comprobaciones-de-una-actualización">Comprobaciones de una actualización</h2>
+<pre tabindex="0"><code class="language-bash">builds/docs-env/bin/python -m mkdocs build --strict
+python3 tools/check_manual.py builds/manual
+</code></pre>
+<p>Comprueba también el aspecto en un navegador de escritorio y uno estrecho,
+el menú mediante teclado, una búsqueda y los ejemplos. Las pruebas de enlaces
+verifican los archivos y fragmentos internos del HTML generado. Las referencias
+a servicios externos deben revisarse cuando cambien los procedimientos que describen.</p></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+          <li><a href="#preparar-el-entorno">Preparar el entorno</a></li>
+        
+          <li><a href="#dónde-editar-cada-cosa">Dónde editar cada cosa</a></li>
+        
+          <li><a href="#github-pages">GitHub Pages</a></li>
+        
+          <li><a href="#alojarlo-junto-a-forgejo">Alojarlo junto a Forgejo</a></li>
+        
+          <li><a href="#comprobaciones-de-una-actualización">Comprobaciones de una actualización</a></li>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>

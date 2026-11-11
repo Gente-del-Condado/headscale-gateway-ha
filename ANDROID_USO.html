@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>Android · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" >Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" >Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" >Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" >Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" >Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" >Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" >YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" aria-current="page">Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" >Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" >Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" >Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" >Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" >Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" >Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" >Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" >Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" >Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" >Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" >Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" >Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" >Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" >Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" >Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" >Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" >Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <p class="breadcrumb"><a href="index.html">Manual</a><span aria-hidden="true"> / </span>Android</p>
+      <article class="prose"><h1 id="headscale-gateway-para-android">Headscale Gateway para Android</h1>
+<p>Aplicación experimental con el motor completo del proyecto, panel administrativo
+en español y conexión de las aplicaciones del teléfono a la misma VPN.
+No necesita root ni otro cliente Tailscale instalado. Forgejo puede seguir
+siendo privado: la compilación y la distribución del APK son independientes
+de Google Play y Marketplace.</p>
+<h2 id="uso">Uso</h2>
+<ol>
+<li>Instala la APK y abre <strong>Headscale Gateway</strong>.</li>
+<li>Pulsa <strong>Iniciar Gateway</strong> y permite las notificaciones para ver su estado.</li>
+<li>Abre <strong>Panel</strong> y usa <strong>Secciones → Configuración</strong> para configurar Headscale,
+   el dominio y los certificados. Los
+   cambios que lo requieran se aplican con <strong>Reiniciar Gateway</strong>, dentro del panel.</li>
+<li>Autoriza el nodo en tu Headscale mediante el enlace de registro HTTPS.</li>
+<li>Añade los servicios desde el panel y comprueba DNS y certificados desde otro nodo.</li>
+<li>Para conectar además el teléfono, pulsa <strong>Conectar aplicaciones</strong>
+   y acepta el permiso Android. Esto sustituye cualquier otra VPN del perfil.</li>
+</ol>
+<p>La navegación inferior conserva tres pantallas:</p>
+<ul>
+<li><strong>Inicio</strong>: estado del Gateway, direcciones del nodo, servicios configurados,
+  conexión de las aplicaciones y accesos a la administración.</li>
+<li><strong>Panel</strong>: administración común a pantalla amplia. <strong>Secciones</strong> muestra las
+  opciones habilitadas para tu sesión, incluidas plantillas, certificados,
+  copias, acceso, API y herramientas Headscale. No hay una segunda configuración
+  Android de servicios o credenciales de Headscale.</li>
+<li><strong>Ayuda</strong>: datos de acceso inicial, diagnóstico, DNS privado, ajustes Android
+  y avisos de terceros.</li>
+</ul>
+<p>El panel adapta formularios y tablas al ancho del móvil. Su hoja de estilo
+Android se sirve dentro del WebView con el mismo origen, conservando la política
+CSP y la autenticación del panel. Linux, Windows, Home Assistant y YunoHost
+siguen usando el panel compartido habitual. Se conserva la pantalla nativa
+seleccionada al girar; los datos se guardan desde el panel. Salir de la actividad
+no detiene el nodo.</p>
+<p>El nodo, el proxy y el túnel del teléfono comparten una identidad. El proceso
+del Gateway queda fuera del túnel para evitar bucles. El adaptador lleva TCP
+y UDP a ese nodo; los destinos de la tailnet y las rutas aceptadas se resuelven
+por él. Sin nodo de salida, Internet utiliza la conexión habitual del teléfono
+a través del adaptador; activar la VPN no convierte por sí solo el teléfono
+en un servicio de salida anónima.</p>
+<p>La red local queda fuera del túnel cuando lo permiten las preferencias del
+nodo de salida. Reinicia la VPN del teléfono al cambiar esas preferencias o
+la red física. El adaptador transporta TCP y UDP; no implementa ICMP.</p>
+<p><strong>Desconectar aplicaciones</strong> conserva el Gateway y sus servicios.
+<strong>Detener todo</strong> detiene ambos. Android puede detener la aplicación por las
+restricciones de batería o por una parada forzada; no se promete disponibilidad
+permanente como la de un servidor dedicado. Esta revisión se inicia desde la
+aplicación y no ofrece «VPN siempre activa» ni bloqueo de todas las conexiones
+al arrancar: ese modo necesita un ciclo de inicio independiente que todavía
+no está implementado.</p>
+<h2 id="acceso-archivos-y-certificados">Acceso, archivos y certificados</h2>
+<p>La cuenta local inicial se llama <code>android</code> y tiene una contraseña aleatoria
+protegida mediante Android Keystore. <strong>Datos de acceso inicial</strong> permite verla.
+La aplicación inicia una sesión normal del panel; no elimina su autenticación.
+Si cambias la contraseña o el proveedor de identidad, utiliza tus credenciales
+actuales. Los flujos LDAP/OIDC del panel requieren pruebas específicas en Android.</p>
+<p>La SQLite, <code>master.key</code>, los certificados y el estado VPN se guardan en el
+almacenamiento privado. No se incluyen credenciales de Forgejo ni del usuario
+en el APK. Las copias automáticas del sistema están desactivadas.
+Los secretos del adaptador no se envían al panel ni se incluyen en enlaces.</p>
+<p>El selector de archivos sirve para importar y exportar desde el panel. Las
+descargas se guardan donde el usuario elija. Se transfieren por bloques y se
+comprueba que haya espacio para el temporal y para guardar el resultado; no hay
+un límite fijo de 512 MiB. Una exportación preparada se conserva si se recrea
+la actividad y puede guardarse o descartarse al volver a abrirla. La instalación de una CA en el almacén del sistema Android requiere
+el procedimiento y consentimiento de Android; el helper polkit de Linux no
+forma parte del APK. El DNS privado estricto puede enviar los nombres privados a un proveedor externo
+y evitar MagicDNS; en Waydroid se comprobó este comportamiento. La aplicación
+muestra un aviso y permite abrir el ajuste de Android, sin cambiarlo por sí sola.
+Un cortafuegos también puede afectar la conexión. Conserva la validación TLS.</p>
+<h2 id="configuración-servicios-y-copias">Configuración, servicios y copias</h2>
+<p>La revisión <code>android.3</code> conserva las API y formatos comunes. Se han comprobado
+Headscale por HTTPS con clave API, inventario de nodos, creación/edición/borrado
+de servicios, generación y descarga de la CA, perfiles <code>.hgwcfg</code> y copias <code>.hgw</code>.
+Las copias parcial y completa creadas en Android se han descifrado y leído con
+el controlador SQLite de Linux, incluyendo sus secretos.</p>
+<p>Para una copia utiliza <strong>Panel → Secciones → Copias de seguridad</strong>. Configura
+una contraseña de recuperación y selecciona los componentes. Guarda la descarga
+fuera de la aplicación. La importación verifica la copia y su contraseña; solo
+<strong>Restaurar desde panel</strong> aplica la restauración y reinicia el motor.</p>
+<p>La restauración completa conserva los servicios, los certificados y la identidad
+VPN incluidos. Las ACL remotas de Headscale se restauran mediante su operación
+explícita, con sus confirmaciones; no se reemplazan automáticamente al recuperar
+los datos locales. Si restauras una copia de otro equipo, utiliza la cuenta y
+el método de acceso guardados en esa copia. Los datos iniciales de acceso que
+muestra Android no sustituyen la contraseña restaurada.</p>
+<p>La instalación de una CA raíz en Android se realiza desde sus ajustes, con
+consentimiento del usuario. El panel ofrece <strong>Instalar en Android</strong> y la descarga
+del certificado público. No intenta ejecutar <code>sudo</code>, <code>pkexec</code> ni herramientas
+de escritorio. Este es el procedimiento admitido por
+<a href="https://developer.android.com/reference/android/security/KeyChain#createInstallIntent()">Android para las CA</a>.</p>
+<h2 id="compilar">Compilar</h2>
+<p>Requisitos: Go de <code>src/go.mod</code>, Python 3, JDK 17, Gradle 8.13, SDK Android API 36
+y NDK 27.0.12077973. El código Android utiliza el motor común de <code>src/</code>.</p>
+<pre tabindex="0"><code class="language-bash">python3 tools/build_android_apk.py \
+  --sdk &quot;$ANDROID_HOME&quot; \
+  --ndk &quot;$ANDROID_NDK_HOME&quot; \
+  --java-home &quot;$JAVA_HOME&quot; \
+  --gradle gradle
+</code></pre>
+<p>La salida es <code>builds/android/headscale-gateway-debug.apk</code>, con arm64 y x86_64.
+Con <code>--arch arm64-v8a</code> se limita al teléfono; con <code>--arch x86_64</code>, al laboratorio.
+Las compilaciones de pruebas usan el identificador
+<code>org.headscalegateway.android.dev</code> para coexistir con una futura entrega estable.
+No se añaden las carpetas de compilación ni las claves a Git.</p>
+<p>Una entrega privada firmada requiere las variables <code>HGW_ANDROID_KEYSTORE</code>,
+<code>HGW_ANDROID_STORE_PASSWORD</code>, <code>HGW_ANDROID_KEY_ALIAS</code> y <code>HGW_ANDROID_KEY_PASSWORD</code>,
+y ejecutar el mismo comando con <code>--release</code>. Conserva tu clave de firma fuera
+del repositorio: es necesaria para actualizar sin perder los datos.</p>
+<h2 id="verificación-y-límites">Verificación y límites</h2>
+<p>Se compilan ambas arquitecturas y se comprueba la alineación ELF de 16 KiB.
+La instrumentación de <code>android/src/androidTest/</code> verifica el arranque real, la
+sesión del panel y el rechazo del adaptador sin credenciales. Incluye una
+prueba opcional con un Headscale y otro nodo temporales, TCP, UDP y MagicDNS.
+Consulta <a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway/src/branch/main/android/PRUEBAS.md">los pasos del laboratorio</a>. La APK de pruebas
+instrumentadas se construye aparte y no se distribuye como aplicación.</p>
+<p>Waydroid requiere desactivar temporalmente su suspensión automática durante
+las pruebas largas, y restaurar el valor previo al terminarlas. No se borran
+sus datos ni se desinstalan otras aplicaciones. Una prueba de túnel exige
+autorización si hay otra VPN activa.</p>
+<p>El estado de aceptación, la arquitectura y el trabajo pendiente se registran
+en <a href="ANDROID.html">la documentación Android</a>. La versión sigue siendo
+experimental hasta validar también un teléfono físico, reconexión Wi-Fi/datos,
+suspensión, IPv6 y proveedores DNS/ACME reales.</p>
+<p>Consulta <a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway/src/branch/main/android/TERCEROS.md">los componentes reutilizados y sus avisos</a>.</p></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+          <li><a href="#uso">Uso</a></li>
+        
+          <li><a href="#acceso-archivos-y-certificados">Acceso, archivos y certificados</a></li>
+        
+          <li><a href="#configuración-servicios-y-copias">Configuración, servicios y copias</a></li>
+        
+          <li><a href="#compilar">Compilar</a></li>
+        
+          <li><a href="#verificación-y-límites">Verificación y límites</a></li>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>

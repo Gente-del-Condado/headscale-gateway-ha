@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>Capturas del panel · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" >Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" >Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" >Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" >Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" aria-current="page">Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" >Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" >YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" >Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" >Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" >Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" >Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" >Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" >Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" >Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" >Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" >Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" >Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" >Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" >Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" >Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" >Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" >Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" >Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" >Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" >Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <p class="breadcrumb"><a href="index.html">Manual</a><span aria-hidden="true"> / </span>Capturas del panel</p>
+      <article class="prose"><h1 id="capturas-del-proyecto">Capturas del proyecto</h1>
+<p>Las siguientes imágenes proceden de la interfaz real del repositorio, renderizada con datos ficticios de laboratorio. Permiten reconocer las pantallas y sus controles. Los nombres, estados y fechas de prueba que aparecen en ellas pertenecen a ese laboratorio.</p>
+<h2 id="portal-privado">Portal privado</h2>
+<p>En <strong>Gateway → Portal privado</strong> se configuran el título, tema, enlaces, publicación del catálogo y servicios remotos. Guarda la configuración antes de actualizar catálogos.</p>
+<figure>
+<img src="capturas/portal-administracion.png" alt="Configuración del portal privado con título, tema, color, imágenes y módulos de publicación" width="1280" height="967" loading="lazy">
+<figcaption>Portal de administración. Los textos de prueba dentro del formulario muestran una edición en curso.</figcaption>
+</figure>
+
+<h2 id="api-y-línea-de-comandos">API y línea de comandos</h2>
+<p>El índice muestra métodos, rutas, alcance y roles. Los ejemplos ayudan a construir una petición, y el probador requiere una acción explícita para enviarla.</p>
+<figure>
+<img src="capturas/api-cli.png" alt="Índice de API y CLI con búsqueda, filtros y contrato de la consulta de nodos" width="1200" height="967" loading="lazy">
+<figcaption>Referencia integrada. El contenido se obtiene de las rutas de la aplicación.</figcaption>
+</figure>
+
+<h2 id="usuarios-y-claves">Usuarios y claves</h2>
+<p>La sección separa el inventario de usuarios y sus claves de la administración de rutas y políticas.</p>
+<figure>
+<img src="capturas/usuarios-responsive.png" width="1040" height="867" alt="Sección de usuarios y claves del panel con datos de prueba y distribución adaptable" loading="lazy">
+<figcaption>Comprobación de la interfaz con nombres largos de laboratorio.</figcaption>
+</figure>
+
+<h2 id="cliente-de-bandeja">Cliente de bandeja</h2>
+<p>El cliente de escritorio se conecta a un Gateway existente. Muestra estado y solicitudes pendientes y permite abrir el panel.</p>
+<figure>
+<img src="capturas/mini-gui-linux.png" width="340" height="360" alt="Cliente de bandeja de Headscale Gateway ejecutado en Linux" loading="lazy">
+<figcaption>Cliente de escritorio para Linux. El motor se ejecuta en su propio proceso.</figcaption>
+</figure>
+
+<h2 id="cómo-mantener-las-capturas">Cómo mantener las capturas</h2>
+<p>Las fuentes están en <code>docs/capturas/</code>. El laboratorio visual está en <code>src/tools/gui-linux-check/</code> y usa la misma interfaz HTML y JavaScript que el servidor. El recorrido del panel se reproduce desde la raíz del proyecto con una sesión gráfica Linux.</p>
+<pre tabindex="0"><code class="language-bash">npm --prefix src/desktop ci
+HGW_REFERENCE_EXPORT=/tmp/hgw-reference-catalog.json \
+  go -C src test ./internal/admin -run '^TestReferenceMatchesRegisteredRoutes$' -count=1
+src/desktop/node_modules/electron/dist/electron src/tools/gui-linux-check/panel.cjs
+</code></pre>
+<p>El script genera las capturas del panel en <code>docs/capturas/</code>. La prueba del cliente de bandeja tiene su propio recorrido en <code>src/tools/gui-linux-check/check.cjs</code>. Revisa las imágenes antes de guardarlas y actualiza el texto alternativo y el pie si cambia lo que enseñan.</p></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+          <li><a href="#portal-privado">Portal privado</a></li>
+        
+          <li><a href="#api-y-línea-de-comandos">API y línea de comandos</a></li>
+        
+          <li><a href="#usuarios-y-claves">Usuarios y claves</a></li>
+        
+          <li><a href="#cliente-de-bandeja">Cliente de bandeja</a></li>
+        
+          <li><a href="#cómo-mantener-las-capturas">Cómo mantener las capturas</a></li>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>

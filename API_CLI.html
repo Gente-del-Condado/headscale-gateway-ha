@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>Guía API y CLI · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" >Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" >Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" >Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" >Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" >Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" >Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" >YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" >Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" >Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" >Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" >Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" >Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" >Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" >Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" >Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" >Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" >Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" >Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" >Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" aria-current="page">Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" >Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" >Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" >Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" >Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" >Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <p class="breadcrumb"><a href="index.html">Manual</a><span aria-hidden="true"> / </span>Guía API y CLI</p>
+      <article class="prose"><h1 id="sistema-api-cli">SISTEMA → API / CLI</h1>
+<p>El índice se obtiene de las rutas que registra esta versión del servidor. No es
+una tabla mantenida a mano. El catálogo de contratos, opciones e integraciones
+se regenera con tools/reference_catalog.py y CI comprueba que no esté obsoleto.</p>
+<ol>
+<li>Abre Sistema → API / CLI y usa Buscar en el índice.</li>
+<li>Tipo permite cambiar entre API Gateway, CLI e Integraciones externas.</li>
+<li>Para API, combina el texto con el método y el módulo. Pulsa una operación.</li>
+<li>Revisa el alcance, roles, tipo de autenticación y el contrato del código.
+   Los campos detectados pueden ser de entrada o salida: no son un esquema
+   OpenAPI. Los tipos completos están en el archivo fuente indicado.</li>
+<li>Expande el ejemplo curl o PowerShell. Los tokens son variables de entorno,
+   nunca el valor que hayas introducido en el panel.</li>
+<li>Ir al probador prepara la petición. No envía nada automáticamente.</li>
+<li>En modo Guiada rellena los parámetros de la ruta; en Manual puedes escribir
+   una ruta relativa registrada. El JSON se valida antes de enviar.</li>
+<li>Usa tu sesión o un token de prueba con permisos mínimos. Confirmar una
+   modificación no evita los controles de rol, scopes, política Bearer o CSRF.</li>
+<li>Pulsa Ejecutar. Comprueba estado HTTP, duración, tipo de contenido y respuesta.</li>
+<li>Limpiar resultado y token retira el contenido mostrado y la credencial de
+    prueba. No se mantiene un historial persistente de peticiones.</li>
+</ol>
+<p>Prueba segura inicial: GET /api/v1/status. Después GET /api/v1/network/nodes
+con un token viewer/read+network. No pruebes DELETE, restauraciones, rotación
+de claves, cambios ACL o reinicios para comprobar solamente que la API responde.
+Esas operaciones hacen cambios reales cuando están autorizadas.</p>
+<p>Peer federado: registra y aprueba el origen principal en CA y confianza; activa
+la federación del portal. Actualiza el índice y elígelo en Destino. Solo se
+consulta /.well-known/headscale-gateway; TLS se valida usando confianza aprobada,
+con los límites de la federación y sin reenviar cookies/tokens administrativos.
+Para otras API del equipo remoto abre su propio panel y autentícate allí.</p>
+<p>Las API de Technitium/Cloudflare/Headscale se documentan según el código de sus
+adaptadores. El servidor no proporciona un proxy libre contra esos proveedores.
+Technitium utiliza GET también para cambios: no confundas el verbo con lectura.
+Los métodos SDK internos de Tailscale/ACME/OIDC/LDAP no son rutas REST locales.</p>
+<p>El visor limita respuestas a 1 MiB y 45 segundos, no sigue redirecciones ni
+reintenta automáticamente. Si una modificación tarda más, comprueba el estado:
+cerrar o agotar la espera no revierte una petición ya recibida por el servidor.</p>
+<p>Actualizar documentación al desarrollar:
+  python3 tools/reference_catalog.py
+  python3 tools/extract_i18n.py
+  python3 tools/check_i18n.py
+  ./tools/verify.sh
+  HGW_REFERENCE_EXPORT=/tmp/hgw-reference-catalog.json go -C src test ./internal/admin -run TestReferenceMatchesRegisteredRoutes -count=1</p>
+<p>La última orden exporta un catálogo desde una instancia de prueba sin datos
+reales. Sirve para la prueba visual src/tools/gui-linux-check/panel.cjs. No utiliza
+las credenciales de producción. API_CLI.json es la copia documental de la entrega.</p>
+<h2 id="módulo-comercial-opcional">Módulo comercial opcional</h2>
+<p>GET /api/v1/status añade subscription: enabled, state, allowed y, cuando procede,
+instance_id, expires_at y grace_until (segundos Unix UTC). La compilación normal
+lo devuelve desactivado. La activación/renovación se realiza con un archivo firmado
+subscription.license en data_dir, no con un token Bearer ni una clave Headscale.
+El comando de emisión src/tools/license-admin pertenece al propietario; no forma parte
+del CLI del Gateway ni representa un proveedor de cobro. Véase SUSCRIPCIONES.md.</p></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+          <li><a href="#módulo-comercial-opcional">Módulo comercial opcional</a></li>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>

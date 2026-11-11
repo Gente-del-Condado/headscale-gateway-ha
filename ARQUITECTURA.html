@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>Arquitectura y flujos · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" >Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" >Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" >Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" >Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" >Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" >Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" >YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" >Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" >Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" >Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" >Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" >Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" >Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" >Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" aria-current="page">Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" >Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" >Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" >Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" >Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" >Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" >Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" >Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" >Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" >Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" >Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <p class="breadcrumb"><a href="index.html">Manual</a><span aria-hidden="true"> / </span>Arquitectura y flujos</p>
+      <article class="prose"><h1 id="arquitectura-del-gateway">Arquitectura del Gateway</h1>
+<h2 id="objetivo">Objetivo</h2>
+<p>Las unidades de código deben tener un responsable claro y minimizar
+operaciones destructivas. Los contratos de SQLite, API, copias y arranque se verifican con pruebas de regresión.</p>
+<h2 id="un-solo-núcleo">Un solo núcleo</h2>
+<p>Todas las instalaciones comparten binario, rutas, SQLite y autenticación.
+<code>startup_options.go</code> lee el contrato común de arranque; <code>HTTPOptions</code> prepara
+el mismo <code>Server.Handler</code> para acceso directo o mediante proxy. Hay un único
+listener administrativo. No existe una selección de plataforma en el núcleo.
+Los lanzadores de <code>packaging/</code> solo traducen opciones del anfitrión al contrato
+común; la integración HACS reside en <code>custom_components/headscale_gateway/</code>.</p>
+<h2 id="flujo-de-arranque">Flujo de arranque</h2>
+<p>Los archivos Go de este recorrido pertenecen al módulo <code>src/</code>. Los paquetes
+compartidos residen en <code>src/internal/</code>; sus nombres indican su responsabilidad.</p>
+<pre tabindex="0"><code class="language-text">main.go
+  ├─ src/internal/cli/           comandos doctor, logs, version (sin VPN)
+  ├─ src/internal/bootstrap/     flags y detección de conflictos
+  ├─ startup_logging.go     nivel/rotación persistidos
+  └─ startup_gateway.go
+       ├─ modo configuración: panel local
+       ├─ HTTPS LAN: CA local hasta tener nombre estable
+       ├─ administración: rutas + sesiones + CSRF
+       ├─ vpn_supervisor.go: único dueño de tsnet
+       └─ dns_generation.go: publicar cuando se confirme la identidad
+</code></pre>
+<p>La recarga dinámica se concentra en <code>runtime_reload.go</code>. El runtime prepara
+un <code>gatewaySnapshot</code> nuevo antes de publicarlo; las peticiones ya iniciadas
+continúan con su instantánea anterior. DNS se sincroniza antes del cambio
+activo. Un error impide publicar una configuración incompleta.</p>
+<h2 id="proxy-y-dns">Proxy y DNS</h2>
+<p><code>proxy.go</code> convierte servicios en proxies; <code>proxy_transport.go</code> aplica los
+límites de conexión y administra los pools de clientes HTTP. <strong>No existe
+caché de contenido HTTP</strong>: cerrar conexiones inactivas no borra sesiones ni
+archivos del backend.</p>
+<p><code>dns_records.go</code> modifica únicamente registros A con la marca de propiedad
+correcta. <code>dns_cleanup.go</code> limita las eliminaciones al namespace de cada
+nodo. <code>dns_sync.go</code> construye la publicación de nodos y servicios. Los
+adaptadores de Technitium y Cloudflare no deciden qué registros borrar.</p>
+<h2 id="http-de-administración">HTTP de administración</h2>
+<ul>
+<li><code>src/internal/admin/routes_static.go</code>: whitelist de recursos embebidos e idiomas.</li>
+<li><code>src/internal/admin/routes_api.go</code>: índice de módulos REST.</li>
+<li><code>src/internal/admin/middleware_http.go</code>: cabeceras, idioma y diagnóstico HTTP.</li>
+<li><code>src/internal/admin/server.go</code>: <code>Controller</code>, servidor y autorización común.</li>
+<li><code>src/internal/admin/routes_*.go</code>: operaciones específicas por dominio.</li>
+<li><code>src/internal/admin/panel-*.js</code>: vistas funcionales sin frameworks externos.</li>
+</ul>
+<p>La lógica HTTP no debe escribir secretos en logs ni aceptar rutas de archivo
+arbitrarias enviadas por el navegador. Toda operación que modifique el estado
+comprueba autenticación, autorización de módulo y CSRF cuando corresponda.</p>
+<h2 id="seguridad-y-límites-de-confianza">Seguridad y límites de confianza</h2>
+<table>
+<thead>
+<tr>
+<th scope="col">Componente</th>
+<th scope="col">Límite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Headscale API</td>
+<td>Credencial de API remota, operaciones listadas explícitamente</td>
+</tr>
+<tr>
+<td>tsnet</td>
+<td>Identidad del Gateway; no reutilizar automáticamente tailscaled del SO</td>
+</tr>
+<tr>
+<td>CA local y federada</td>
+<td>La CA privada nunca viaja entre Gateways</td>
+</tr>
+<tr>
+<td>Backups cifrados</td>
+<td>Separación entre datos locales y ACL remota</td>
+</tr>
+<tr>
+<td>Perfiles transportables</td>
+<td>No trasladar identidad tsnet ni recovery token</td>
+</tr>
+<tr>
+<td>Web</td>
+<td>Roles admin/operator/viewer y validación de origen</td>
+</tr>
+</tbody>
+</table>
+<h2 id="reglas-al-ampliar-el-proyecto">Reglas al ampliar el proyecto</h2>
+<ol>
+<li>Mantener modelos públicos y rutas del API al mover archivos.</li>
+<li>Escribir las funciones de dominio sin dependencias del navegador.</li>
+<li>Inyectar interfaces para recursos externos (DNSProvider, Controller).</li>
+<li>Incluir pruebas de los casos de error antes de publicar cambios de red.</li>
+<li>Mantener soporte para Windows/Linux mediante archivos <code>*_windows.go</code>,
+   <code>*_linux.go</code> o adaptadores propios; no introducir <code>syscall.Exec</code> sin alternativa.</li>
+<li>Documentar las migraciones SQLite antes de modificar las tablas.</li>
+<li>No activar funciones sensibles por descubrimiento sin aprobación explícita.</li>
+</ol>
+<h2 id="trabajo-todavía-necesario">Trabajo todavía necesario</h2>
+<p>Todavía existen dependencias compartidas en <code>package main</code>, así como
+componentes de autenticación y PKI avanzados que requieren suites de
+integración reales. Separarlos en paquetes nuevos exigirá migraciones
+controladas de interfaces y builds completos en Windows, Linux y macOS.
+No confundir un análisis de sintaxis con una prueba de funcionamiento.</p>
+<h2 id="activación-comercial-opcional">Activación comercial opcional</h2>
+<p><code>src/internal/licensing</code> valida documentos Ed25519 independientes del proveedor de pago. La etiqueta de compilación <code>commercial</code> activa el control; sin ella no se crean archivos de licencia ni se restringen servicios. La clave pública se fija al compilar. <code>src/tools/license-admin</code> es una herramienta privada del emisor, no un servicio de cobro.</p>
+<p>El control se aplica después de despachar administración y CA pública, antes del portal y proxy. Una licencia ausente/caducada no bloquea recuperación ni copias. Los detalles de fechas, gracia, integración y límites están en <a href="SUSCRIPCIONES.html">SUSCRIPCIONES.md</a>.</p></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+          <li><a href="#objetivo">Objetivo</a></li>
+        
+          <li><a href="#un-solo-núcleo">Un solo núcleo</a></li>
+        
+          <li><a href="#flujo-de-arranque">Flujo de arranque</a></li>
+        
+          <li><a href="#proxy-y-dns">Proxy y DNS</a></li>
+        
+          <li><a href="#http-de-administración">HTTP de administración</a></li>
+        
+          <li><a href="#seguridad-y-límites-de-confianza">Seguridad y límites de confianza</a></li>
+        
+          <li><a href="#reglas-al-ampliar-el-proyecto">Reglas al ampliar el proyecto</a></li>
+        
+          <li><a href="#trabajo-todavía-necesario">Trabajo todavía necesario</a></li>
+        
+          <li><a href="#activación-comercial-opcional">Activación comercial opcional</a></li>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>

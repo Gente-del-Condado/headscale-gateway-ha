@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>Red, puertos y CA · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" >Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" >Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" >Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" >Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" >Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" >Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" >YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" >Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" >Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" >Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" aria-current="page">Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" >Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" >Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" >Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" >Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" >Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" >Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" >Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" >Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" >Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" >Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" >Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" >Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" >Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" >Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <p class="breadcrumb"><a href="index.html">Manual</a><span aria-hidden="true"> / </span>Red, puertos y CA</p>
+      <article class="prose"><h1 id="puertos-lan-y-descarga-inicial-de-ca">Puertos LAN y descarga inicial de CA</h1>
+<p>La CA pública puede obtenerse sin HTTPS para establecer la confianza inicial. HTTP no autentica al emisor: <strong>descargar no equivale a confiar</strong>. Las claves privadas nunca se publican. Las CA recibidas por HTTP se guardan pendientes y su huella SHA-256 debe contrastarse por otro canal antes de aprobarlas.</p>
+<h2 id="puertos-configurables">Puertos configurables</h2>
+<p>En <strong>Sistema → Configuración → Comunicaciones LAN</strong>:</p>
+<table>
+<thead>
+<tr>
+<th scope="col">Ajuste</th>
+<th scope="col">Valor inicial</th>
+<th scope="col">Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Escucha HTTPS LAN (<code>server.listen_addr</code>)</td>
+<td><code>0.0.0.0:8443</code></td>
+<td>Portal, servicios y administración HTTPS si está habilitada</td>
+</tr>
+<tr>
+<td>Publicar CA por HTTP (<code>pki.http_enabled</code>)</td>
+<td>Desactivado</td>
+<td>Activa el listener aislado de CA pública</td>
+</tr>
+<tr>
+<td>Dirección y puerto HTTP de CA (<code>pki.http_listen_addr</code>)</td>
+<td><code>0.0.0.0:9080</code></td>
+<td>Solo <code>/pki/v1/public-ca</code></td>
+</tr>
+<tr>
+<td>Permitir descarga HTTP (<code>pki.allow_http_download</code>)</td>
+<td>Desactivado</td>
+<td>Autoriza al receptor a usar HTTP como último recurso</td>
+</tr>
+<tr>
+<td>Puerto UDP de descubrimiento (<code>pki.discovery_port</code>)</td>
+<td><code>47991</code></td>
+<td>Todos los gateways que se busquen en LAN deben compartirlo</td>
+</tr>
+</tbody>
+</table>
+<p>En el grupo Administración puedes cambiar <code>admin.listen_addr</code>, manteniendo siempre una dirección loopback, por ejemplo <code>127.0.0.1:19091</code>. Ese HTTP no se expone en LAN. Tailscale conserva su listener HTTPS 443; los puertos LAN son independientes.</p>
+<p>Guarda y reinicia después de modificar estos ajustes. Los puertos TCP/UDP deben estar permitidos por el cortafuegos correspondiente; el Gateway no abre reglas automáticamente. Para evitar privilegios especiales, normalmente resulta cómodo escoger puertos superiores a 1024.</p>
+<p>Si el puerto de CA HTTP está ocupado, el Gateway informa del error y conserva administración. Si falla el puerto HTTPS LAN y administración está habilitada, el panel local también permanece disponible para cambiarlo; la VPN puede continuar funcionando. Si el propio puerto administrativo está ocupado, hay que resolver ese conflicto antes de arrancar. No ejecutes dos procesos contra la misma SQLite.</p>
+<h2 id="ejemplo-entre-windows-y-linux">Ejemplo entre Windows y Linux</h2>
+<p>En el Gateway que comparte la CA:</p>
+<ol>
+<li>Elige, por ejemplo, HTTPS LAN <code>0.0.0.0:19443</code> y HTTP de CA <code>0.0.0.0:19080</code> si los puertos habituales están ocupados.</li>
+<li>Activa <strong>Publicar CA por HTTP en LAN</strong>, guarda y reinicia.</li>
+<li>En <strong>CA y confianza</strong>, activa <strong>Publicar certificado público</strong>. Ambos permisos son necesarios. Desactivar la publicación hace que el endpoint deje de entregar la CA aunque el listener siga abierto.</li>
+<li>Desde un equipo LAN, comprueba <code>http://IP_LAN_DEL_GATEWAY:19080/pki/v1/public-ca</code>. Debe entregar únicamente un certificado PEM. <code>/admin/</code> y <code>/api/v1/status</code> en ese puerto deben devolver 404.</li>
+</ol>
+<p>En el Gateway receptor:</p>
+<ol>
+<li>Activa <strong>Permitir descarga de CA por HTTP LAN</strong> y reinicia.</li>
+<li>Comprueba que ambos usan el mismo puerto UDP de descubrimiento y que la LAN permite multicast.</li>
+<li>En <strong>CA y confianza</strong>, pulsa <strong>Descubrir y descargar CA pendientes</strong>.</li>
+<li>El orden es Tailscale HTTPS 443, HTTPS LAN en el puerto anunciado y, al final, HTTP LAN en el puerto de CA anunciado.</li>
+<li>Compara la huella con el administrador del emisor por un canal independiente. Solo después pulsa aprobar.</li>
+<li>La federación de catálogos y servicios continúa usando <strong>HTTPS verificado</strong>, con el puerto HTTPS del Gateway. No usa el puerto HTTP de CA ni envía allí tokens o cookies.</li>
+</ol>
+<p>Si multicast no llega entre las redes, puedes descargar el certificado público desde la URL HTTP conocida e importarlo manualmente como pendiente, indicando la URL <strong>HTTPS del portal principal</strong> del emisor. No uses la URL HTTP como endpoint del catálogo.</p>
+<h2 id="límites-del-http-público">Límites del HTTP público</h2>
+<ul>
+<li>Solo GET/HEAD de la ruta exacta <code>/pki/v1/public-ca</code>; sin administración, proxy, claves privadas ni credenciales.</li>
+<li>El listener acepta orígenes LAN privados/loopback. El receptor fija la IP privada antes de conectar, limita tamaño/tiempo y rechaza redirecciones y destinos públicos.</li>
+<li>HTTP está desactivado de fábrica tanto para publicar como para recibir. No se utiliza para catálogos, sincronización de CA aprobadas ni para degradar conexiones Tailnet.</li>
+<li>Un anuncio LAN puede falsificarse. La huella mostrada en la propia respuesta HTTP no es una comprobación independiente: compárala con la que ves en el equipo emisor o por otro canal autenticado.</li>
+<li>El número de puerto no forma parte de los SAN del certificado.</li>
+</ul>
+<h2 id="mini-gui-compacta">Mini GUI compacta</h2>
+<p>La vista habitual mide 340 × 360 píxeles lógicos. Es una ventana flotante sin marco, con tema claro/oscuro del sistema, situada junto a la bandeja cuando el escritorio permite posicionarla. Equipos está plegado inicialmente; preferencias tiene su propia vista, con desplazamiento y altura máxima de 560.</p>
+<p>Clic en la bandeja abre/oculta. Clic fuera de la vista habitual o Escape la oculta. Mientras editas preferencias no se cierra al perder foco. La X oculta; <strong>Salir</strong> termina el proceso. La sesión/token recordado y las notificaciones mantienen su funcionamiento.</p>
+<p>En Wayland, el compositor puede decidir la posición e impedir colocar exactamente la ventana junto al reloj. El panel sigue funcionando y puede moverse usando su cabecera. No se ha convertido Electron en una aplicación nativa del toolkit del escritorio: se ha adaptado su comportamiento y tamaño.</p></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+          <li><a href="#puertos-configurables">Puertos configurables</a></li>
+        
+          <li><a href="#ejemplo-entre-windows-y-linux">Ejemplo entre Windows y Linux</a></li>
+        
+          <li><a href="#límites-del-http-público">Límites del HTTP público</a></li>
+        
+          <li><a href="#mini-gui-compacta">Mini GUI compacta</a></li>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>

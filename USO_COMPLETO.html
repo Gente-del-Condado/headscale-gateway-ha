@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>Manual de uso · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" >Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" >Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" aria-current="page">Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" >Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" >Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" >Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" >YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" >Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" >Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" >Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" >Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" >Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" >Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" >Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" >Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" >Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" >Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" >Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" >Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" >Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" >Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" >Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" >Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" >Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" >Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <p class="breadcrumb"><a href="index.html">Manual</a><span aria-hidden="true"> / </span>Manual de uso</p>
+      <article class="prose"><h1 id="headscale-gateway">Headscale Gateway</h1>
+<p><strong>Home Assistant OS, integración de entidades y YunoHost:</strong> consulta
+<a href="PLATAFORMAS.html">los paquetes y su instalación</a>. Una sola aplicación comparte
+el mismo servidor, panel, API, autenticación y datos en todas las instalaciones.
+La integración está en <code>custom_components/headscale_gateway/</code>. Desde Home Assistant
+2026.11, Marketplace sustituye a HACS; el acceso desde Forgejo privado sigue
+utilizando la copia local documentada.</p>
+<p><strong>Forgejo privado, sin ZIP:</strong> sigue <a href="INSTALACION_PRIVADA.html">la instalación con git pull</a>.
+<code>addons/headscale_gateway/</code> se copia a Home Assistant; <code>yunohost/</code> se instala
+desde el clon local. Ambas carpetas se generan del mismo código del repositorio.</p>
+<p><strong>Android experimental:</strong> <a href="ANDROID_USO.html">compilación y uso de la APK</a>, con
+el mismo motor y panel, servicio Android y adaptador VPN basado en HEV.
+Consulta <a href="ANDROID.html">el estado de validación</a> antes de usarla como servidor permanente.</p>
+<p><a href="INSTALACION_PRIVADA.html">Instalación privada</a> · <a href="RECUPERAR_ACCESO.html">Recuperar acceso</a> · <a href="LICENCIAS.html">Licencias</a> · <a href="SUSCRIPCIONES.html">Suscripciones</a></p>
+<p>Gateway de servicios privados para redes gestionadas por <strong>Headscale</strong>, con VPN integrada mediante <strong>Tailscale tsnet</strong>, proxy inverso HTTPS, DNS, certificados, panel de administración y cliente independiente de bandeja para Windows y Linux.</p>
+<p>La configuración se guarda en <strong>SQLite</strong>. El servidor no usa <code>config.yaml</code> como configuración activa. La mini GUI se conecta a la API; no sustituye ni arranca el servidor.</p>
+<blockquote>
+<p>Estado del proyecto: desarrollo activo. Las pruebas automatizadas se ejecutan en Linux y se compilan binarios para Windows y macOS. Los resultados históricos de otras plataformas no equivalen a una validación de cada nueva versión. La federación entre dos gateways físicos está pendiente de la prueba descrita en este manual.</p>
+</blockquote>
+<h2 id="índice">Índice</h2>
+<ul>
+<li><a href="#qué-incluye">Qué incluye</a></li>
+<li><a href="#arquitectura-y-direcciones">Arquitectura y direcciones</a></li>
+<li><a href="#requisitos">Requisitos</a></li>
+<li><a href="#instalación-y-primer-acceso">Instalación y primer acceso</a></li>
+<li><a href="#configuración-inicial">Configuración inicial</a></li>
+<li><a href="#servicios-dns-y-certificados">Servicios, DNS y certificados</a></li>
+<li><a href="#panel-de-administración">Panel de administración</a></li>
+<li><a href="#portal-privado-y-federación">Portal privado y federación</a></li>
+<li><a href="#mini-gui-y-notificaciones">Mini GUI y notificaciones</a></li>
+<li><a href="#api-y-cli">API y CLI</a></li>
+<li><a href="#identidad-y-permisos">Identidad y permisos</a></li>
+<li><a href="RECUPERAR_ACCESO.html">Recuperar el acceso</a></li>
+<li><a href="SUSCRIPCIONES.html">Activación y suscripciones</a></li>
+<li><a href="#copias-actualización-y-migración">Copias, actualización y migración</a></li>
+<li><a href="#registros-e-idiomas">Registros e idiomas</a></li>
+<li><a href="#compilar-y-verificar">Compilar y verificar</a></li>
+<li><a href="#publicar-en-forgejo-o-github">Publicar en Forgejo o GitHub</a></li>
+<li><a href="#solución-de-problemas">Solución de problemas</a></li>
+<li><a href="#límites-y-licencia">Límites y licencia</a></li>
+</ul>
+<h2 id="qué-incluye">Qué incluye</h2>
+<table>
+<thead>
+<tr>
+<th scope="col">Componente</th>
+<th scope="col">Función</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gateway Go</td>
+<td>Nodo tsnet, listeners HTTPS, proxy y ciclo de certificados</td>
+</tr>
+<tr>
+<td>Panel web</td>
+<td>Configuración, servicios, red, usuarios, ACL, CA, copias y diagnósticos</td>
+</tr>
+<tr>
+<td>Portal privado</td>
+<td>Enlaces a servicios locales y remotos seleccionados por el administrador</td>
+</tr>
+<tr>
+<td>Federación</td>
+<td>Descubrimiento opcional, aprobación de confianza y catálogo HTTPS versionado</td>
+</tr>
+<tr>
+<td>Mini GUI Electron</td>
+<td>Estado, rutas pendientes, notificaciones y acceso al panel</td>
+</tr>
+<tr>
+<td>CLI</td>
+<td>Arranque, mantenimiento, versión y diagnóstico de registros</td>
+</tr>
+<tr>
+<td>Integraciones</td>
+<td>Headscale, Technitium, Cloudflare, ACME, LDAP, OIDC y repositorios de plantillas</td>
+</tr>
+</tbody>
+</table>
+<p>No hace falta instalar el cliente Tailscale del sistema para que el Gateway cree su propio nodo tsnet. El estado y las ACL de ese nodo pueden ser diferentes de los del cliente Tailscale instalado en el mismo ordenador.</p>
+<h2 id="arquitectura-y-direcciones">Arquitectura y direcciones</h2>
+<pre tabindex="0"><code class="language-text">Navegador o mini GUI
+        │ HTTPS privado / HTTP loopback
+        ▼
+Gateway ── SQLite, identidad tsnet, certificados, logs
+  │  ├── API administrativa → Headscale / proveedor DNS
+  │  ├── Portal → servicios locales y catálogo de peers aprobados
+  │  └── Proxy HTTPS → backends configurados
+  └──── Headscale / tailnet, sujeto a ACL
+</code></pre>
+<p>Para un nodo llamado <code>equipo</code> en la zona <code>intra.example.net</code>:</p>
+<table>
+<thead>
+<tr>
+<th scope="col">Dirección</th>
+<th scope="col">Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>http://127.0.0.1:9091/admin/</code></td>
+<td>Administración de recuperación, solo desde el equipo</td>
+</tr>
+<tr>
+<td><code>https://equipo.intra.example.net/</code></td>
+<td>Portal principal sobre tailnet</td>
+</tr>
+<tr>
+<td><code>https://servicio.equipo.intra.example.net/</code></td>
+<td>Servicio publicado</td>
+</tr>
+<tr>
+<td><code>https://admin.equipo.intra.example.net/admin/</code></td>
+<td>Administración HTTPS si está habilitada</td>
+</tr>
+<tr>
+<td><code>https://equipo.intra.example.net:8443/</code></td>
+<td>Listener LAN si está habilitado y DNS apunta a la LAN</td>
+</tr>
+<tr>
+<td><code>/.well-known/headscale-gateway</code></td>
+<td>Catálogo opcional del portal principal</td>
+</tr>
+<tr>
+<td><code>/pki/v1/public-ca</code></td>
+<td>Certificado CA público opcional; nunca la clave privada</td>
+</tr>
+</tbody>
+</table>
+<p>El 443 de tsnet y el puerto del listener LAN son cosas distintas. La resolución DNS debe llevar al listener elegido. No abras el HTTP de recuperación a la LAN ni a Internet.</p>
+<h2 id="requisitos">Requisitos</h2>
+<ul>
+<li>Acceso al servidor Headscale y a una tailnet autorizada.</li>
+<li>Dominio base resoluble por los clientes. DNS configurado manualmente o mediante Technitium/Cloudflare.</li>
+<li>Certificado TLS válido: ACME DNS-01 o CA local confiada por los clientes.</li>
+<li>Para funciones de inventario/administración: clave REST de Headscale. Una clave de alta de nodos no la sustituye.</li>
+<li>Para publicación DNS automática: credenciales del proveedor y permisos sobre la zona elegida.</li>
+<li>Windows 11 x64 o Linux x64 para las distribuciones de bandeja preparadas. Linux necesita sesión gráfica y soporte de bandeja de su escritorio.</li>
+<li>Para compilar: versión de Go indicada en <code>src/go.mod</code> (actualmente 1.27.4), Python 3.11 o posterior para herramientas de validación y Node.js 22 o compatible para pruebas/cliente.</li>
+</ul>
+<p>Los binarios de servidor no necesitan Node.js. La mini GUI empaquetada incluye Electron; conserva todos sus archivos juntos. macOS tiene código y compilaciones del servidor; la GUI macOS no forma parte de la entrega probada.</p>
+<h2 id="instalación-y-primer-acceso">Instalación y primer acceso</h2>
+<h3 id="linux">Linux</h3>
+<p>Extrae el paquete del servidor en una carpeta estable. Desde la carpeta extraída:</p>
+<pre tabindex="0"><code class="language-bash">chmod +x headscale-gateway
+./headscale-gateway --db &quot;$HOME/.local/share/headscale-gateway/gateway.sqlite&quot;
+</code></pre>
+<h3 id="windows-11">Windows 11</h3>
+<p>Extrae el paquete completo. Abre PowerShell en su carpeta:</p>
+<pre tabindex="0"><code class="language-powershell">New-Item -ItemType Directory -Force &quot;$env:LOCALAPPDATA\HeadscaleGateway&quot; | Out-Null
+.\headscale-gateway.exe --db &quot;$env:LOCALAPPDATA\HeadscaleGateway\gateway.sqlite&quot;
+</code></pre>
+<p>En el proyecto completo, los ejecutables x64 están en <code>bin/linux/headscale-gateway</code> y <code>bin/headscale-gateway.exe</code>; los paquetes descargables los sitúan en la raíz.</p>
+<p>No ejecutes dos instancias contra la misma base de datos. Para un segundo Gateway de pruebas usa <strong>datos nuevos e identidad nueva</strong>, no una copia de la identidad de un nodo en funcionamiento.</p>
+<h3 id="directorios-predeterminados">Directorios predeterminados</h3>
+<table>
+<thead>
+<tr>
+<th scope="col">Sistema</th>
+<th scope="col">Directorio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linux usuario</td>
+<td><code>$XDG_DATA_HOME/headscale-gateway</code> si XDG_DATA_HOME es absoluto; si no, <code>~/.local/share/headscale-gateway</code></td>
+</tr>
+<tr>
+<td>Linux root</td>
+<td><code>/var/lib/headscale-gateway</code></td>
+</tr>
+<tr>
+<td>Windows</td>
+<td><code>%LOCALAPPDATA%\HeadscaleGateway</code>; conserva <code>%ProgramData%\HeadscaleGateway</code> si allí existe una instalación previa</td>
+</tr>
+<tr>
+<td>macOS</td>
+<td>Directorio de configuración del usuario, normalmente <code>~/Library/Application Support/HeadscaleGateway</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>--db</code> permite elegir explícitamente la base de datos. Mantén una ubicación estable y permisos restrictivos.</p>
+<h3 id="primer-acceso">Primer acceso</h3>
+<p>En <strong>Home Assistant</strong>, abre <strong>Headscale Gateway → Abrir interfaz web</strong> con tu
+sesión administradora; puedes activar <strong>Mostrar en la barra lateral</strong>. En
+<strong>YunoHost</strong>, abre la aplicación desde el portal con una cuenta del grupo
+<code>admins</code>. En ambos casos entrarás sin otra contraseña del Gateway. Consulta
+<a href="INSTALACION_PRIVADA.html">Instalación privada</a> para los pasos completos.</p>
+<p>Para ejecutar el servidor directamente:</p>
+<ol>
+<li>Arranca el proceso y abre <code>http://127.0.0.1:9091/admin/</code> en ese mismo equipo.</li>
+<li>Sigue el flujo de bootstrap local que muestra el arranque. Guarda la credencial de recuperación en un lugar privado.</li>
+<li>Completa la configuración. Una instalación nueva puede permanecer en modo inicial hasta tener dominio y Headscale válidos.</li>
+<li>Configura la autenticación que quieras utilizar y verifica el acceso antes de cerrar la sesión de recuperación.</li>
+<li>Para acceso remoto habilita el subdominio de administración HTTPS o utiliza un túnel SSH. Conserva el acceso loopback para recuperación.</li>
+</ol>
+<p>Los scripts de instalación en <code>tools/scripts/</code> y la unidad <code>packaging/linux/headscale-gateway.service</code> son ayudas que debes revisar para tu usuario, rutas y método de ejecución. Arrancar el binario no instala automáticamente un servicio del sistema.</p>
+<h3 id="acceso-y-recuperación-desde-la-consola">Acceso y recuperación desde la consola</h3>
+<p>Al ejecutar el servidor directamente, un bloque destacado muestra el enlace local al panel. Aparece tras activar la VPN o, si tarda, a los 20 segundos de abrir administración; en el modo de configuración inicial aparece inmediatamente. Desde Home Assistant o YunoHost, las instrucciones remiten a la interfaz del anfitrión; el puerto interno del proxy no se presenta como enlace para el navegador. Los mensajes posteriores de actividad pueden seguir apareciendo.</p>
+<p>Para recuperar el acceso, detén el proceso y ejecuta el mismo binario con <code>--db</code> apuntando a tu base de datos habitual y <code>--reset-recovery</code>. Después arráncalo normalmente en una terminal. El bloque mostrará un código de un solo uso, válido durante 15 minutos desde su aparición. Úsalo en el acceso de recuperación del panel local y cambia después la contraseña de tu cuenta en Acceso / Identidad. La rotación no modifica por sí sola esa contraseña.</p>
+<p>El código solo se muestra en una terminal interactiva: no se guarda en los logs ni se incluye en el enlace. Si se ejecuta como servicio o con la salida de errores redirigida, queda pendiente para el siguiente arranque interactivo. En Windows se habilita el color si la consola lo admite; <code>NO_COLOR</code> permite desactivarlo. El enlace es pulsable en terminales compatibles (algunas requieren Ctrl+clic); también puede copiarse al navegador del mismo equipo.</p>
+<p>Consulta los comandos exactos de Linux, Windows y systemd en <a href="RECUPERAR_ACCESO.html">Recuperar acceso</a>.</p>
+<h2 id="configuración-inicial">Configuración inicial</h2>
+<p>En <strong>Sistema → Configuración</strong>:</p>
+<ol>
+<li>Define el dominio base y la URL HTTPS de Headscale.</li>
+<li>Configura el proveedor DNS y la zona. Si mantienes DNS manualmente, asegúrate de resolver el portal, los servicios y la administración hacia el Gateway correcto.</li>
+<li>Selecciona la estrategia de certificados y, para ACME, el proveedor DNS y correo requeridos.</li>
+<li>Revisa <code>server.listen_addr</code>, el listener LAN. La administración HTTP debe conservarse en loopback.</li>
+<li>Activa el inventario de Headscale y su clave REST para gestionar nodos, usuarios, claves, rutas y ACL.</li>
+<li>Guarda y reinicia cuando el panel lo indique. La personalización del portal se aplica directamente.</li>
+<li>Completa el login de tsnet y comprueba el estado del nodo en Headscale.</li>
+</ol>
+<p>El esquema vigente se consulta en <strong>Sistema → API / CLI → GET /api/v1/config/schema</strong>. Solo muestra las opciones que esta versión implementa; no todos los campos aceptan modificación en caliente.</p>
+<h2 id="servicios-dns-y-certificados">Servicios, DNS y certificados</h2>
+<p>Los puertos LAN de HTTPS, CA pública HTTP y descubrimiento UDP se configuran en <strong>Sistema → Configuración → Comunicaciones LAN</strong>. HTTP de CA es opcional y no implica aprobación. Consulta <a href="RED_Y_CA_LAN.html">Puertos y confianza inicial por LAN</a>.</p>
+<h3 id="publicar-un-servicio">Publicar un servicio</h3>
+<ol>
+<li>Abre <strong>Gateway → Servicios</strong> y crea un nombre corto, por ejemplo <code>wiki</code>.</li>
+<li>Indica un destino accesible <strong>desde el Gateway</strong>, por ejemplo <code>http://127.0.0.1:8080</code> o <code>http://192.168.1.20:8080</code>.</li>
+<li>Selecciona una plantilla proxy y revisa las opciones del servicio.</li>
+<li>Guarda y comprueba DNS, certificado y respuesta en <code>https://wiki.equipo.intra.example.net/</code>.</li>
+<li>En <strong>Portal privado</strong> decide si su enlace aparece y si puede compartirse con otros gateways.</li>
+</ol>
+<p>El esquema de opciones del proxy está en <code>GET /api/v1/proxy/schema</code>. Una URL visible no concede permisos de red ni sustituye la autenticación del servicio.</p>
+<h3 id="dns">DNS</h3>
+<p>Technitium y Cloudflare permiten gestionar registros de la zona configurada. Cloudflare publica los registros de VPN sin proxy. El proveedor elegido para registros y las credenciales de ACME son configuraciones que deben revisarse por separado.</p>
+<p>MagicDNS+ ofrece exportación y herramientas para registros adicionales; no presupongas que editar el Gateway modifica automáticamente el YAML del servidor Headscale. Consulta la previsualización/exportación y aplica los cambios por el procedimiento correspondiente al servidor.</p>
+<h3 id="tls-y-ca">TLS y CA</h3>
+<p>El Gateway soporta certificados ACME y certificados con CA local. Con CA local, cada cliente debe confiar en la CA pública y el nombre o IP utilizado debe estar cubierto por el certificado. <strong>El puerto no forma parte del SAN</strong>: una URL IP:puerto se valida contra la IP del certificado.</p>
+<p>En <strong>Sistema → CA y confianza</strong> puedes descargar certificados públicos, importar y aprobar peers, gestionar la publicación y retirar una CA. Retirar del Gateway y retirar del almacén del sistema son resultados independientes; la segunda operación puede requerir privilegios.</p>
+<p>Existe un helper opcional de instalación/retirada de CA. Se habilita de forma explícita y depende de la elevación del sistema. Consulta <a href="HELPER_CA.html">HELPER_CA.txt</a>. Las pruebas privilegiadas del helper no se consideran completadas por las pruebas del portal.</p>
+<h2 id="panel-de-administración">Panel de administración</h2>
+<table>
+<thead>
+<tr>
+<th scope="col">Sección</th>
+<th scope="col">Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gateway / Resumen</td>
+<td>Estado, servicios y resumen de copias</td>
+</tr>
+<tr>
+<td>Servicios y plantillas proxy</td>
+<td>Destinos, ajustes y reutilización de configuraciones</td>
+</tr>
+<tr>
+<td>Portal privado</td>
+<td>Apariencia, visibilidad, publicación y selección de servicios remotos</td>
+</tr>
+<tr>
+<td>Registros</td>
+<td>Canales, niveles, identificadores, búsqueda y configuración de visualización</td>
+</tr>
+<tr>
+<td>Headscale / Red y nodos</td>
+<td>Estado, diagnósticos, solicitudes y aprobación/revocación de rutas</td>
+</tr>
+<tr>
+<td>Usuarios y claves</td>
+<td>Gestión permitida por la API de Headscale</td>
+</tr>
+<tr>
+<td>Plantillas ACL</td>
+<td>Biblioteca, importación, exportación y repositorios</td>
+</tr>
+<tr>
+<td>Reglas ACL</td>
+<td>Editor visual/manual, revisión y aplicación con control de versión</td>
+</tr>
+<tr>
+<td>CA y confianza</td>
+<td>Autoridades locales, peers, certificados y helper</td>
+</tr>
+<tr>
+<td>Copias de seguridad</td>
+<td>Crear, descargar, restaurar y revisar programación</td>
+</tr>
+<tr>
+<td>Acceso / Identidad</td>
+<td>Autenticación, roles, MFA y recuperación</td>
+</tr>
+<tr>
+<td>API / Permisos</td>
+<td>Tokens y habilitación de ámbitos Bearer</td>
+</tr>
+<tr>
+<td>API / CLI</td>
+<td>Índice vivo, filtros, contratos, ejemplos y probador</td>
+</tr>
+</tbody>
+</table>
+<p>Pausar tsnet conserva la identidad. La interfaz distingue conectar, pausar y reanudar. El servidor impide pausar desde una sesión que depende del propio túnel que se va a cortar; utiliza el acceso local/LAN permitido para esa acción.</p>
+<h2 id="portal-privado-y-federación">Portal privado y federación</h2>
+<p>La administración del portal se realiza exclusivamente desde el panel. Permite título, descripción, tema, color, logo y favicon PNG, nombres visibles, grupos, descripción por servicio y búsqueda.</p>
+<p>Los módulos de <strong>publicación</strong>, <strong>federación</strong> y <strong>descubrimiento</strong> están desactivados inicialmente y se pueden habilitar por separado. Un servicio oculto del portal sigue existiendo en el proxy: ocultarlo no es una medida de autorización.</p>
+<p>El descubrimiento usa anuncios LAN y candidatos de Headscale contrastados con DNS. Comprueba únicamente portales principales; no recorre todos los registros de servicios de la zona. El catálogo HTTPS es la fuente de servicios compartidos. No se reexportan servicios importados ni se aprueba confianza automáticamente.</p>
+<p>Para incluir servicios de Windows en el portal de Linux:</p>
+<ol>
+<li>Prepara Windows como otro Gateway con identidad y nombre propios.</li>
+<li>Publica su catálogo y marca los servicios que comparte.</li>
+<li>En Windows habilita la publicación de su CA pública; en Linux usa <strong>Descubrir y descargar CA pendientes</strong> o importa el archivo manualmente. Verifica la huella por otro medio y aprueba el peer. Su URL de catálogo es el <strong>portal principal</strong>; la descarga intenta primero <code>admin.&lt;nodo&gt;/pki/v1/public-ca</code>. Tailscale usa 443 y se prioriza frente a las IP LAN conocidas.</li>
+<li>Activa federación en Linux, actualiza catálogos, selecciona servicios y guarda.</li>
+<li>Comprueba la aparición y apertura de enlaces desde un cliente con ACL adecuadas.</li>
+</ol>
+<p>La accesibilidad se comprueba desde el Gateway receptor. Los visitantes pueden tener ACL diferentes: ver un enlace no garantiza poder abrirlo. La confianza del cliente navegador también es independiente de la confianza entre servidores.</p>
+<p>Consulta el procedimiento completo y la prueba de Windows en <a href="FEDERACION_WINDOWS.html">FEDERACION_WINDOWS.txt</a>, y los límites del protocolo en <a href="PORTAL_Y_FEDERACION.html">PORTAL_Y_FEDERACION.txt</a>.</p>
+<h2 id="mini-gui-y-notificaciones">Mini GUI y notificaciones</h2>
+<p>La vista habitual ahora es un popup de <strong>340 × 360</strong>, con tema del sistema, equipos plegables y preferencias aparte. Se oculta al pulsar fuera o Escape; el compositor de Wayland puede limitar su posición junto al reloj. La X oculta y Salir termina el proceso.</p>
+<p>La mini GUI es un cliente separado. En Linux ejecuta el lanzador de la distribución <code>Gateway-Tray</code>; en Windows ejecuta <code>Gateway-Tray.exe</code>. Conserva toda la carpeta de recursos.</p>
+<ol>
+<li>Crea un token del Gateway con rol <strong>viewer</strong> y ámbitos <strong>read</strong> y <strong>network</strong>. El inventario Headscale y esos ámbitos Bearer deben estar habilitados.</li>
+<li>Conecta a <code>http://127.0.0.1:9091</code> para el servidor local o a su origen HTTPS administrativo para uno remoto.</li>
+<li>Introduce el token del Gateway, no la clave de Headscale ni la del DNS.</li>
+<li>Decide si quieres recordar el token y activar notificaciones.</li>
+<li>Usa <strong>Probar aviso</strong> para comprobar la integración con el escritorio.</li>
+</ol>
+<p>Cerrar con la X deja la aplicación en la bandeja. <strong>Salir</strong> termina la aplicación. <strong>Desconectar y olvidar token</strong> retira la credencial guardada. El almacenamiento persistente depende del almacén seguro del sistema; si no está disponible, utiliza el token solo en memoria.</p>
+<p>Notifica solicitudes de rutas, caída y recuperación sin repetir continuamente el mismo evento. Silenciar no detiene la consulta de estado. Las aprobaciones se hacen en el panel administrativo. No hay arranque automático del sistema configurado por defecto.</p>
+<h2 id="api-y-cli">API y CLI</h2>
+<h3 id="documentación-integrada">Documentación integrada</h3>
+<p><strong>Sistema → API / CLI</strong> obtiene las rutas del mismo registro que utiliza el servidor, incluidas las rutas generadas por módulos. Filtra por texto, método y módulo; muestra ámbito, roles, tipo de autenticación, archivo fuente y contrato del controlador.</p>
+<ul>
+<li><strong>API Gateway:</strong> operaciones REST de esta versión.</li>
+<li><strong>CLI:</strong> subcomandos y opciones reales, con el archivo donde se definen.</li>
+<li><strong>Integraciones externas:</strong> operaciones usadas por el código; no implica que exista un proxy genérico hacia esos proveedores.</li>
+<li><strong>Exportar JSON:</strong> descarga el catálogo documental, sin configuración ni credenciales del equipo.</li>
+</ul>
+<p>Los campos encontrados en el código pueden pertenecer a la petición o la respuesta; no se presentan como un esquema OpenAPI completo. Consulta <a href="MODELOS_API.html">MODELOS_API.md</a> y el código cuando prepares una modificación compleja.</p>
+<h3 id="probador">Probador</h3>
+<p>Selecciona una operación para preparar método, ruta, parámetros y ejemplo de cuerpo cuando esté disponible. En modo manual puedes escribir una ruta <strong>registrada de este Gateway</strong>; no se aceptan URLs arbitrarias. Usa tu sesión o un token de prueba, mantenido únicamente en memoria. Las modificaciones requieren confirmación y siguen sujetas a CSRF, roles y scopes.</p>
+<p>El destino federado ofrece únicamente la consulta del catálogo de un peer aprobado. No reenvía tokens ni cookies al otro Gateway. Para su API administrativa abre el panel remoto y autentícate allí. La confianza de CA no es delegación administrativa.</p>
+<p>Las peticiones se ejecutan una vez, sin reintentos; la respuesta está limitada a 1 MiB y 45 segundos en el visor. Un timeout no asegura que una modificación no se haya ejecutado. Revisa el estado antes de repetirla. Las descargas grandes deben realizarse con un cliente HTTP adecuado.</p>
+<h3 id="ejemplos-de-lectura">Ejemplos de lectura</h3>
+<p>Define <code>HGW_TOKEN</code> de forma privada en tu terminal. Los ejemplos no incluyen credenciales reales.</p>
+<pre tabindex="0"><code class="language-bash">curl --fail-with-body -H &quot;Authorization: Bearer $HGW_TOKEN&quot; \
+  http://127.0.0.1:9091/api/v1/status
+curl --fail-with-body -H &quot;Authorization: Bearer $HGW_TOKEN&quot; \
+  http://127.0.0.1:9091/api/v1/network/nodes
+</code></pre>
+<pre tabindex="0"><code class="language-powershell">Invoke-RestMethod -Uri 'http://127.0.0.1:9091/api/v1/status' `
+  -Headers @{Authorization=&quot;Bearer $env:HGW_TOKEN&quot;}
+</code></pre>
+<p>El token para estado necesita <code>read</code>; el inventario de nodos necesita <code>network</code>. Un rol adecuado no evita la comprobación del ámbito. Las copias, portabilidad y determinadas acciones de confianza requieren sesión administrativa interactiva y no se habilitan con Bearer.</p>
+<h3 id="comandos-locales">Comandos locales</h3>
+<pre tabindex="0"><code class="language-bash">./headscale-gateway --help
+./headscale-gateway version
+./headscale-gateway doctor --db /ruta/gateway.sqlite
+./headscale-gateway logs status --dir /ruta/logs
+./headscale-gateway logs tail --channel gateway --lines 50 --dir /ruta/logs
+./headscale-gateway logs follow --channel proxy --dir /ruta/logs
+./headscale-gateway --db /ruta/gateway.sqlite --reload
+</code></pre>
+<p>En PowerShell sustituye <code>./headscale-gateway</code> por <code>.\headscale-gateway.exe</code>. <code>doctor</code>, <code>logs</code> y <code>version</code> no arrancan la VPN. <code>--reload</code> solicita recarga a la instancia que usa esa SQLite. No uses opciones internas de reinicio/restauración como comandos habituales. La opción antigua <code>--backup</code> sin cifrado está deshabilitada.</p>
+<p>El inventario exportado de esta revisión se mantiene en <a href="API_CLI.json">API_CLI.json</a>. La versión desplegada puede ampliar ese índice; consulta siempre el panel correspondiente al servidor que utilizas.</p>
+<h2 id="identidad-y-permisos">Identidad y permisos</h2>
+<p>El Gateway admite recuperación local, cuentas locales, LDAP y OIDC según configuración. Los grupos/correos del proveedor se asignan explícitamente a roles: autenticarse en un IdP no concede automáticamente administración. TOTP está disponible para la cuenta local.</p>
+<p>Roles básicos: <code>viewer</code> para lecturas permitidas, <code>operator</code> para operaciones autorizadas y <code>admin</code> para administración. Cada endpoint puede imponer condiciones adicionales, como sesión interactiva, versión de la política o confirmación explícita.</p>
+<p>Los scopes Bearer son <code>read</code>, <code>services</code>, <code>settings</code>, <code>network</code>, <code>operations</code> e <code>identity</code>. El rol, el scope y la política de exposición se comprueban conjuntamente. La credencial de recuperación no debe utilizarse como token de uso diario para la mini GUI.</p>
+<h2 id="copias-actualización-y-migración">Copias, actualización y migración</h2>
+<p>Las copias se gestionan desde el panel, con cifrado y contraseña. Comprueba <strong>qué contenido elegiste</strong>: SQLite y clave, identidad tsnet, ACL, exportación DNS o conjunto completo. Una exportación DNS no significa restauración automática en el proveedor. Restaurar ACL es una acción independiente hacia Headscale.</p>
+<h3 id="actualizar-sin-perder-configuración">Actualizar sin perder configuración</h3>
+<ol>
+<li>Crea una copia cifrada desde el panel y verifica que puedes descargarla. Conserva su contraseña fuera del directorio del Gateway.</li>
+<li>Anota la ruta <code>--db</code> y el usuario que ejecuta el proceso.</li>
+<li>Detén el Gateway de forma normal.</li>
+<li>Sustituye el ejecutable y los recursos que acompañen a la distribución. No reemplaces ni borres <code>gateway.sqlite</code>, <code>master.key</code>, la identidad tsnet ni los directorios de certificados.</li>
+<li>Arranca con el mismo usuario y la misma ruta de datos.</li>
+<li>Comprueba estado, servicios, certificados y acceso local antes de cerrar tu terminal de recuperación.</li>
+<li>Recarga el panel con Ctrl+F5. La GUI tiene su distribución independiente.</li>
+</ol>
+<p>Si necesitas una copia manual del directorio, hazla con el proceso detenido para conservar SQLite y su estado externo de forma coherente. No copies únicamente el archivo SQLite mientras está en escritura.</p>
+<h3 id="migrar-y-crear-otro-nodo">Migrar y crear otro nodo</h3>
+<p><strong>Migrar</strong> una instalación completa y <strong>crear un segundo Gateway</strong> son procedimientos diferentes. Para otro nodo utiliza datos e identidad nuevos. La exportación cifrada <code>.hgwcfg</code> transporta opciones y, si lo eliges, credenciales de proveedores; no clona la identidad tsnet ni las claves de CA. Revisa nombres, listeners y DNS antes de activarlo.</p>
+<p>La restauración completa es una operación que puede reiniciar el proceso. Una respuesta 202 indica trabajo aceptado; consulta el estado posterior. Guarda las copias fuera del equipo que protegen.</p>
+<h3 id="guardar-y-recuperar-desde-forgejo">Guardar y recuperar desde Forgejo</h3>
+<ol>
+<li>Crea un repositorio <strong>privado</strong>, dedicado a los archivos cifrados del Gateway, e inicialízalo con una rama. Usa su URL HTTPS, por ejemplo <code>https://git.example.org/forgejo/equipo/copias-gateway</code>. El Gateway admite instalaciones bajo un prefijo como <code>/forgejo</code>.</li>
+<li>Crea un token para ese repositorio con <strong><code>write:repository</code></strong> para enviar archivos. En <strong>Sistema → Configuración</strong> usa <strong>Guardar perfil en Forgejo</strong>, o en <strong>Copias</strong> usa <strong>Guardar en Forgejo</strong> en la fila de una copia existente. Un perfil nuevo requiere su propia contraseña. La copia existente conserva la que usabas para restaurarla.</li>
+<li>En otro Gateway abre <strong>Copias → Repositorio privado de Forgejo</strong> e introduce la misma URL y un token con <strong><code>read:repository</code></strong>. Pulsa <strong>Consultar repositorio</strong>, selecciona el archivo e introduce su contraseña de cifrado. El perfil muestra los nombres de los ajustes antes de aplicarlos. Una copia se verifica y aparece en la lista local, desde la que puedes restaurar los componentes mediante los controles habituales.</li>
+</ol>
+<p>Forgejo guarda cada archivo cifrado como adjunto de una publicación con SHA-256, fecha y tamaño. El Gateway verifica la privacidad del repositorio, el TLS y el SHA-256 del adjunto antes de abrirlo. El token se mantiene en el formulario hasta salir o recargar el panel. El motor lo recibe por operación y no lo guarda. La contraseña de cifrado se usa solo dentro del Gateway. Conserva la contraseña y un acceso de recuperación a Forgejo por separado.</p>
+<p>El envío y la recuperación son manuales. La retención local no elimina adjuntos en Forgejo. El perfil admite hasta 320 KiB y la copia debe ser menor de 2 GiB. Forgejo o su proxy pueden aplicar límites inferiores. Si Forgejo está detrás de un portal SSO, tanto la API como la ruta de descarga de adjuntos deben llegar a Forgejo con el token; el Gateway rechaza redirecciones a páginas de inicio de sesión y a otros servidores.</p>
+<h2 id="registros-e-idiomas">Registros e idiomas</h2>
+<p>Canales: <code>gateway.log</code>, <code>proxy.log</code> y <code>admin.log</code>. Niveles visibles en español: <strong>ERROR, ADVERTENCIA, INFORMACIÓN, DEPURACIÓN y TRAZA</strong>. En inglés: ERROR, WARNING, INFORMATION, DEBUG y TRACE. Los códigos técnicos de filtro son <code>error</code>, <code>warn</code>, <code>info</code>, <code>debug</code> y <code>trace</code>.</p>
+<p>El panel permite filtrar por canal, nivel e identificador de evento y configurar la presentación horaria. El nivel de registro puede definirse por CLI, <code>GATEWAY_LOG_LEVEL</code> o SQLite, en ese orden. La depuración temporal ayuda a limitar el volumen.</p>
+<p>El panel y la GUI tienen selección de idioma. Los mensajes nuevos del servidor usan <code>GATEWAY_LANG</code>; el portal atiende al idioma solicitado por el navegador. Los textos personalizados del usuario no se traducen automáticamente.</p>
+<p>Para añadir un idioma: crea <code>src/locale/&lt;codigo&gt;.po</code>, traduce con Poedit u otra herramienta gettext, ejecuta <code>python3 tools/extract_i18n.py</code>, valida con <code>python3 tools/check_i18n.py</code> y recompila el servidor/cliente. Consulta <a href="IDIOMAS_Y_REGISTROS.html">IDIOMAS_Y_REGISTROS.txt</a>.</p>
+<h2 id="compilar-y-verificar">Compilar y verificar</h2>
+<p>Desde la raíz del proyecto:</p>
+<pre tabindex="0"><code class="language-bash">python3 tools/reference_catalog.py
+python3 tools/extract_i18n.py
+python3 tools/check_i18n.py
+./tools/verify.sh
+./build.sh
+# PowerShell: .\build.ps1
+</code></pre>
+<p>Para la GUI:</p>
+<pre tabindex="0"><code class="language-bash">cd src/desktop
+npm ci
+npm test
+npm run pack:all
+</code></pre>
+<p>El empaquetador genera Windows x64 y Linux x64 en <code>src/desktop/dist</code> y actualiza <code>bin/Gateway-Tray</code> y <code>bin/linux/Gateway-Tray</code>. Necesita descargar dependencias/Electron. Las pruebas visuales en <code>src/tools/gui-linux-check</code> requieren una sesión gráfica Linux; no forman parte de una ejecución CI sin escritorio. Para regenerar el fixture documental usado por la prueba visual, ejecuta:</p>
+<pre tabindex="0"><code class="language-bash">HGW_REFERENCE_EXPORT=/tmp/hgw-reference-catalog.json go -C src test ./internal/admin -run TestReferenceMatchesRegisteredRoutes -count=1
+src/desktop/node_modules/electron/dist/electron src/tools/gui-linux-check/panel.cjs
+</code></pre>
+<p>Las CI están en <code>.forgejo/workflows/quality.yml</code> y <code>.github/workflows/quality.yml</code>. Las pruebas automatizadas usan datos temporales y servidores simulados; no necesitan tus claves de producción. La comprobación de dos gateways reales y del almacén privilegiado del SO se realiza por separado.</p>
+<p>En ambos servidores, cada <code>push</code> y cada <code>pull_request</code> ejecuta también el trabajo
+<strong>Seguridad de dependencias</strong>, con las mismas auditorías Go y npm descritas a
+continuación. El resultado aparece antes de fusionar el cambio. Para exigirlo
+como condición de fusión, añade ese estado a la protección de <code>main</code> del servidor;
+los workflows no modifican esa configuración.</p>
+<h2 id="publicar-el-complemento-en-mis-app">Publicar el complemento en Mis-app</h2>
+<p>Añade <a href="https://github.com/Gente-del-Condado/Mis-app">Mis-app</a> en <strong>Ajustes → Aplicaciones → Instalar aplicación → Repositorios</strong> de Home Assistant y selecciona <strong>Headscale Gateway</strong>.</p>
+<p>Cuando la réplica de Forgejo lleva a GitHub un cambio de <code>addons/headscale_gateway/</code> en <code>main</code>, GitHub Actions analiza la seguridad, valida los paquetes generados y sincroniza esa carpeta en la raíz de Mis-app. Los cambios en los manifiestos Go y npm también activan el flujo. También puedes lanzar <strong>Publicar Headscale Gateway en Mis-app</strong> manualmente desde Actions. La publicación conserva las demás aplicaciones. Para que Supervisor ofrezca una actualización, incrementa <code>VERSION</code> con <code>tools/set_version.py</code> y regenera los paquetes antes de subir los cambios.</p>
+<p>Antes de acceder a la clave de publicación, el flujo ejecuta <code>govulncheck</code> fijado
+en <code>v1.9.0</code>, primero sobre todos los módulos y después sobre las llamadas del
+código y la biblioteca estándar. Ejecuta también <code>npm ci --ignore-scripts
+--no-audit</code> y <code>npm audit --include=dev --audit-level=low</code> en <code>src/desktop/</code>.
+La auditoría incluye herramientas de desarrollo y dependencias transitivas.
+Los analizadores consultan sus bases de avisos actuales; cualquier vulnerabilidad
+detectada, error de descarga o fallo del análisis bloquea la sincronización.
+Consulta los pasos fallidos en Actions, corrige las dependencias y vuelve a
+subir el cambio. No se ejecuta <code>audit fix</code> ni se descartan avisos automáticamente.</p>
+<p>Para repetir los análisis desde la raíz:</p>
+<pre tabindex="0"><code class="language-bash">go -C src run golang.org/x/vuln/cmd/govulncheck@v1.9.0 -scan module
+go -C src run golang.org/x/vuln/cmd/govulncheck@v1.9.0 -show verbose ./...
+npm --prefix src/desktop ci --ignore-scripts --no-audit
+npm --prefix src/desktop audit --include=dev --audit-level=low
+</code></pre>
+<p>La publicación automática usa una clave SSH dedicada de Forgejo. Registra su
+parte pública con permiso de escritura en <strong>Mis-app → Configuración → Claves
+de despliegue</strong> de Forgejo. Guarda la parte privada como secreto
+<code>MIS_APP_FORGEJO_DEPLOY_KEY</code> en <strong>headscale-gateway → Settings → Secrets and
+variables → Actions</strong> de GitHub. El flujo publica por SSH en el catálogo de
+Forgejo, cuya réplica actualiza después Mis-app en GitHub.</p>
+<h2 id="publicar-el-paquete-yunohost">Publicar el paquete YunoHost</h2>
+<p>El repositorio público de instalación es
+<a href="https://github.com/Gente-del-Condado/headscale-gateway-ynh">headscale-gateway-ynh</a>.
+Consulta la <a href="YUNOHOST.html">guía de YunoHost</a> para instalarlo y
+actualizarlo mediante su URL. El paquete sigue siendo experimental hasta
+completar la aceptación en una máquina virtual real; publicarlo no lo incorpora
+al catálogo oficial de YunoHost.</p>
+<p>La cadena de publicación es:</p>
+<ol>
+<li>Fusionar el cambio en <code>main</code> del proyecto principal de Forgejo tras superar
+   <strong>Seguridad de dependencias</strong>, exigida por la protección de la rama.</li>
+<li>La réplica existente actualiza <code>Gente-del-Condado/headscale-gateway</code> en GitHub.</li>
+<li>El flujo <strong>Publicar el paquete YunoHost</strong> audita Go y npm con las mismas
+   comprobaciones anteriores y valida <code>git-install-manifest.json</code>. Solo entonces
+   obtiene la clave y publica por SSH en
+   <code>wolfbelmi88/headscale-gateway-ynh</code> de Forgejo.</li>
+<li>El espejo de salida de ese repositorio actualiza el repositorio público
+   <code>Gente-del-Condado/headscale-gateway-ynh</code> de GitHub.</li>
+</ol>
+<p>El flujo se activa al cambiar <code>yunohost/</code>, las dependencias auditadas o el propio
+publicador en <code>main</code>. Usa el último <code>main</code>, serializa las publicaciones y no
+crea commits si el paquete ya coincide. No se publica desde los pull requests.
+También admite ejecución manual para recuperar una sincronización fallida.</p>
+<p><code>tools/publish_yunohost_repo.py</code> exporta solo el árbol <strong>versionado</strong>
+<code>HEAD:yunohost</code> a la raíz de otro checkout. Comprueba versión, manifiestos,
+sumas de los dos binarios y sus permisos antes de sustituir los archivos
+administrados. Rechaza enlaces y rutas ajenas al paquete. Conserva los archivos
+ajenos del destino, las licencias y los avisos; no copia el historial privado,
+<code>src/</code>, el complemento Home Assistant ni los datos de instalaciones.</p>
+<p>Para configurar las credenciales, registra una clave de despliegue dedicada
+con escritura solo en <strong>headscale-gateway-ynh de Forgejo</strong> y guarda su parte
+privada como secreto <code>YNH_FORGEJO_DEPLOY_KEY</code> en <strong>headscale-gateway → Settings →
+Secrets and variables → Actions</strong> de GitHub. Configura en el repositorio de
+paquete de Forgejo un espejo SSH hacia
+<code>git@github.com:Gente-del-Condado/headscale-gateway-ynh.git</code>, sincronización al
+recibir commits e intervalo de respaldo. Registra la clave pública de ese espejo
+como clave de despliegue con escritura exclusivamente en el paquete de GitHub.
+Son dos claves distintas; ninguna necesita escritura en el proyecto principal.</p>
+<p>No cambies la versión para repetir una publicación idéntica. Para una nueva
+versión del motor usa <code>tools/set_version.py</code>, regenera los paquetes y fusiona
+el cambio en Forgejo. La sincronización del repositorio no ejecuta actualizaciones
+en los servidores YunoHost instalados.</p>
+<h2 id="publicar-en-forgejo-o-github">Publicar en Forgejo o GitHub</h2>
+<p>Mantén el proyecto en tu <strong>repositorio privado</strong>, con las fuentes y las carpetas
+instalables preparadas mediante <code>python3 tools/prepare_git_install.py</code>.
+<code>addons/headscale_gateway/</code> se copia a Home Assistant y <code>yunohost/</code> se instala
+desde un clon local. Sus archivos generados, incluidos los binarios necesarios
+de <code>yunohost/payload/</code>, sí se incluyen en Git para permitir actualizar con
+<code>git pull</code> sin trasladar ZIP ni compilar Go en YunoHost. Consulta
+<a href="INSTALACION_PRIVADA.html">Instalación privada</a>.</p>
+<p>Las compilaciones generales de <code>bin/</code> y los archivos de <code>releases/</code> permanecen
+fuera del historial. Si necesitas distribuciones independientes,
+<code>tools/package_release.py</code> prepara los archivos de entrega y excluye los datos
+de ejecución y las credenciales.</p>
+<p>Incluye <code>src/go.mod</code>, <code>src/go.sum</code>, los lockfiles, fuentes, pruebas, traducciones, scripts y documentación. No incluyas SQLite, <code>master.key</code>, claves privadas, perfiles de la mini GUI, archivos <code>.hgw/.hgwcfg</code>, logs reales ni tokens. <code>.gitignore</code> ayuda con los archivos nuevos, pero no retira secretos que ya estuvieran versionados.</p>
+<p>Antes de vender, completa las condiciones comerciales y el cumplimiento de dependencias descrito en <a href="LICENCIAS.html">LICENCIAS.md</a>. El runner de Forgejo ejecuta las comprobaciones; los flujos de publicación de GitHub solo actualizan Mis-app y el paquete YunoHost mediante las claves dedicadas descritas arriba.</p>
+<h2 id="solución-de-problemas">Solución de problemas</h2>
+<table>
+<thead>
+<tr>
+<th scope="col">Síntoma</th>
+<th scope="col">Comprobación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>La GUI conecta con read+network, pero no con read solo</td>
+<td>El inventario requiere el ámbito network además del estado</td>
+</tr>
+<tr>
+<td>Error 401</td>
+<td>Token/sesión incorrecto, caducado o ausente</td>
+</tr>
+<tr>
+<td>Error 403</td>
+<td>Rol, scope, política Bearer o requisito de sesión/CSRF</td>
+</tr>
+<tr>
+<td>Catálogo remoto 404</td>
+<td>Publicación desactivada, versión antigua o URL que no es el portal principal</td>
+</tr>
+<tr>
+<td>Certificado inválido</td>
+<td>CA no confiada, hostname/IP fuera del SAN, fecha o resolución DNS</td>
+</tr>
+<tr>
+<td>Servicio HTTPS interno falla por CA desconocida</td>
+<td>Revisa la confianza TLS hacia el backend; no es necesariamente la CA del portal</td>
+</tr>
+<tr>
+<td>El portal remoto no aparece</td>
+<td>Peer no aprobado, servicio no compartido/seleccionado, fallo TLS/ACL o caché caducada</td>
+</tr>
+<tr>
+<td>DNS resuelve pero no conecta</td>
+<td>Comprueba puerto, listener, rutas, ACL y firewall; DNS no prueba conectividad</td>
+</tr>
+<tr>
+<td>Pausa bloqueada desde VPN</td>
+<td>Abre administración local/LAN para evitar cortar la sesión que utilizas</td>
+</tr>
+<tr>
+<td>No aparece bandeja/aviso en Linux</td>
+<td>Soporte del escritorio, notificaciones habilitadas y proceso en ejecución</td>
+</tr>
+<tr>
+<td>SQLite ocupada</td>
+<td>Descarta instancias simultáneas y revisa logs; no borres la base de datos</td>
+</tr>
+<tr>
+<td>Se guardó configuración pero no cambió</td>
+<td>Comprueba si el panel indica reinicio pendiente</td>
+</tr>
+</tbody>
+</table>
+<h2 id="límites-y-licencia">Límites y licencia</h2>
+<p>No se implementa administración remota automática por confiar una CA, descubrimiento irrestricto de toda la zona DNS, instalación remota de CA en clientes, CRL/OCSP de certificados emitidos ni restauración automática de la configuración completa del VPS Headscale. Los límites de tamaño, puertos y caducidad del catálogo están en la guía de federación.</p>
+<p>Las pruebas del helper privilegiado y el recorrido con un segundo Gateway real siguen siendo comprobaciones separadas. Una compilación correcta para Windows/macOS no equivale a ejecutar allí esta revisión.</p>
+<p><strong>Código propio reservado para uso autorizado comercialmente</strong>, según <a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway/src/branch/main/LICENSE">LICENSE</a>. Las dependencias conservan sus licencias y derechos. El módulo de activación por suscripción está desactivado en las compilaciones normales; se habilita antes de compilar con una clave pública del emisor. Consulta <a href="SUSCRIPCIONES.html">SUSCRIPCIONES.md</a>. El cumplimiento de fuentes/licencias del runtime Electron tiene tareas pendientes antes de su redistribución comercial, detalladas en <a href="LICENCIAS.html">LICENCIAS.md</a>.</p>
+<p>Documentación complementaria: <a href="ARQUITECTURA.html">arquitectura</a>, <a href="PRUEBAS.html">pruebas</a>, <a href="CA-FEDERACION.html">CA y federación</a>, <a href="PORTAL_Y_FEDERACION.html">portal</a>, <a href="HELPER_CA.html">helper</a> e <a href="IDIOMAS_Y_REGISTROS.html">idiomas</a>.</p>
+<h2 id="estructura-y-entregas">Estructura y entregas</h2>
+<p>El mapa vigente está en <a href="ESTRUCTURA.html">ESTRUCTURA.md</a>. El motor, el panel y
+el cliente de escritorio están en <code>src/</code>; Android en <code>android/src/</code>.
+Los comandos de desarrollo y compilación se explican en el
+<a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway/src/branch/main/README.md">README del repositorio</a>.
+Las entregas se generan en carpetas nuevas de <code>releases/</code>. Los paquetes listos
+para instalación privada se conservan en <code>addons/</code> y <code>yunohost/</code>.
+No se incluyen bases de datos, credenciales, perfiles ni cachés.</p></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+          <li><a href="#índice">Índice</a></li>
+        
+          <li><a href="#qué-incluye">Qué incluye</a></li>
+        
+          <li><a href="#arquitectura-y-direcciones">Arquitectura y direcciones</a></li>
+        
+          <li><a href="#requisitos">Requisitos</a></li>
+        
+          <li><a href="#instalación-y-primer-acceso">Instalación y primer acceso</a></li>
+        
+          <li><a href="#configuración-inicial">Configuración inicial</a></li>
+        
+          <li><a href="#servicios-dns-y-certificados">Servicios, DNS y certificados</a></li>
+        
+          <li><a href="#panel-de-administración">Panel de administración</a></li>
+        
+          <li><a href="#portal-privado-y-federación">Portal privado y federación</a></li>
+        
+          <li><a href="#mini-gui-y-notificaciones">Mini GUI y notificaciones</a></li>
+        
+          <li><a href="#api-y-cli">API y CLI</a></li>
+        
+          <li><a href="#identidad-y-permisos">Identidad y permisos</a></li>
+        
+          <li><a href="#copias-actualización-y-migración">Copias, actualización y migración</a></li>
+        
+          <li><a href="#registros-e-idiomas">Registros e idiomas</a></li>
+        
+          <li><a href="#compilar-y-verificar">Compilar y verificar</a></li>
+        
+          <li><a href="#publicar-el-complemento-en-mis-app">Publicar el complemento en Mis-app</a></li>
+        
+          <li><a href="#publicar-el-paquete-yunohost">Publicar el paquete YunoHost</a></li>
+        
+          <li><a href="#publicar-en-forgejo-o-github">Publicar en Forgejo o GitHub</a></li>
+        
+          <li><a href="#solución-de-problemas">Solución de problemas</a></li>
+        
+          <li><a href="#límites-y-licencia">Límites y licencia</a></li>
+        
+          <li><a href="#estructura-y-entregas">Estructura y entregas</a></li>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>

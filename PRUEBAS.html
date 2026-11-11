@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>Pruebas · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" >Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" >Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" >Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" >Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" >Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" >Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" >YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" >Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" >Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" >Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" >Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" >Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" >Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" >Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" >Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" >Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" >Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" >Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" aria-current="page">Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" >Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" >Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" >Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" >Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" >Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" >Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <p class="breadcrumb"><a href="index.html">Manual</a><span aria-hidden="true"> / </span>Pruebas</p>
+      <article class="prose"><h1 id="plan-de-regresión-y-despliegue-seguro">Plan de regresión y despliegue seguro</h1>
+<h2 id="automatizadas">Automatizadas</h2>
+<pre tabindex="0"><code class="language-bash">./tools/verify.sh       # Linux/macOS: go -C src test, vet, build, JS y HTML
+# o en PowerShell:
+.\tools\verify.ps1
+</code></pre>
+<p>Comprobación del bloque de recuperación en un proceso aislado Linux/macOS:</p>
+<pre tabindex="0"><code class="language-bash">python3 tools/check_console.py
+</code></pre>
+<p>Pruebas del módulo comercial opcional, sin generar claves reales:</p>
+<pre tabindex="0"><code class="language-bash">CGO_ENABLED=0 go -C src test -tags commercial ./internal/licensing
+CGO_ENABLED=0 go -C src test -tags commercial . -run '^TestCommercial'
+</code></pre>
+<p>Los resultados de esta revisión y los límites de lo probado están en <a href="VERIFICACION_FINAL.html">VERIFICACION_FINAL.md</a>. Las comprobaciones usan instancias temporales y no necesitan claves de producción.</p>
+<h2 id="manuales-obligatorias-antes-de-desplegar">Manuales obligatorias antes de desplegar</h2>
+<ol>
+<li><strong>Primer arranque</strong> en una instalación de prueba nueva (Windows/Fedora),
+   permisos de datos y firewall, panel solo loopback.</li>
+<li><strong>Migración</strong> con una copia consistente de <code>gateway.sqlite</code> y <code>master.key</code>;
+   confirmar que los tokens/OIDC, sesiones y plantillas permanecen intactos.</li>
+<li><strong>Proxy y DNS</strong>: HTTPS LAN y tailnet, servicios, cambios de IP, certificados
+   CA local y ACME, limpieza DNS sin tocar registros externos.</li>
+<li><strong>API</strong>: revisar usuarios viewer/operator/admin, CSRF, tokens delegados y
+   endpoints de Headscale; comprobar también los errores 401/403/404.</li>
+<li><strong>PKI</strong>: peer no autorizado, huella diferente, revocación y rechazo de CA.</li>
+<li><strong>Backup</strong>: exportación/importación <code>.hgw</code>, contraseña equivocada, archivos
+   manipulados y restauración completa en equipo de laboratorio.</li>
+<li><strong>Windows</strong>: ejecutar, reiniciar desde el panel y repetir como servicio;
+   comprobar que no quedan dos procesos con el mismo SQLite abierto.</li>
+<li><strong>Logs</strong>: rotación de 3 canales, DEBUG temporal, redacción de secretos y CLI.</li>
+</ol>
+<p>La comprobación real del producto exige todas estas pruebas. <strong>No probar
+restauraciones destructivas ni políticas ACL de bloqueo sobre la red de
+producción</strong> como primer ensayo.</p></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+          <li><a href="#automatizadas">Automatizadas</a></li>
+        
+          <li><a href="#manuales-obligatorias-antes-de-desplegar">Manuales obligatorias antes de desplegar</a></li>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>

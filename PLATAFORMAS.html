@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>Plataformas y contratos · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" >Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" >Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" >Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" >Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" >Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" >Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" >YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" >Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" >Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" aria-current="page">Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" >Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" >Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" >Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" >Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" >Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" >Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" >Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" >Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" >Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" >Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" >Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" >Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" >Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" >Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" >Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <p class="breadcrumb"><a href="index.html">Manual</a><span aria-hidden="true"> / </span>Plataformas y contratos</p>
+      <article class="prose"><h1 id="una-aplicación-y-sus-integraciones">Una aplicación y sus integraciones</h1>
+<p>Headscale Gateway utiliza el mismo binario, panel, API, autenticación y SQLite
+cuando se ejecuta directamente, en Home Assistant OS o en YunoHost. Los
+instaladores configuran la conexión con el anfitrión; no seleccionan una versión
+alternativa del servidor ni mantienen rutas distintas.</p>
+<p>Para Forgejo privado con <code>git pull</code> y copia local, sigue
+<a href="INSTALACION_PRIVADA.html">Instalación privada</a>. El repositorio incluye
+<code>addons/headscale_gateway/</code> y <code>yunohost/</code> listos para instalar, sin ZIP.</p>
+<h2 id="estructura-del-repositorio">Estructura del repositorio</h2>
+<table>
+<thead>
+<tr>
+<th scope="col">Ubicación</th>
+<th scope="col">Responsabilidad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/</code> y <code>src/internal/</code></td>
+<td>Servidor, panel y lógica funcional compartidos</td>
+</tr>
+<tr>
+<td><code>custom_components/headscale_gateway/</code> y <code>hacs.json</code></td>
+<td>Integración de entidades; copia manual desde Forgejo privado o exportación para Marketplace/HACS en GitHub público</td>
+</tr>
+<tr>
+<td><code>packaging/common/hgw_bootstrap.py</code></td>
+<td>Inicialización común a todos los instaladores</td>
+</tr>
+<tr>
+<td><code>packaging/homeassistant/</code></td>
+<td>Contenedor y conexión con Supervisor</td>
+</tr>
+<tr>
+<td><code>packaging/yunohost/</code></td>
+<td>Instalación, nginx, systemd, actualización y copias</td>
+</tr>
+<tr>
+<td><code>VERSION</code></td>
+<td>Versión común del servidor y sus paquetes</td>
+</tr>
+<tr>
+<td><code>addons/headscale_gateway/</code> y <code>yunohost/</code></td>
+<td>Paquetes generados incluidos en Git para instalación privada</td>
+</tr>
+</tbody>
+</table>
+<p>Los paquetes exportados son artefactos generados desde estas fuentes. No deben
+editarse como forks. <code>CONTRIBUTING.md</code> describe el contrato de mantenimiento.</p>
+<h2 id="rutas-y-autenticación-comunes">Rutas y autenticación comunes</h2>
+<p>Las rutas de aplicación son <code>/admin/</code>, <code>/api/v1/…</code> y las rutas públicas ya
+existentes del Gateway. El proxy HTTPS de servicios conserva su dominio y sus
+subdominios. El panel usa el mismo registro de rutas y las mismas sesiones,
+roles, MFA, tokens y CSRF en todas las instalaciones.</p>
+<table>
+<thead>
+<tr>
+<th scope="col">Acceso</th>
+<th scope="col">Ejemplo de panel</th>
+<th scope="col">Ruta interna</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Directo</td>
+<td><code>http://127.0.0.1:9091/admin/</code></td>
+<td><code>/admin/</code></td>
+</tr>
+<tr>
+<td>YunoHost</td>
+<td><code>https://equipo.example/gateway/admin/</code></td>
+<td><code>/admin/</code></td>
+</tr>
+<tr>
+<td>Home Assistant Ingress</td>
+<td><code>/api/hassio_ingress/&lt;token&gt;/admin/</code></td>
+<td><code>/admin/</code></td>
+</tr>
+</tbody>
+</table>
+<p>El prefijo externo pertenece al anfitrión. La entrada HTTP común lo resuelve
+para recursos, llamadas API, redirecciones y cookies. No hay API alternativa
+para Home Assistant o YunoHost. Solo una delegación <code>proxy_auth</code> configurada
+explícitamente permite identidad del proxy; exige su IP, prefijo, ID de usuario
+y grupo administrativo. Home Assistant la configura para Ingress y YunoHost para
+su portal. El acceso directo conserva la autenticación normal del Gateway.</p>
+<h2 id="arranque-común">Arranque común</h2>
+<p>La configuración funcional continúa en SQLite. <code>GATEWAY_BOOTSTRAP_FILE</code> permite
+proporcionar un archivo JSON privado con parámetros del proceso y valores
+iniciales. Es el mismo contrato para cualquier instalación:</p>
+<pre tabindex="0"><code class="language-json">{
+  &quot;listen_addr&quot;: &quot;127.0.0.1:9091&quot;,
+  &quot;base_path&quot;: &quot;&quot;,
+  &quot;base_path_header&quot;: &quot;&quot;,
+  &quot;trusted_proxies&quot;: [],
+  &quot;allow_frame&quot;: false,
+  &quot;node_name&quot;: &quot;gateway&quot;,
+  &quot;lan_listen_addr&quot;: &quot;0.0.0.0:8443&quot;
+}
+</code></pre>
+<p><code>listen_addr</code> es la conexión administrativa del proceso. Solo se permite HTTP
+fuera de loopback cuando se configura explícitamente una lista de IP de proxies
+confiables. <code>base_path</code> fija un prefijo; <code>base_path_header</code> permite recibirlo de
+un proxy confiable. <code>allow_frame</code> permite insertar el panel en su mismo origen.
+Ninguno de estos campos contiene nombres de plataformas.</p>
+<p><code>node_name</code> y <code>lan_listen_addr</code> son valores iniciales. Una actualización no
+reemplaza los ajustes del usuario. La identidad VPN queda fijada en SQLite y se
+adopta un único directorio de estado anterior al migrar. Se rechaza una selección
+ambigua cuando existen varias identidades.</p>
+<p>Para preparar una instalación con las mismas herramientas que los paquetes:</p>
+<pre tabindex="0"><code class="language-bash">python3 tools/configure.py --data-dir /ruta/datos --config-dir /ruta/privada --admin admin
+</code></pre>
+<p>La herramienta solicita la contraseña sin ponerla en argumentos ni registros y
+muestra el comando de arranque. Crea <code>startup.json</code> y un archivo privado de
+credenciales iniciales. El servidor consume esas credenciales una sola vez;
+no restablece contraseñas ni MFA al actualizar. Los archivos privados requieren
+permisos restrictivos. Sin archivo de arranque se usan los valores configurados
+en SQLite y el procedimiento interactivo habitual de primer acceso.</p>
+<p>Todos los instaladores usan el mismo formato de estado: una carpeta del Gateway
+con SQLite, <code>master.key</code>, certificados, identidad tsnet y copias. El instalador
+elige su ubicación según el sistema. Cuando hay un volumen o carpeta reservada
+al anfitrión, se utiliza una subcarpeta <code>gateway/</code> para permitir restauraciones
+sin sustituir el punto de montaje ni las opciones del anfitrión.</p>
+<h2 id="generar-las-distribuciones">Generar las distribuciones</h2>
+<pre tabindex="0"><code class="language-bash">python3 tools/package_platforms.py
+</code></pre>
+<p>La versión se lee de <code>VERSION</code>. El generador escribe en
+<code>releases/platforms-&lt;VERSION&gt;/</code>, con las carpetas <code>homeassistant/</code>, <code>yunohost/</code>
+y <code>hacs/</code>, sus ZIP y <code>SHA256SUMS</code>. Cada paquete identifica sus fuentes y binarios
+en <code>build-manifest.json</code>. El generador no sobrescribe una entrega existente.</p>
+<p>El repositorio principal contiene las fuentes de la integración, pero también
+aplicaciones OS: Marketplace no admite esta combinación como repositorio de
+instalación. Para una posible publicación de la integración utiliza únicamente
+la exportación <code>hacs/</code> como raíz del repositorio de distribución. Los
+formatos de tienda de Home Assistant y de instalación de YunoHost se exportan
+con sus archivos y payload: no añadas las plantillas sin generar a sus tiendas.
+Los repositorios de distribución que exijan esas plataformas se generan del
+mismo código; no constituyen ramas funcionales distintas.</p>
+<h2 id="home-assistant-os">Home Assistant OS</h2>
+<p>El complemento usa el servidor común. Su lanzador consulta a Supervisor el
+puerto de Ingress y lo traduce a <code>listen_addr</code>, configura su IP como proxy
+confiable y utiliza <code>X-Ingress-Path</code> para el prefijo. No abre un segundo panel
+HTTP de recuperación. El token de Supervisor se retira del entorno antes de
+ejecutar el Gateway.</p>
+<p>Ingress abre el panel compartido con tu sesión de administrador de Home Assistant,
+sin otra contraseña. Requiere ID y grupo <code>system-admin</code> enviados por Supervisor;
+no se emite una cookie reutilizable fuera de Ingress. Las credenciales iniciales
+son opcionales para el acceso directo. Los datos
+están en <code>/data/gateway/</code>; <code>/data/options.json</code> pertenece a Supervisor. Las
+copias nativas son en frío. Se usa red del host para LAN y multicast, sin TUN,
+NET_ADMIN ni acceso al daemon Docker.</p>
+<p>Para publicar Home Assistant, utiliza un backend realmente alcanzable,
+configura sus proxies de confianza y comprueba <code>/api/websocket</code>. La CA privada
+no se instala automáticamente en Core ni en los navegadores. Más instrucciones:
+<code>packaging/homeassistant/DOCS.md</code>.</p>
+<h2 id="marketplace-y-hacs">Marketplace y HACS</h2>
+<p>Desde Home Assistant 2026.11, Marketplace forma parte de Home Assistant, en
+<strong>Ajustes → Marketplace</strong>, y sustituye a HACS. Las integraciones que instala
+siguen siendo comunitarias. Marketplace no instala el servidor Gateway:
+su complemento pertenece a <strong>Ajustes → Aplicaciones</strong>.</p>
+<p>Marketplace y HACS requieren repositorios públicos de GitHub. Para este
+repositorio privado copia <code>custom_components/headscale_gateway/</code> según
+<code>INSTALACION_PRIVADA.md</code> y añade Headscale Gateway en <strong>Dispositivos y servicios</strong>.
+No añadas el repositorio principal a Marketplace: contiene aplicaciones OS,
+que Marketplace rechaza. La carpeta exportada <code>hacs/</code> sirve como base para una
+publicación separada de la integración, generada desde el mismo código y
+pendiente de validación del catálogo. Publicarla no es necesario para usarla
+de forma privada.</p>
+<p>La integración consulta la API común con un token delegado <code>viewer</code> y alcance
+<code>read</code>. Expone siete entidades: VPN, HTTPS LAN, configuración pendiente,
+servicios activos, tiempo activo, origen TLS y dominio. Admite reconfiguración,
+renovación de credenciales y descarga. Una caída hace que las entidades dejen
+de estar disponibles.</p>
+<p>Usa una URL administrativa HTTPS alcanzable desde Core; la URL de Ingress del
+navegador no es un endpoint de autenticación para otro proceso. No se siguen
+redirecciones con el token y TLS se verifica por defecto. Consulta
+<code>packaging/hacs/README.md</code>. La inclusión en el catálogo es una publicación
+distinta de poder instalar un repositorio personalizado público.</p>
+<p>Documentación oficial consultada el 4 de noviembre de 2026:
+<a href="https://contributors.home-assistant.io/marketplace/how-it-works/">Marketplace</a>
+y <a href="https://contributors.home-assistant.io/marketplace/reference/repository-structure/">estructura admitida</a>.</p>
+<h2 id="yunohost">YunoHost</h2>
+<p>El paquete usa formato 2 y helpers 2.1, para YunoHost 12.1.17 o posterior, con
+instalación, actualización, retirada, cambio de URL, backup y restore. nginx
+termina HTTPS y conecta al mismo servidor administrativo por loopback. SSOwat
+controla el acceso exterior y envía la identidad verificada del portal. El mismo
+manejador común entra automáticamente si el usuario pertenece al grupo real
+<code>admins</code>, consultado mediante NSS en cada petición. Requiere SSOwat 12.1.1+ y
+una prueba privada entre nginx y el Gateway; no basta una cabecera desde loopback.
+Se conserva CSRF, sin crear cookies reutilizables fuera del portal. Las cuentas
+locales existentes se conservan para acceso directo.</p>
+<p>No se solicita otra contraseña al instalar. El listener de servicios
+comienza en otro puerto loopback para conservar el 443 de nginx; el 443 virtual
+tsnet sigue disponible. La identidad y el dominio privado no cambian al cambiar
+la URL web de YunoHost.</p>
+<p>El estado está en <code>$data_dir/gateway/</code>. Los backups toman una instantánea con el
+servicio detenido y conservan SQLite, claves e identidad juntos, también antes
+de actualizar. La retirada conserva datos salvo que se solicite purgarlos.
+Las copias nativas también incluyen la prueba privada de nginx y su configuración.
+Consulta <code>packaging/yunohost/README.md</code>.</p>
+<h2 id="verificación">Verificación</h2>
+<pre tabindex="0"><code class="language-bash">./tools/verify.sh
+python3 tools/check_console.py
+python3 tools/check_deployment.py
+CGO_ENABLED=1 go -C src test -race ./internal/admin .
+</code></pre>
+<p>Pruebas de la integración sobre Home Assistant Core:</p>
+<pre tabindex="0"><code class="language-bash">python3.14 -m venv /tmp/hgw-ha-tests
+/tmp/hgw-ha-tests/bin/pip install -r tests/homeassistant/requirements-2026.11.txt
+/tmp/hgw-ha-tests/bin/pip check
+/tmp/hgw-ha-tests/bin/pytest -q -p no:cacheprovider -c tests/homeassistant/pytest.ini tests/homeassistant
+</code></pre>
+<p>La versión 2026.11.0 utiliza las utilidades oficiales <code>pytest-homeassistant</code>
+del mismo lanzamiento, fijadas por commit. No se mezclan con
+<code>pytest-homeassistant-custom-component</code>. Para comprobar regresiones en
+2026.10.4, crea otro entorno y utiliza <code>requirements-2026.10.txt</code>.
+La integración usa las mismas fuentes en ambas versiones.
+Las pruebas incluyen configuración, siete entidades, reconfiguración,
+renovación de credenciales y un servidor HTTP local que comprueba peticiones
+Bearer, caída y recuperación, y reautenticación automática tras un 401.
+No necesitan acceder a Forgejo ni a una instalación real del usuario.</p>
+<p>Resultado del 4 de noviembre de 2026: <strong>12 pruebas correctas en Core 2026.10.4
+y 12 en Core 2026.11.0</strong>, con dependencias coherentes en entornos separados.
+Se ejecuta Core real; la API usada por la prueba HTTP es local y controlada.
+La comprobación de Ingress, VPN y restauración en instalaciones reales de OS
+continúa siendo independiente de estas pruebas de integración.</p>
+<p>Prueba de la imagen con datos desechables y una IP de Supervisor simulada:</p>
+<pre tabindex="0"><code class="language-bash">docker build --build-arg BUILD_VERSION=&quot;$(cat VERSION)&quot; --build-arg BUILD_ARCH=amd64 \
+  -t hgw-ha addons/headscale_gateway
+docker network create --subnet 172.30.32.0/24 hgw-test
+docker run --rm --network hgw-test --ip 172.30.32.2 \
+  --add-host supervisor:127.0.0.1 --entrypoint python3 \
+  -v &quot;$PWD/tools/check_container.py:/check_container.py:ro&quot; \
+  -v &quot;$PWD/addons/headscale_gateway/config.yaml:/addon-config.yaml:ro&quot; hgw-ha /check_container.py
+docker network rm hgw-test
+</code></pre>
+<p>SSO de YunoHost con nginx y NSS reales y una identidad de portal simulada:</p>
+<pre tabindex="0"><code class="language-bash">docker build -f tests/containers/yunohost-sso.Dockerfile -t hgw-ynh-sso yunohost
+docker run --rm -v &quot;$PWD/tools/check_yunohost_sso.py:/check_yunohost_sso.py:ro&quot; hgw-ynh-sso
+</code></pre>
+<p>La prueba usa datos desechables y comprueba raíz/subruta, identidad administrativa,
+CSRF, retirada del grupo, falsificación de cabeceras y persistencia de la prueba
+privada al cambiar la URL. No sustituye una prueba completa de SSOwat/YunoHost.</p>
+<p>Las pruebas comprueban las mismas rutas en las tres formas de acceso,
+inicialización, persistencia de credenciales e identidad, CSRF, restauración,
+cierre e integridad SQLite. La aceptación en Home Assistant OS con Supervisor
+real y <code>package_check</code> en una VM YunoHost sigue requiriendo esas instalaciones:
+compilar y simular un proxy no demuestra el funcionamiento completo de la red
+objetivo, sus ACL, DNS, certificados o hardware ARM64.</p></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+          <li><a href="#estructura-del-repositorio">Estructura del repositorio</a></li>
+        
+          <li><a href="#rutas-y-autenticación-comunes">Rutas y autenticación comunes</a></li>
+        
+          <li><a href="#arranque-común">Arranque común</a></li>
+        
+          <li><a href="#generar-las-distribuciones">Generar las distribuciones</a></li>
+        
+          <li><a href="#home-assistant-os">Home Assistant OS</a></li>
+        
+          <li><a href="#marketplace-y-hacs">Marketplace y HACS</a></li>
+        
+          <li><a href="#yunohost">YunoHost</a></li>
+        
+          <li><a href="#verificación">Verificación</a></li>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>

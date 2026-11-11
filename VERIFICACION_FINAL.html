@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>Validación y límites · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" >Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" >Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" >Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" >Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" >Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" >Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" >YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" >Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" >Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" >Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" >Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" >Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" >Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" >Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" >Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" >Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" >Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" >Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" >Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" >Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" >Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" >Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" >Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" aria-current="page">Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" >Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <p class="breadcrumb"><a href="index.html">Manual</a><span aria-hidden="true"> / </span>Validación y límites</p>
+      <article class="prose"><h1 id="validación-y-límites-conocidos">Validación y límites conocidos</h1>
+<h2 id="revisión-de-dependencias-de-la-versión-146">Revisión de dependencias de la versión 1.4.6</h2>
+<p>Revisión del 11 de noviembre de 2026. Se actualizan Caddy a 2.11.5, go-jose a
+4.1.6, QUIC a 0.63.0 y las dependencias de red y compresión. La compilación
+requiere Go 1.27.4 para incorporar las correcciones de la biblioteca estándar.</p>
+<p>La bandeja fija glob 14.0.4 y minimatch 11.0.8 mediante <code>overrides</code>. El
+empaquetador ASAR todavía solicita versiones principales anteriores. Las
+pruebas comprobaron la creación y lectura de un ASAR, el empaquetado Linux
+completo y el arranque Electron con autenticación de prueba, aislamiento del
+renderer y almacenamiento cifrado. <code>npm audit</code> y <code>govulncheck</code> registraron
+cero vulnerabilidades, incluidos los avisos de módulos sin llamadas detectadas.</p>
+<p>El aviso GHSA-wwhq-w58m-w29c carece de versión corregida declarada en GitHub,
+pero Caddy 2.11.5 ya elimina la segunda expansión de los valores en
+<code>VarsMatcher</code> y <code>MatchVarsRE</code>. Los módulos HTTP de Caddy afectados por ese
+aviso no forman parte de los paquetes compilados del Gateway.</p>
+<p>Para repetir el análisis desde <code>src/</code>, ejecuta
+<code>go run golang.org/x/vuln/cmd/govulncheck@v1.9.0 -show verbose ./...</code>.
+Desde <code>src/desktop/</code>, ejecuta <code>npm ci</code>, <code>npm audit</code>, <code>npm test</code> y
+<code>npm run pack</code>. La prueba <code>npm run smoke</code> requiere un escritorio gráfico.</p>
+<h2 id="revisión-documental-anterior">Revisión documental anterior</h2>
+<p>Revisión documental del 7 de noviembre de 2026, con motor <strong>1.4.4</strong>.
+Esta página distingue las comprobaciones de mantenimiento de la aceptación en
+instalaciones reales. Los procedimientos se mantienen en <a href="PRUEBAS.html">PRUEBAS.md</a>
+y <a href="PLATAFORMAS.html">PLATAFORMAS.md</a>.</p>
+<h2 id="comprobado-durante-esta-actualización">Comprobado durante esta actualización</h2>
+<table>
+<thead>
+<tr>
+<th scope="col">Área</th>
+<th scope="col">Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Estructura y versiones</td>
+<td>Rutas canónicas, avisos de terceros y manifiestos coherentes</td>
+</tr>
+<tr>
+<td>Referencia e idiomas</td>
+<td>108 contratos de código, 20 opciones CLI y 24 operaciones externas; 2.360 mensajes cubiertos</td>
+</tr>
+<tr>
+<td>Contratos Python</td>
+<td>17 pruebas correctas, incluidos exportación, paquetes privados e i18n de solo lectura</td>
+</tr>
+<tr>
+<td>JavaScript</td>
+<td>Sintaxis y 28 pruebas correctas entre panel y bandeja</td>
+</tr>
+<tr>
+<td>Go</td>
+<td>Suite completa, pruebas comerciales, <code>go vet</code>, formato y compilación Linux correctos</td>
+</tr>
+<tr>
+<td>Revisión de comentarios</td>
+<td>Mismos tokens Go en 82 archivos y mismo AST Python en la integración, excluidos comentarios y docstrings</td>
+</tr>
+<tr>
+<td>Exportación</td>
+<td>ZIP de fuentes validado, con 3.874 archivos de contenido y su manifiesto SHA-256</td>
+</tr>
+<tr>
+<td>Instaladores privados</td>
+<td>Home Assistant y YunoHost regenerados y comprobados contra sus fuentes</td>
+</tr>
+<tr>
+<td>Manual web</td>
+<td>Compilación estricta sin avisos; 34 páginas HTML y más de 1.600 enlaces locales comprobados</td>
+</tr>
+<tr>
+<td>Navegador</td>
+<td>Portada, búsqueda por título, navegación a guías de plataforma y menú con teclado revisados; sin desbordamiento horizontal en la vista móvil de 390 px</td>
+</tr>
+</tbody>
+</table>
+<p>Los cambios del motor en esta revisión son comentarios de mantenimiento en
+español. La estructura del código y la versión se conservan. Las guías de
+Home Assistant y YunoHost se incorporan tanto a los instaladores como a la web
+desde sus fuentes originales, sin copias editables independientes.</p>
+<p>Se han retirado metadatos del escritorio y una semilla de traducción que ya
+había sido sustituida por los catálogos. Se conservan los binarios y el archivo
+de fuentes requeridos por los instaladores privados, las licencias y la APK
+actual de pruebas. La salida HTML se genera en <code>builds/manual/</code>.</p>
+<h2 id="validaciones-previas-y-pendientes">Validaciones previas y pendientes</h2>
+<p>La revisión de estructura del 5 de noviembre registró compilaciones Linux,
+Windows y macOS, despliegue aislado, recuperación en consola y comprobaciones
+de firma y alineación de la APK Android. Esas comprobaciones no se vuelven a
+atribuir automáticamente a cada edición de documentación.</p>
+<p>Las pruebas funcionales previas con Headscale HTTPS, servicios, PKI, copias,
+restauración y túnel Android se describen en <a href="ANDROID.html">ANDROID.md</a>. Android
+Lint registró 0 errores y 23 avisos; la instrumentación de la APK reorganizada
+se compiló, pero no se volvió a ejecutar en aquella revisión.</p>
+<p>Siguen pendientes la aceptación completa en Home Assistant OS y en una VM
+YunoHost, <code>package_check</code>, teléfonos físicos, cambios reales de red y batería,
+y proveedores DNS/ACME reales. Las pruebas aisladas y los simuladores no
+sustituyen estas comprobaciones.</p>
+<p>El workflow de GitHub Pages está preparado y el HTML se ha probado localmente.
+La publicación real requiere habilitar Pages en el repositorio elegido. Esta
+actualización no constituye un despliegue web ni una nueva publicación de APK.</p>
+<h2 id="repetir-la-comprobación">Repetir la comprobación</h2>
+<p>Desde la raíz del proyecto:</p>
+<pre tabindex="0"><code class="language-bash">bash tools/verify.sh
+builds/docs-env/bin/python -m mkdocs build --strict
+python3 tools/check_manual.py builds/manual
+sha256sum --check --quiet CONTENIDO.sha256
+</code></pre>
+<p>Prepara el entorno documental según <a href="MANUAL_WEB.html">MANUAL_WEB.md</a>. La suma
+corresponde al contenido entregado; cambiar un archivo hace necesario actualizarla.
+Consulta <a href="DESARROLLO.html">CONTRIBUTING.md</a> antes de preparar un commit.</p>
+<h2 id="comprobar-una-exportación">Comprobar una exportación</h2>
+<p>El archivo externo <code>.zip.sha256</code> verifica el ZIP. Dentro, <code>CONTENIDO.sha256</code>
+contiene la suma de cada archivo entregado. Compruébalo desde la carpeta
+extraída antes de modificarla. El exportador incluye fuentes nativas, manuales,
+capturas, herramientas del manual y paquetes instalables. Excluye historial
+Git, cachés, credenciales, SQLite y perfiles de ejecución.</p>
+<p>La <a href="MIGRACION_REPOSITORIO.html">guía de Git y entregas</a> explica cómo generar una
+exportación y revisarla. Los paquetes de ejecutables incluyen también los
+recursos de las guías, como las capturas, conservando sus subdirectorios.</p></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+          <li><a href="#revisión-de-dependencias-de-la-versión-146">Revisión de dependencias de la versión 1.4.6</a></li>
+        
+          <li><a href="#revisión-documental-anterior">Revisión documental anterior</a></li>
+        
+          <li><a href="#comprobado-durante-esta-actualización">Comprobado durante esta actualización</a></li>
+        
+          <li><a href="#validaciones-previas-y-pendientes">Validaciones previas y pendientes</a></li>
+        
+          <li><a href="#repetir-la-comprobación">Repetir la comprobación</a></li>
+        
+          <li><a href="#comprobar-una-exportación">Comprobar una exportación</a></li>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>

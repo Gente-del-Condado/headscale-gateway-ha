@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>Prueba entre Windows y Linux · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" >Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" >Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" >Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" >Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" >Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" >Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" >YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" >Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" >Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" >Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" >Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" >Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" >Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" >Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" >Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" >Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" >Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" >Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" >Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" >Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" >Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" >Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" aria-current="page">Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" >Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" >Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <p class="breadcrumb"><a href="index.html">Manual</a><span aria-hidden="true"> / </span>Prueba entre Windows y Linux</p>
+      <article class="prose"><h1 id="prueba-de-federación-windows-11-linux">PRUEBA DE FEDERACIÓN WINDOWS 11 → LINUX</h1>
+<p>Objetivo
+Mostrar en el portal de Linux un servicio compartido por otro Gateway Windows.
+No se clonan identidades, bases de datos ni claves privadas entre los equipos.
+Los nombres siguientes son ejemplos: sustituye win-gateway.intra.example.net
+por el dominio principal que muestre tu Gateway Windows.</p>
+<ol>
+<li>Preparar Windows</li>
+<li>Extrae la distribución nueva en una carpeta estable, por ejemplo C:\Gateway.</li>
+<li>Si ya tienes un Gateway Windows, detenlo y sustituye el ejecutable conservando
+  sus datos. Si es nuevo, utiliza un directorio nuevo y una identidad nueva.</li>
+<li>Desde PowerShell, para la estructura del proyecto con bin/:
+  .\bin\headscale-gateway.exe --db C:\GatewayDatos\gateway.sqlite
+  En el paquete reducido el ejecutable está en la raíz: .\headscale-gateway.exe.</li>
+<li>Abre http://127.0.0.1:9091/admin/ en Windows y completa el acceso local.</li>
+<li>Configura dominio base, Headscale y proveedor DNS; usa el mismo dominio base
+  de la red pero otro nombre de nodo. Una clave REST Headscale no es una clave
+  de registro del nodo: completa el login de tsnet y la autorización en Headscale.</li>
+<li>Activa el inventario si quieres descubrir candidatos mediante Headscale.</li>
+<li>
+<p>Revisa el modo HTTPS de administración. No abras el puerto HTTP 9091 a la LAN.</p>
+</li>
+<li>
+<p>Publicar un servicio de prueba</p>
+</li>
+<li>Utiliza un servicio que ya funcione en Windows, con un puerto conocido.</li>
+<li>Si tienes Python, una alternativa aislada es una carpeta vacía con index.html:
+  py -m http.server 18080 --bind 127.0.0.1 --directory C:\GatewayPrueba
+  No utilices una carpeta que contenga tus documentos o claves.</li>
+<li>Crea en Gateway → Servicios un servicio llamado prueba-win con destino
+  http://127.0.0.1:18080 (o el puerto real de tu servicio).</li>
+<li>Confirma que https://prueba-win.win-gateway.intra.example.net/ responde.</li>
+<li>
+<p>Revisa DNS, TLS y ACL antes de seguir. Usa :8443 solo si accedes al listener LAN.</p>
+</li>
+<li>
+<p>Compartir desde Windows</p>
+</li>
+<li>Gateway → Portal privado:
+  activa Mostrar portal principal y Publicar catálogo para otros gateways.</li>
+<li>En prueba-win, marca Visible y Compartir; guarda.</li>
+<li>Elige Solo CA local si quieres probar de forma explícita certificados con CA
+  propia. No cambies una instalación ACME existente solo por esta prueba.</li>
+<li>En Sistema → CA y confianza descarga el certificado público de la autoridad
+  local que corresponda. No copies ca.key, master.key ni claves de servidor.</li>
+<li>Anota su huella SHA-256 y compruébala visualmente en el equipo Windows.</li>
+<li>
+<p>Publicar la CA pública es independiente del catálogo. Actívalo únicamente si
+  también quieres probar la sincronización de CA; no es necesario para importar
+  manualmente su certificado público.</p>
+</li>
+<li>
+<p>Descargar y aprobar la confianza en Linux</p>
+</li>
+<li>En Windows activa Publicar solamente el certificado público de mi CA, en
+  Sistema → CA y confianza. Para Tailnet debe permitirse el acceso HTTPS privado;
+  para la alternativa LAN, el modo de exposición debe permitir también LAN.</li>
+<li>En Linux pulsa Descubrir y descargar CA pendientes en CA y confianza.</li>
+<li>Se intentará Tailnet:443 antes de LAN:8443. La descarga no aprueba la CA.</li>
+<li>Compara su huella con Windows y usa Verificar y aprobar en la fila pendiente.</li>
+<li>La importación por archivo siguiente sigue disponible como alternativa:</li>
+<li>Copia únicamente el archivo CA público .crt/.pem a Linux por un canal conocido.</li>
+<li>Sistema → CA y confianza → Federación:
+  nombre: Gateway Windows de pruebas;
+  origen HTTPS: https://win-gateway.intra.example.net
+  (NO admin.win-gateway..., NO /admin/, NO dirección del servicio prueba-win).</li>
+<li>Selecciona el certificado y pulsa Registrar CA pendiente.</li>
+<li>Comprueba que la huella coincide con la que leíste directamente en Windows.</li>
+<li>Pulsa Verificar y aprobar y completa la confirmación.</li>
+<li>No hace falta pulsar Instalar en SO para que el cliente del catálogo confíe en
+  ese peer. La aprobación local y la instalación en el SO son acciones distintas.</li>
+<li>
+<p>Si los portales usan certificados ACME, el cliente valida las raíces del SO;
+  el registro del Gateway aprobado sigue siendo necesario para seleccionar sus
+  servicios. La CA pública local registrada identifica la relación de confianza.</p>
+</li>
+<li>
+<p>Probar la API antes de añadir enlaces</p>
+</li>
+<li>En Linux, Gateway → Portal privado: activa Mostrar servicios de gateways
+  aprobados y guarda.</li>
+<li>Sistema → API / CLI: pulsa Actualizar índice para cargar la lista de peers.</li>
+<li>En Destino elige Gateway Windows de pruebas. El probador fija GET y la ruta
+  /.well-known/headscale-gateway; no solicita un token del otro Gateway.</li>
+<li>Pulsa Ejecutar. Debe devolver HTTP 200 y un catálogo con protocolo
+  headscale-gateway, versión 1 y el servicio prueba-win.</li>
+<li>404: revisa publicación, versión y portal principal. Error TLS: revisa nombre,
+  resolución, fecha y CA. Error de conexión: revisa ACL/listener/puerto.</li>
+<li>
+<p>Aprobar una CA no permite usar la API administrativa remota. Para administrar
+  Windows utiliza su panel y su propia sesión.</p>
+</li>
+<li>
+<p>Seleccionar y comprobar</p>
+</li>
+<li>Vuelve a Gateway → Portal privado en Linux y pulsa Actualizar catálogos.</li>
+<li>Marca prueba-win del Gateway Windows y guarda.</li>
+<li>Abre el portal principal Linux y filtra por Gateway Windows.</li>
+<li>El enlace debe conservar el dominio del servicio Windows, no el de Linux.</li>
+<li>Ábrelo desde un cliente permitido por las ACL. Con CA local, ese navegador
+  también necesita confiar en la CA Windows; el servidor Linux no instala esa
+  confianza automáticamente en los visitantes.</li>
+<li>
+<p>Desmarca el servicio remoto en Linux y guarda: desaparece el enlace, pero no
+  se elimina el servicio de Windows. Vuelve a seleccionarlo si quieres conservarlo.</p>
+</li>
+<li>
+<p>Descubrimiento opcional</p>
+</li>
+<li>Primero verifica la federación manual anterior.</li>
+<li>Activa descubrimiento en el receptor y, para anunciar por LAN, publicación y
+  descubrimiento en el emisor. Guarda antes de pulsar Buscar gateways.</li>
+<li>LAN requiere UDP 47991 y HTTPS del listener elegido, normalmente TCP 8443,
+  permitidos en el perfil privado del firewall. El programa no abre reglas.</li>
+<li>Tailnet necesita permisos ACL para el nodo tsnet y el listener HTTPS 443.</li>
+<li>El candidato tiene que ser el portal principal. Descubrirlo no importa su CA
+  ni concede aprobación. La zona DNS completa no se enumera.</li>
+<li>
+<p>Si DNS lleva el nombre a una IP Tailnet, Gateway utiliza 443 para ese destino,
+  incluso si el origen guardado indicaba 8443. La alternativa LAN necesita una
+  IP LAN conocida por descubrimiento o inventario; el nombre DNS por sí solo
+  no aporta una dirección LAN si únicamente resuelve a Tailnet.</p>
+</li>
+<li>
+<p>Fallos y revocación (solo con el nodo de pruebas)</p>
+</li>
+<li>Detén Windows temporalmente. Al fallar la siguiente actualización desaparecen
+  sus enlaces remotos; una caché de más de tres minutos tampoco se muestra.</li>
+<li>Arráncalo de nuevo: los enlaces seleccionados vuelven tras actualizar.</li>
+<li>Retira el peer del almacén de confianza Linux: no deben mostrarse sus servicios.
+  Para volver a usarlo repite la importación, comprobación y aprobación.</li>
+<li>No cambies ACL de equipos habituales ni pruebes el helper privilegiado durante
+  esta secuencia: son verificaciones independientes.</li>
+</ol>
+<p>Resultados a anotar
+Windows: versión del binario, URL principal y protocolo del catálogo.
+Linux: HTTP del probador, servicio seleccionado, apertura desde cliente autorizado,
+retirada del enlace, recuperación y revocación. Nunca pegues tokens ni claves.</p></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>

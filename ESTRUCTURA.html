@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>Estructura del proyecto · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" >Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" >Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" >Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" >Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" >Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" >Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" >YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" >Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" >Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" >Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" >Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" >Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" >Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" aria-current="page">Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" >Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" >Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" >Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" >Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" >Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" >Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" >Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" >Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" >Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" >Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" >Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <p class="breadcrumb"><a href="index.html">Manual</a><span aria-hidden="true"> / </span>Estructura del proyecto</p>
+      <article class="prose"><h1 id="estructura-y-mantenimiento">Estructura y mantenimiento</h1>
+<h2 id="fuentes-y-responsables">Fuentes y responsables</h2>
+<table>
+<thead>
+<tr>
+<th scope="col">Directorio</th>
+<th scope="col">Responsabilidad</th>
+<th scope="col">Edición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>src/*.go</code></td>
+<td>Orquestación común, configuración, servicios y DNS</td>
+<td>Fuente principal</td>
+</tr>
+<tr>
+<td><code>src/internal/admin/</code></td>
+<td>Panel, API, sesiones, certificados y copias</td>
+<td>Fuente principal</td>
+</tr>
+<tr>
+<td><code>src/internal/network/</code></td>
+<td>Contratos y llamadas Headscale</td>
+<td>Fuente principal</td>
+</tr>
+<tr>
+<td><code>src/internal/state/</code>, <code>src/internal/securebackup/</code>, <code>src/internal/configtransfer/</code></td>
+<td>SQLite, cifrado y formatos compartidos</td>
+<td>Fuente principal</td>
+</tr>
+<tr>
+<td><code>src/internal/pki/</code>, <code>src/internal/platform/</code></td>
+<td>Certificados y adaptación al sistema</td>
+<td>Fuente principal</td>
+</tr>
+<tr>
+<td><code>src/desktop/</code></td>
+<td>Cliente de bandeja</td>
+<td>Fuente principal</td>
+</tr>
+<tr>
+<td><code>src/tools/</code></td>
+<td>Programas auxiliares Go; mismo módulo</td>
+<td>Fuente principal</td>
+</tr>
+<tr>
+<td><code>src/locale/</code></td>
+<td>Catálogos editables; español como idioma original</td>
+<td>Fuente principal</td>
+</tr>
+<tr>
+<td><code>src/third_party/</code></td>
+<td>Avisos e inventario de licencias; no es vendor de Go</td>
+<td>Conservar avisos originales</td>
+</tr>
+<tr>
+<td><code>android/src/main/</code></td>
+<td>Aplicación Android y JNI</td>
+<td>Fuente principal</td>
+</tr>
+<tr>
+<td><code>android/src/androidTest/</code></td>
+<td>Instrumentación aislada</td>
+<td>Solo pruebas</td>
+</tr>
+<tr>
+<td><code>android/third_party/</code></td>
+<td>Motor HEV y avisos</td>
+<td>Conservar licencias y procedencia</td>
+</tr>
+<tr>
+<td><code>packaging/</code></td>
+<td>Lanzadores e instaladores de las plataformas</td>
+<td>Fuente principal</td>
+</tr>
+<tr>
+<td><code>custom_components/</code></td>
+<td>Entidades Home Assistant</td>
+<td>Fuente principal; ruta convencional</td>
+</tr>
+<tr>
+<td><code>addons/</code>, <code>yunohost/</code></td>
+<td>Instalación desde Git privado</td>
+<td>Generado; no editar</td>
+</tr>
+<tr>
+<td><code>tools/</code></td>
+<td>Automatización de mantenimiento</td>
+<td>Fuente principal</td>
+</tr>
+<tr>
+<td><code>tests/</code></td>
+<td>Pruebas Python, Home Assistant y contenedores</td>
+<td>Fuente principal</td>
+</tr>
+<tr>
+<td><code>docs/</code>, <code>examples/</code></td>
+<td>Manuales, contratos y ejemplos ficticios</td>
+<td>Fuente principal</td>
+</tr>
+<tr>
+<td><code>bin/</code>, <code>builds/</code>, <code>releases/</code></td>
+<td>Resultados de compilación y entrega</td>
+<td>Ignorados por Git salvo el índice de releases</td>
+</tr>
+</tbody>
+</table>
+<p>El módulo conserva sus rutas de importación. Moverlo a <code>src/</code> no cambia sus
+API ni la ubicación de los datos de una instalación. Android adapta lo que
+exige el sistema operativo sin bifurcar servicios, PKI, API o formatos de copia.</p>
+<h2 id="flujo-de-cambio">Flujo de cambio</h2>
+<ol>
+<li>Editar fuentes o plantillas; nunca parchear los paquetes generados.</li>
+<li>Si cambia la versión, ejecutar <code>python3 tools/set_version.py X.Y.Z</code>.</li>
+<li>Regenerar referencia y traducciones cuando cambien sus entradas:
+   <code>python3 tools/reference_catalog.py</code> y <code>python3 tools/extract_i18n.py</code>.
+   Verificar las traducciones con <code>python3 tools/check_i18n.py</code>.</li>
+<li>Regenerar <code>addons/</code> y <code>yunohost/</code> con <code>python3 tools/prepare_git_install.py</code>.</li>
+<li>Ejecutar <code>bash tools/verify.sh</code>. Validar Android si se ha modificado su capa.</li>
+<li>Empaquetar en una carpeta nueva bajo <code>releases/</code>; revisar sus sumas.</li>
+</ol>
+<p><code>git-install-manifest.json</code> relaciona las fuentes con las carpetas instalables.
+No se actualiza a mano. Detecta cambios en las fuentes y modificaciones o
+faltas en los paquetes generados. El exportador exige que esté actualizado.</p>
+<h2 id="datos-fuera-del-código">Datos fuera del código</h2>
+<p>No guardar aquí bases SQLite, claves SSH, claves de firma, claves privadas de
+CA, copias <code>.hgw</code>, perfiles <code>.hgwcfg</code>, credenciales Headscale ni estado tsnet.
+Las pruebas emplean rutas temporales y la APK <code>.lab</code>; no usan los datos de la
+aplicación habitual. Los ejemplos usan dominios e identidades ficticios.</p>
+<h2 id="dependencias">Dependencias</h2>
+<p>Go usa <code>src/go.mod</code> y <code>src/go.sum</code>. Electron usa
+<code>src/desktop/package-lock.json</code>. Android declara SDK, NDK, AGP y JDK en
+sus archivos de construcción y su guía. No se copian cachés ni dependencias
+Node instaladas a las entregas de fuentes. El código HEV incluido en Android
+sí es fuente necesaria y se conserva con sus licencias.</p>
+<h2 id="manual-web-y-continuidad">Manual web y continuidad</h2>
+<p><code>AGENTS.md</code> contiene instrucciones para continuar con otra IA o desarrollador.
+<code>CONTRIBUTING.md</code> detalla el flujo de trabajo. <code>mkdocs.yml</code> define el índice del
+manual y <code>requirements-docs.txt</code> fija su generador.</p>
+<p>Los textos de plataforma se incorporan mediante <code>tools/manual_hooks.py</code> sin
+mantener duplicados editables. La plantilla, estilos y búsqueda residen en
+<code>tools/manual_theme/</code>. <code>tools/check_manual.py</code> comprueba enlaces y anclas del
+resultado HTML. El resultado se genera en <code>builds/manual/</code>, que no se versiona.</p>
+<p>La automatización de GitHub Pages está en <code>.github/workflows/pages.yml</code>;
+requiere activar Pages y la variable de publicación. La comprobación en Forgejo
+se integra en <code>.forgejo/workflows/quality.yml</code>. Ninguna instalación del Gateway
+necesita MkDocs para funcionar.</p></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+          <li><a href="#fuentes-y-responsables">Fuentes y responsables</a></li>
+        
+          <li><a href="#flujo-de-cambio">Flujo de cambio</a></li>
+        
+          <li><a href="#datos-fuera-del-código">Datos fuera del código</a></li>
+        
+          <li><a href="#dependencias">Dependencias</a></li>
+        
+          <li><a href="#manual-web-y-continuidad">Manual web y continuidad</a></li>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>

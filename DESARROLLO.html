@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>Guía de contribución · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" >Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" >Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" >Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" >Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" >Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" >Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" >YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" >Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" >Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" >Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" >Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" >Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" >Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" >Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" >Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" aria-current="page">Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" >Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" >Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" >Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" >Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" >Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" >Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" >Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" >Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" >Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <p class="breadcrumb"><a href="index.html">Manual</a><span aria-hidden="true"> / </span>Guía de contribución</p>
+      <article class="prose"><h1 id="desarrollar-headscale-gateway">Desarrollar Headscale Gateway</h1>
+<p>El motor, SQLite, la autenticación, los servicios, los certificados y las copias
+son comunes a todas las instalaciones. Empieza por <a href="CONTINUIDAD.html">AGENTS.md</a>, el
+<a href="ESTRUCTURA.html">mapa de carpetas</a> y la <a href="ARQUITECTURA.html">arquitectura</a>.</p>
+<h2 id="preparar-el-entorno">Preparar el entorno</h2>
+<p>Trabaja desde la raíz del repositorio. Usa la versión Go indicada en
+<code>src/go.mod</code>, Python 3 y Node.js para las comprobaciones. La bandeja necesita
+las dependencias fijadas en <code>src/desktop/package-lock.json</code>. Android tiene
+requisitos adicionales descritos en <a href="ANDROID_USO.html">su guía</a>.</p>
+<pre tabindex="0"><code class="language-bash">git status --short
+python3 tools/check_repository.py
+python3 tools/set_version.py --check
+bash tools/verify.sh
+</code></pre>
+<p>La primera ejecución de Go puede descargar módulos. Instala las dependencias
+de documentación en un entorno virtual separado siguiendo
+<a href="MANUAL_WEB.html">MANUAL_WEB.md</a>. No guardes credenciales ni datos productivos
+para preparar el entorno. Las pruebas usan directorios temporales.</p>
+<h2 id="elegir-la-fuente-correcta">Elegir la fuente correcta</h2>
+<table>
+<thead>
+<tr>
+<th scope="col">Cambio</th>
+<th scope="col">Fuente que debes editar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Servidor, VPN, DNS, proxy</td>
+<td><code>src/</code> y sus paquetes <code>internal/</code></td>
+</tr>
+<tr>
+<td>Panel, sesión web y API</td>
+<td><code>src/internal/admin/</code></td>
+</tr>
+<tr>
+<td>Integración de sensores</td>
+<td><code>custom_components/headscale_gateway/</code></td>
+</tr>
+<tr>
+<td>Lanzador Home Assistant</td>
+<td><code>packaging/homeassistant/</code></td>
+</tr>
+<tr>
+<td>Instalación y mantenimiento YunoHost</td>
+<td><code>packaging/yunohost/</code></td>
+</tr>
+<tr>
+<td>Contrato inicial de todos los instaladores</td>
+<td><code>packaging/common/hgw_bootstrap.py</code></td>
+</tr>
+<tr>
+<td>Manual y capturas</td>
+<td><code>docs/</code> y los documentos originales de cada plataforma</td>
+</tr>
+</tbody>
+</table>
+<p>Los directorios <code>addons/</code> y <code>yunohost/</code> son resultados versionados para instalar
+por Git privado. No los edites a mano. La plantilla Home Assistant conserva el
+nombre <code>config.yaml.in</code>; el generador crea el <code>config.yaml</code> instalable.</p>
+<pre tabindex="0"><code class="language-bash">python3 tools/prepare_git_install.py
+python3 tools/prepare_git_install.py --check
+</code></pre>
+<p>El manifiesto <code>git-install-manifest.json</code> vincula fuentes y resultados. Guarda
+los paquetes regenerados y el manifiesto en el mismo cambio que sus fuentes.</p>
+<h2 id="mantener-los-contratos">Mantener los contratos</h2>
+<p>Las rutas internas son <code>/admin/</code>, <code>/api/v1/…</code> y las rutas públicas existentes.
+El manejador HTTP común resuelve el prefijo de instalación. Una plataforma no
+debe duplicar manejadores ni autenticación. La delegación <code>proxy_auth</code> verifica
+proxy, identidad y grupo administrativo en cada petición.</p>
+<p>SQLite conserva la configuración funcional. El archivo de arranque aporta
+opciones del anfitrión y valores iniciales. Una actualización conserva
+credenciales, MFA, identidad VPN y datos. Nunca se comparte la misma base o
+identidad entre dos procesos activos.</p>
+<p>Escribe comentarios informativos en español para explicar precondiciones,
+propiedad de recursos, concurrencia y límites de confianza. Conserva los nombres
+públicos, las directivas de compilación y los avisos originales de terceros.
+Evita comentarios que solo repitan la instrucción siguiente.</p>
+<h2 id="documentar-y-comprobar-un-cambio">Documentar y comprobar un cambio</h2>
+<p>Si añades rutas o mensajes, actualiza sus catálogos antes de verificar:</p>
+<pre tabindex="0"><code class="language-bash">python3 tools/reference_catalog.py
+python3 tools/extract_i18n.py
+python3 tools/check_i18n.py
+</code></pre>
+<p>La extracción escribe archivos; <code>--check</code> y la comprobación de traducciones son
+de solo lectura. Edita las traducciones humanas en <code>src/locale/</code>.</p>
+<table>
+<thead>
+<tr>
+<th scope="col">Área modificada</th>
+<th scope="col">Comprobaciones</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Motor, panel o empaquetado</td>
+<td><code>bash tools/verify.sh</code></td>
+</tr>
+<tr>
+<td>Recuperación o inicio interactivo</td>
+<td><code>python3 tools/check_console.py</code></td>
+</tr>
+<tr>
+<td>Despliegue, proxy o persistencia</td>
+<td><code>python3 tools/check_deployment.py</code></td>
+</tr>
+<tr>
+<td>Concurrencia Go</td>
+<td><code>CGO_ENABLED=1 go -C src test -race ./internal/admin .</code></td>
+</tr>
+<tr>
+<td>Home Assistant y YunoHost</td>
+<td>Suites y aceptación descritas en <a href="PLATAFORMAS.html">PLATAFORMAS.md</a></td>
+</tr>
+<tr>
+<td>Manual</td>
+<td>Compilación estricta y <code>python3 tools/check_manual.py builds/manual</code></td>
+</tr>
+<tr>
+<td>Android</td>
+<td><a href="ANDROID_USO.html">Compilación y validación Android</a></td>
+</tr>
+</tbody>
+</table>
+<p>No atribuyas a pruebas aisladas resultados de instalación en equipos reales.
+Documenta los límites y los pasos pendientes. Los cambios de lógica necesitan
+pruebas del comportamiento, incluidos errores y conservación de datos.</p>
+<p>Los flujos de calidad de GitHub y Forgejo ejecutan <strong>Seguridad de dependencias</strong>
+en cada <code>push</code> y <code>pull_request</code>, sin filtros de archivos. El checkout corresponde
+al evento del cambio, sin fijarlo a <code>main</code>; en los pull requests se analiza el
+código que prepara cada plataforma para ese evento. Este trabajo se ejecuta
+en paralelo a las pruebas y no usa secretos de publicación.</p>
+<p>Se aplican las mismas auditorías previas a Mis-app y al paquete YunoHost: <code>govulncheck@v1.9.0</code>
+a nivel de módulo y de llamadas Go, instalación npm sin scripts y
+<code>npm audit --include=dev --audit-level=low</code>. Una vulnerabilidad o un error del
+análisis deja el trabajo fallido. Los comandos para repetirlo están en
+<a href="USO_COMPLETO.html#publicar-el-complemento-en-mis-app">publicación en Mis-app</a>.
+El <a href="USO_COMPLETO.html#publicar-el-paquete-yunohost">publicador YunoHost</a>
+exporta exclusivamente <code>yunohost/</code> a la raíz de su repositorio de distribución,
+después de validar los manifiestos y los binarios de ambas arquitecturas.</p>
+<p>Para impedir una fusión con ese resultado fallido, la protección de <code>main</code>
+en cada servidor debe exigir el estado <strong>Seguridad de dependencias</strong>. Declarar
+el trabajo en YAML proporciona el resultado del análisis; no cambia las reglas
+de protección del repositorio. Los PR de colaboradores externos pueden necesitar
+la aprobación de ejecución exigida por el servidor.</p>
+<p>El runner de Forgejo debe estar en línea y anunciar la etiqueta
+<code>ubuntu-latest</code>. El trabajo de pruebas prepara Python 3.12 mediante la acción
+oficial <code>astral-sh/setup-uv</code>, fijada a un commit, y <code>uv</code> 0.13.7. El intérprete
+y el entorno virtual se instalan en <code>RUNNER_TEMP</code>, sin APT ni privilegios root
+ni cambios en el Python del servidor YunoHost. Se necesita acceso a las
+publicaciones oficiales de Astral y a PyPI para las dependencias del manual.
+Forgejo no admite el campo <code>permissions</code> de GitHub: sus permisos se gestionan
+en el servidor y los PR externos quedan sujetos a sus restricciones propias.</p>
+<p>La protección de <code>main</code> en Forgejo exige el contexto exacto
+<code>Calidad multiplataforma / Seguridad de dependencias (pull_request)</code>, también
+para administradores, y deshabilita los pushes directos. Las reglas de GitHub
+para repositorios privados de una organización requieren un plan que permita
+aplicarlas (Team o Enterprise); crear una regla con un plan incompatible no
+proporciona ese bloqueo.</p>
+<h2 id="versiones-commits-y-entregas">Versiones, commits y entregas</h2>
+<p><code>VERSION</code> es la versión común de motor y paquetes, en formato <code>X.Y.Z</code>. Se cambia
+con <code>python3 tools/set_version.py X.Y.Z</code>. Una etiqueta Git identifica un commit;
+la etiqueta documental <code>v0.1.0.1</code> mantiene el motor <code>1.4.4</code>.</p>
+<p>Antes de guardar un commit, revisa el diff y añade los archivos intencionados.
+La suma se genera después de preparar el índice para incluir los archivos nuevos
+y excluir los eliminados:</p>
+<pre tabindex="0"><code class="language-bash">git add --all
+git diff --cached --stat
+git ls-files -z -- . ':(exclude)CONTENIDO.sha256' | xargs -0 sha256sum &gt; CONTENIDO.sha256
+git add CONTENIDO.sha256
+sha256sum --check --quiet CONTENIDO.sha256
+git commit -m &quot;Describir el cambio realizado&quot;
+</code></pre>
+<p>La <a href="MIGRACION_REPOSITORIO.html">guía Git</a> explica SSH, subida de <code>main</code>,
+etiquetas nuevas y exportación. No reemplaces etiquetas publicadas ni borres
+historial para limpiar archivos. La <a href="MANUAL_WEB.html">guía del manual</a> explica
+la publicación independiente en GitHub Pages.</p></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+          <li><a href="#preparar-el-entorno">Preparar el entorno</a></li>
+        
+          <li><a href="#elegir-la-fuente-correcta">Elegir la fuente correcta</a></li>
+        
+          <li><a href="#mantener-los-contratos">Mantener los contratos</a></li>
+        
+          <li><a href="#documentar-y-comprobar-un-cambio">Documentar y comprobar un cambio</a></li>
+        
+          <li><a href="#versiones-commits-y-entregas">Versiones, commits y entregas</a></li>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>

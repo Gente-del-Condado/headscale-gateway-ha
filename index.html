@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>Inicio · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" aria-current="page">Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" >Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" >Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" >Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" >Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" >Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" >YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" >Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" >Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" >Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" >Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" >Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" >Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" >Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" >Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" >Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" >Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" >Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" >Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" >Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" >Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" >Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" >Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" >Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" >Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      
+      <article class="prose"><p class="eyebrow">Documentación del proyecto</p>
+
+<h1 id="tus-servicios-privados-paso-a-paso">Tus servicios privados, paso a paso</h1>
+<p class="lead">Instala Headscale Gateway, conecta tu red y publica tus servicios con HTTPS. Este manual reúne el uso diario, las integraciones y las referencias que necesitas para mantener el proyecto.</p>
+
+<div class="manual-actions">
+<p><a href="PRIMEROS_PASOS.html">Empezar con el Gateway</a>
+<a href="HOME_ASSISTANT.html">Instalar en Home Assistant</a></p>
+</div>
+<figure>
+<img src="capturas/api-cli.png" alt="Panel real de Headscale Gateway con el índice de API y CLI, sus filtros y los permisos de una operación" width="1200" height="967" fetchpriority="high">
+<figcaption>Panel del proyecto con datos de laboratorio. El índice API muestra las operaciones que registra el servidor. Las capturas utilizan la interfaz del proyecto.</figcaption>
+</figure>
+
+<p><a href="CAPTURAS.html">Ver las capturas y su procedencia</a></p>
+<h2 id="elige-por-dónde-empezar">Elige por dónde empezar</h2>
+<div class="route-grid">
+<section>
+<h3 id="instalar">Instalar</h3>
+<p>Encuentra los requisitos, la carpeta correcta y el primer acceso de tu plataforma.</p>
+<p><a href="HOME_ASSISTANT.html">Home Assistant</a> · <a href="YUNOHOST.html">YunoHost</a> · <a href="ANDROID_USO.html">Android</a> · <a href="USO_COMPLETO.html#instalación-y-primer-acceso">Linux y Windows</a></p>
+</section>
+<section>
+<h3 id="usar-y-administrar">Usar y administrar</h3>
+<p>Publica tu primer servicio, prepara DNS y certificados y aprende a recuperar el acceso.</p>
+<p><a href="PRIMEROS_PASOS.html">Primeros pasos</a> · <a href="EJEMPLOS.html">Ejemplos</a> · <a href="SOLUCION_PROBLEMAS.html">Resolver problemas</a></p>
+</section>
+<section>
+<h3 id="mantener-el-código">Mantener el código</h3>
+<p>Localiza cada componente, ejecuta las pruebas y prepara una actualización reproducible.</p>
+<p><a href="ESTRUCTURA.html">Estructura</a> · <a href="ARQUITECTURA.html">Arquitectura</a> · <a href="DESARROLLO.html">Contribuir</a></p>
+</section>
+<section>
+<h3 id="continuar-con-otra-ia">Continuar con otra IA</h3>
+<p>Parte de los contratos actuales, identifica las fuentes y comprueba cada cambio.</p>
+<p><a href="CONTINUIDAD.html">Guía de continuidad</a> · <a href="MANUAL_WEB.html">Editar el manual</a> · <a href="VERIFICACION_FINAL.html">Validación</a></p>
+</section>
+</div>
+<h2 id="qué-hace-cada-pieza">Qué hace cada pieza</h2>
+<table>
+<thead>
+<tr>
+<th scope="col">Pieza</th>
+<th scope="col">Para qué sirve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Headscale</td>
+<td>Coordina el acceso de los nodos de tu red privada. Debe existir antes de conectar el Gateway.</td>
+</tr>
+<tr>
+<td>Motor Gateway</td>
+<td>Ejecuta el nodo VPN, recibe las conexiones HTTPS y las envía al servicio configurado.</td>
+</tr>
+<tr>
+<td>Panel de administración</td>
+<td>Gestiona servicios, DNS, certificados, acceso, copias y red desde el navegador.</td>
+</tr>
+<tr>
+<td>Portal privado</td>
+<td>Presenta los enlaces a servicios locales y a los de otros gateways aprobados.</td>
+</tr>
+<tr>
+<td>Integración de Home Assistant</td>
+<td>Consulta el estado del Gateway y crea siete entidades.</td>
+</tr>
+<tr>
+<td>Cliente de bandeja</td>
+<td>Muestra estado y notificaciones y permite abrir el panel de una instalación existente.</td>
+</tr>
+</tbody>
+</table>
+<p>Todas las plataformas usan el mismo motor y los mismos formatos de datos. La configuración reside en SQLite. Cada instalación conserva su propia identidad VPN, credenciales y certificados.</p>
+<h2 id="antes-de-usarlo">Antes de usarlo</h2>
+<p>Prepara la URL de Headscale, un nombre estable para el nodo y un dominio resoluble desde tus clientes. Las funciones DNS y la emisión de certificados necesitan sus permisos específicos. El <a href="USO_COMPLETO.html">manual de uso</a> explica las opciones y los <a href="EJEMPLOS.html">ejemplos completos</a> utilizan datos ficticios.</p>
+<p>La versión del motor se consulta en <strong>Acerca de</strong> o con <code>headscale-gateway version</code>. Los paquetes de plataforma y Android tienen comprobaciones específicas pendientes en equipos reales, detalladas en <a href="VERIFICACION_FINAL.html">validación y límites</a>.</p></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+          <li><a href="#elige-por-dónde-empezar">Elige por dónde empezar</a></li>
+        
+          <li><a href="#qué-hace-cada-pieza">Qué hace cada pieza</a></li>
+        
+          <li><a href="#antes-de-usarlo">Antes de usarlo</a></li>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>

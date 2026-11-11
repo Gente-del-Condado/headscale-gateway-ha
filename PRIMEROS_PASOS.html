@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>Primeros pasos · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" >Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" aria-current="page">Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" >Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" >Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" >Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" >Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" >YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" >Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" >Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" >Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" >Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" >Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" >Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" >Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" >Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" >Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" >Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" >Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" >Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" >Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" >Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" >Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" >Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" >Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" >Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <p class="breadcrumb"><a href="index.html">Manual</a><span aria-hidden="true"> / </span>Primeros pasos</p>
+      <article class="prose"><h1 id="primeros-pasos">Primeros pasos</h1>
+<p>El objetivo de este recorrido es abrir el panel, conectar un Gateway a Headscale y publicar un servicio de prueba. Utiliza un nodo y un servicio que puedas probar antes de aplicarlo a tu instalación habitual.</p>
+<h2 id="reúne-los-datos-de-la-instalación">Reúne los datos de la instalación</h2>
+<table>
+<thead>
+<tr>
+<th scope="col">Dato</th>
+<th scope="col">Ejemplo ficticio</th>
+<th scope="col">Dónde se utiliza</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>URL de Headscale</td>
+<td><code>https://headscale.example.net</code></td>
+<td>Conexión del nodo VPN y API de Headscale</td>
+</tr>
+<tr>
+<td>Nombre del nodo</td>
+<td><code>casa</code></td>
+<td>Identidad y nombres de los servicios</td>
+</tr>
+<tr>
+<td>Dominio de servicios</td>
+<td><code>intra.example.net</code></td>
+<td>Portal, servicios y administración HTTPS</td>
+</tr>
+<tr>
+<td>Destino de prueba</td>
+<td><code>http://192.0.2.20:8080</code></td>
+<td>Dirección que debe alcanzar el proceso Gateway</td>
+</tr>
+<tr>
+<td>Certificados</td>
+<td>CA local o ACME DNS-01</td>
+<td>HTTPS de los servicios</td>
+</tr>
+<tr>
+<td>DNS</td>
+<td>Manual, Technitium o Cloudflare</td>
+<td>Resolver nombres hacia el Gateway</td>
+</tr>
+</tbody>
+</table>
+<p>Las direcciones <code>example.net</code> y <code>192.0.2.0/24</code> son ejemplos. Sustitúyelas por direcciones alcanzables en tu instalación. La clave de API de Headscale permite consultar y administrar su API. La clave de alta de nodos autoriza la incorporación a la VPN. Comprueba qué credencial solicita cada campo del panel.</p>
+<h2 id="elige-dónde-ejecutar-el-gateway">Elige dónde ejecutar el Gateway</h2>
+<ul>
+<li><strong>Home Assistant OS</strong>. Sigue <a href="HOME_ASSISTANT.html">la guía del complemento</a>. Abre su interfaz con una sesión administradora de Home Assistant.</li>
+<li><strong>YunoHost</strong>. Sigue <a href="YUNOHOST.html">la guía de YunoHost</a>. Accede desde el portal con un usuario del grupo <code>admins</code>.</li>
+<li><strong>Android</strong>. Consulta <a href="ANDROID_USO.html">instalación y uso de la APK</a>, incluidos los permisos de VPN y el estado de validación.</li>
+<li><strong>Linux, Windows o macOS</strong>. Ejecuta el servidor con una ubicación estable para <code>gateway.sqlite</code>. El <a href="USO_COMPLETO.html#instalación-y-primer-acceso">manual de uso</a> contiene comandos y directorios.</li>
+</ul>
+<p>El complemento de Home Assistant ejecuta el motor. La integración de entidades se instala por separado y consulta un motor que ya está funcionando.</p>
+<h2 id="abre-el-panel-por-primera-vez">Abre el panel por primera vez</h2>
+<p>En Home Assistant utiliza <strong>Abrir interfaz web</strong>. En YunoHost utiliza el enlace de la aplicación en el portal. En una instalación directa, abre <code>http://127.0.0.1:9091/admin/</code> desde el equipo donde ejecutas el proceso y sigue el acceso inicial de la consola.</p>
+<p>Si necesitas entrar desde otro equipo a una instalación directa, puedes usar un túnel SSH hacia el listener local.</p>
+<pre tabindex="0"><code class="language-bash">ssh -L 9091:127.0.0.1:9091 usuario@servidor
+</code></pre>
+<p>Con el túnel abierto, visita <code>http://127.0.0.1:9091/admin/</code> en tu ordenador. La URL loopback siempre se refiere al equipo desde el que se abre el navegador.</p>
+<h2 id="configura-y-conecta">Configura y conecta</h2>
+<ol>
+<li>En <strong>Sistema → Configuración</strong>, escribe la URL de Headscale y el dominio base de servicios.</li>
+<li>Define el nombre estable del nodo. Conserva ese nombre después del alta.</li>
+<li>Selecciona el proveedor DNS y el modo de certificados. Con DNS manual tendrás que crear los registros correspondientes.</li>
+<li>Guarda. Si aparece un aviso de reinicio pendiente, reinicia desde el panel.</li>
+<li>Completa la autorización de Headscale que solicite el Gateway.</li>
+<li>En <strong>Headscale → Red y nodos</strong>, comprueba que el nodo esté conectado. Confirma sus IP y las rutas permitidas.</li>
+<li>En <strong>Sistema → Acceso / Identidad</strong>, revisa los métodos de acceso y los roles que vas a utilizar.</li>
+</ol>
+<p>El listener administrativo y los listeners de servicios tienen funciones diferentes. El acceso por Ingress o SSO permite configurar el motor antes de que su VPN esté conectada.</p>
+<h2 id="publica-un-servicio-de-prueba">Publica un servicio de prueba</h2>
+<ol>
+<li>Comprueba desde el anfitrión del Gateway que el destino responde.</li>
+<li>Abre <strong>Gateway → Servicios</strong> y pulsa <strong>Nuevo servicio</strong>.</li>
+<li>Utiliza <code>documentos</code> como nombre y la URL real del servicio como backend.</li>
+<li>Guarda y comprueba el resultado de la recarga.</li>
+<li>Revisa que <code>documentos.casa.intra.example.net</code> resuelva a la IP del Gateway que usarán los clientes.</li>
+<li>Si empleas CA local, descarga su certificado público desde <strong>Sistema → CA y confianza</strong>, verifica la huella e instala la confianza en el cliente.</li>
+<li>Abre la URL HTTPS del servicio y comprueba que el certificado corresponde al nombre visitado.</li>
+</ol>
+<p>Los <a href="EJEMPLOS.html">ejemplos</a> desarrollan este recorrido y el caso de Home Assistant con WebSocket.</p>
+<h2 id="prepara-la-recuperación">Prepara la recuperación</h2>
+<p>Antes de depender del Gateway, crea una copia cifrada desde <strong>Sistema → Copias de seguridad</strong> y guárdala fuera del equipo. Conserva su contraseña en un lugar accesible para quien deba restaurarla. Ensaya la recuperación en una instalación aislada.</p>
+<p>Consulta <a href="RECUPERAR_ACCESO.html">recuperar el acceso</a> para el código de consola y <a href="SOLUCION_PROBLEMAS.html">solución de problemas</a> para los fallos habituales.</p></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+          <li><a href="#reúne-los-datos-de-la-instalación">Reúne los datos de la instalación</a></li>
+        
+          <li><a href="#elige-dónde-ejecutar-el-gateway">Elige dónde ejecutar el Gateway</a></li>
+        
+          <li><a href="#abre-el-panel-por-primera-vez">Abre el panel por primera vez</a></li>
+        
+          <li><a href="#configura-y-conecta">Configura y conecta</a></li>
+        
+          <li><a href="#publica-un-servicio-de-prueba">Publica un servicio de prueba</a></li>
+        
+          <li><a href="#prepara-la-recuperación">Prepara la recuperación</a></li>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>

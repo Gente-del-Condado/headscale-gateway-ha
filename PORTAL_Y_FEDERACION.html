@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>Portal y federación · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" >Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" >Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" >Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" >Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" >Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" >Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" >YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" >Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" >Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" >Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" >Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" >Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" >Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" >Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" >Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" >Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" >Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" >Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" >Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" >Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" aria-current="page">Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" >Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" >Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" >Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" >Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <p class="breadcrumb"><a href="index.html">Manual</a><span aria-hidden="true"> / </span>Portal y federación</p>
+      <article class="prose"><h1 id="portal-privado-y-federación-25102026">PORTAL PRIVADO Y FEDERACIÓN — 25/10/2026</h1>
+<h2 id="administración">Administración</h2>
+<p>Gateway → Portal privado. El portal principal solo muestra enlaces y búsqueda.
+Todas las modificaciones requieren sesión interactiva de administrador y CSRF;
+los tokens Bearer y las sesiones viewer no pueden administrar este módulo.</p>
+<p>Personalización: título, descripción, tema claro/oscuro, color, logo y favicon
+PNG (hasta 128 KiB y 1024×1024). Los cambios se guardan en SQLite y se aplican
+sin reiniciar; una copia de SQLite incluye también estas imágenes.
+Por servicio local: nombre visible, descripción, grupo, visibilidad y Compartir.
+Ocultar un servicio solo retira su enlace y su anuncio: no elimina el proxy,
+no lo protege con contraseña y no modifica las ACL.</p>
+<h2 id="módulos-independientes">Módulos independientes</h2>
+<p>Mostrar portal: activado inicialmente, conserva el acceso a servicios.
+Buscador/filtro y enlace a administración: opcionales.
+Publicar catálogo, federación y descubrimiento: desactivados inicialmente.
+Guardar la configuración antes de usar Actualizar catálogos o Buscar gateways.</p>
+<h2 id="publicación">Publicación</h2>
+<p>El portal principal expone /.well-known/headscale-gateway SOLO al activar
+Publicar catálogo. El protocolo versionado incluye exclusivamente servicios
+locales visibles marcados Compartir, con sus enlaces HTTPS y textos públicos.
+No incluye destinos internos de proxy, credenciales, CA privadas, configuración
+administrativa ni los servicios importados de otros gateways.
+No hay publicación transitiva: se evitan bucles y redistribución de terceros.</p>
+<p>Si activas publicación, cualquier equipo que pueda alcanzar ese puerto HTTPS
+puede leer el catálogo. Las ACL/firewall siguen controlando la conexión.
+La CA pública se comparte con un interruptor distinto en CA y confianza.</p>
+<h2 id="descubrimiento">Descubrimiento</h2>
+<p>Se combinan los anuncios LAN existentes y nombres de nodos de Headscale.
+En Headscale, el nombre debe ser un nodo simple de la zona base, y la resolución
+DNS debe coincidir con alguna IP inventariada del nodo. Después se consulta el
+catálogo principal por HTTPS para confirmar protocolo y acceso.
+No se enumera toda la zona del proveedor DNS ni se sondean subdominios de
+servicios. Los peers ya configurados también se comprueban explícitamente.
+Se inspeccionan hasta 24 candidatos por búsqueda, con cuatro consultas a la vez,
+tiempo limitado y resultados que distinguen catálogo accesible de errores.</p>
+<p>La emisión LAN anuncia el portal principal, nunca el panel de administración.
+Se activa cuando publicación y descubrimiento están habilitados. Se conserva
+el anuncio de CA cuando estaba expresamente habilitado para LAN.
+UDP 47991 debe estar permitido en la red privada. No se modifica el cortafuegos.
+La federación admite puertos HTTPS personalizados en LAN (1..65535). Tailnet utiliza HTTPS 443. El puerto UDP de descubrimiento también puede configurarse, igual en ambos gateways. Véase RED_Y_CA_LAN.md para el HTTP opcional de CA pendiente.
+El acceso prioriza direcciones Tailnet por HTTPS 443, incluso si el peer antiguo
+se registró con :8443. Las direcciones LAN se obtienen de DNS, endpoints del
+inventario tsnet y anuncios LAN; se usa el puerto LAN conocido (8443 por defecto).
+La IP de destino queda fijada, conservando el hostname para SNI y validación TLS.
+No se envía tráfico Tailnet mediante el cliente VPN del sistema. Si no se conoce
+una IP LAN, no se inventa: la búsqueda indicará el fallo de conectividad.
+No se finge que una respuesta DNS o un anuncio multicast demuestre confianza.</p>
+<h2 id="confianza-y-selección">Confianza y selección</h2>
+<ol>
+<li>Actualiza ambos gateways a una versión que publique este protocolo.</li>
+<li>En el de origen, activa Publicar catálogo y marca Compartir en los servicios
+   elegidos. Opcionalmente activa Descubrimiento para anunciarlo en LAN.</li>
+<li>En el receptor, registra en CA y confianza la CA pública y el ORIGEN DEL
+   PORTAL PRINCIPAL (ejemplo https://nas.intra.example.net, sin admin. ni /admin/).
+   Verifica la huella con el administrador del origen y aprueba el Gateway.
+   Preparar confianza rellena nombre y URL, pero no aprueba ni importa una CA.
+   Si un peer anterior apunta al subdominio admin., registra el origen principal
+   y vuelve a verificar/aprobar la relación.</li>
+<li>En Portal privado, activa federación, guarda y actualiza catálogos.</li>
+<li>Marca únicamente los servicios remotos deseados y guarda.</li>
+</ol>
+<p>No es necesario instalar la CA del otro Gateway en el almacén del SO.
+El cliente del catálogo valida HTTPS con las CA del sistema o la CA aprobada
+del peer. Así funcionan tanto certificados ACME como certificados locales.
+La sincronización de la CA mantiene su comprobación específica de huella;
+consultar catálogos no sustituye esa comprobación ni aprueba una CA nueva.</p>
+<h2 id="protecciones">Protecciones</h2>
+<p>Se permiten conexiones solo a direcciones LAN/Tailnet y puertos admitidos.
+La IP resuelta se fija para la conexión, sin proxies de entorno ni redirecciones.
+Tailnet usa tsnet del Gateway y sus ACL, sin recurrir al cliente VPN del SO.
+El JSON está limitado a 1 MiB y 500 entradas. Los enlaces deben pertenecer a
+subdominios de servicio inmediatos del mismo portal, sin credenciales ni
+rutas arbitrarias. No se acepta contenido HTML remoto como interfaz.
+Máximo 200 selecciones; actualización de hasta 32 peers por ronda.
+Los gateways seleccionados se actualizan cada minuto. Si falla una consulta,
+se ocultan sus enlaces; una comprobación de más de tres minutos también caduca.
+Revocar la aprobación del peer impide seguir mostrando sus servicios.
+No se borran las selecciones guardadas por una caída temporal.</p>
+<p>La accesibilidad se mide desde el Gateway receptor, no desde cada visitante.
+Un visitante puede tener ACL distintas: ver un enlace nunca concede acceso
+ni garantiza que su equipo pueda abrirlo.</p>
+<h2 id="verificación">Verificación</h2>
+<p>Pruebas Go: módulos apagados, persistencia, aplicación inmediata, redacción del
+catálogo, escape de HTML, validación de imágenes, rechazo de enlaces externos,
+TLS verificado, IP fijada, rechazo de redirecciones/respuestas excesivas,
+uso de tsnet sin fallback, caducidad y revocación.
+Pruebas de sesión/CSRF: GET y modificaciones solo para administrador interactivo.
+Electron: edición, compartir, selección remota, actualización sin perder
+borrador y candidatos; regresiones del resto del panel y traducciones.
+No hay peers aprobados en la instalación local: falta comprobar el recorrido
+completo con un segundo Gateway real. No se activó publicación ni se modificaron
+ACL, reglas DNS o cortafuegos de la instalación para realizar estas pruebas.</p>
+<p>DESCARGA DE CA PENDIENTES
+En CA y confianza, Descubrir gateways muestra las rutas candidatas. Descargar CA
+pendiente descarga un candidato; Descubrir y descargar CA pendientes los intenta
+en lote limitado. Primero se consulta https://admin.<nodo>/pki/v1/public-ca por
+Tailnet y después el portal principal para compatibilidad con la publicación
+existente; si falla, se prueban direcciones LAN conocidas. La publicación de CA
+del emisor debe estar activada y su modo de exposición debe permitir esa red.</p>
+<p>Como su raíz todavía es desconocida, esta descarga inicial no autentica la CA:
+solo acepta HTTPS con nombre y fecha válidos, sin cookies/tokens, redirecciones
+ni proxies, y un único certificado raíz público válido de hasta 64 KiB. Se guarda
+PENDIENTE. Compara siempre la huella con el otro equipo antes de aprobar.
+Esta excepción de arranque NO se utiliza para catálogos ni sincronización de
+peers aprobados, que validan TLS normalmente. Descargar de nuevo una CA existente
+no sobrescribe su autorización, nombre ni endpoint. No instala nada en el SO.</p></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+          <li><a href="#administración">Administración</a></li>
+        
+          <li><a href="#módulos-independientes">Módulos independientes</a></li>
+        
+          <li><a href="#publicación">Publicación</a></li>
+        
+          <li><a href="#descubrimiento">Descubrimiento</a></li>
+        
+          <li><a href="#confianza-y-selección">Confianza y selección</a></li>
+        
+          <li><a href="#protecciones">Protecciones</a></li>
+        
+          <li><a href="#verificación">Verificación</a></li>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>YunoHost · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" >Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" >Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" >Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" >Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" >Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" >Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" aria-current="page">YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" >Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" >Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" >Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" >Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" >Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" >Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" >Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" >Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" >Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" >Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" >Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" >Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" >Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" >Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" >Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" >Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" >Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" >Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <p class="breadcrumb"><a href="index.html">Manual</a><span aria-hidden="true"> / </span>YunoHost</p>
+      <article class="prose"><h1 id="headscale-gateway-para-yunohost">Headscale Gateway para YunoHost</h1>
+<p>Compatible con YunoHost 12.1.17 o posterior, en amd64 y arm64. Incluye
+instalación en la raíz o en una subruta, varias instancias, panel HTTPS mediante
+nginx, servicio systemd, actualización, cambio de URL, copias y restauración.
+Necesita un servidor Headscale existente.</p>
+<h2 id="preparación">Preparación</h2>
+<p>Ten a mano la URL de Headscale, las credenciales del nodo y un dominio para
+los servicios privados. El dominio del portal YunoHost puede ser diferente.
+Selecciona el dominio y la ruta del panel al instalar; comprueba que su HTTPS
+funciona antes de configurar la VPN. Utiliza una cuenta del grupo <code>admins</code>.</p>
+<p>Hay dos carpetas diferentes en el proyecto: <code>packaging/yunohost/</code> contiene
+las plantillas que edita el desarrollador y <code>yunohost/</code> es el paquete instalable.
+Las actualizaciones deben conservar la carpeta de datos de cada instancia.</p>
+<h2 id="instalar-desde-el-repositorio-público">Instalar desde el repositorio público</h2>
+<p>El <a href="https://github.com/Gente-del-Condado/headscale-gateway-ynh">repositorio del paquete</a>
+contiene el manifiesto en la raíz y los binarios para ambas arquitecturas.
+No necesitas acceso al repositorio privado del motor:</p>
+<pre tabindex="0"><code class="language-bash">sudo yunohost app install https://github.com/Gente-del-Condado/headscale-gateway-ynh
+</code></pre>
+<p>Es una instalación desde una URL personalizada, no una incorporación al catálogo
+oficial de YunoHost. Consulta el estado de validación al final de este documento.</p>
+<h2 id="alternativa-de-desarrollo-desde-el-repositorio-privado">Alternativa de desarrollo desde el repositorio privado</h2>
+<p>Clona el proyecto desde Forgejo e instala la carpeta <code>yunohost/</code>, que ya incluye
+los binarios y sus sumas SHA-256 para ambas arquitecturas:</p>
+<p>La dirección SSH del ejemplo es ficticia: sustitúyela por la URL SSH de tu
+repositorio, con su usuario SSH, servidor, puerto y propietario reales.</p>
+<pre tabindex="0"><code class="language-bash">git clone ssh://git@forgejo.example.net:2222/usuario/headscale-gateway.git &quot;$HOME/headscale-gateway-src&quot;
+sudo yunohost app install &quot;$HOME/headscale-gateway-src/yunohost&quot;
+</code></pre>
+<p>La clave SSH se configura en el usuario que clona el repositorio. YunoHost
+instala desde esa carpeta local, sin necesitar su propio acceso Git a Forgejo.
+Consulta <code>docs/INSTALACION_PRIVADA.md</code> en el repositorio para el procedimiento
+completo.</p>
+<p><code>packaging/yunohost/</code> contiene las plantillas, sin los binarios. No se instala
+directamente. Para mantener los paquetes, ejecuta en el PC de desarrollo
+<code>python3 tools/prepare_git_install.py</code> y sube los archivos generados a la misma
+rama del repositorio.</p>
+<h2 id="entrar-desde-el-portal">Entrar desde el portal</h2>
+<p>Abre <strong>Headscale Gateway</strong> desde el portal de YunoHost con una cuenta del grupo
+real <code>admins</code>. Entrarás directamente, sin otra contraseña del Gateway.</p>
+<p>Se necesita SSOwat 12.1.1 o posterior. SSOwat transmite la identidad verificada
+<code>YNH_USER</code> y el Gateway comprueba la pertenencia al grupo mediante el sistema
+NSS del anfitrión (<code>getent group admins</code>) en cada petición. Un usuario normal
+del portal no obtiene permisos administrativos aunque se amplíe por error el
+permiso de acceso a la aplicación.</p>
+<p>Una prueba privada entre nginx y cada instancia impide falsificar la identidad
+con una petición local al puerto loopback. El archivo <code>*-proxy-auth.inc</code> es
+propiedad de root y tiene permisos 0600; el secreto equivalente del arranque
+es privado y no se envía al navegador. Se mantiene CSRF y no se crea una cookie
+del Gateway reutilizable fuera del portal.</p>
+<p>El portal gestiona el inicio y cierre de sesión y su segundo factor de
+autenticación. Las cuentas, contraseñas y MFA existentes del Gateway se
+conservan para acceso directo. La instalación no solicita otra contraseña.
+Puedes configurar las credenciales de acceso directo en <strong>Acceso / Identidad</strong>.</p>
+<h2 id="primera-configuración">Primera configuración</h2>
+<ol>
+<li>Abre la aplicación desde el portal y comprueba el acceso al panel.</li>
+<li>Introduce la URL de Headscale, las credenciales requeridas y un nombre de
+   nodo estable. Configura el dominio base y tu proveedor DNS.</li>
+<li>Aplica la configuración y comprueba el estado de la conexión VPN.</li>
+<li>Añade un servicio de laboratorio con un backend accesible desde el servidor,
+   por ejemplo <code>http://127.0.0.1:8080</code> si esa aplicación escucha allí.</li>
+<li>Abre la URL publicada desde un cliente VPN autorizado. La CA local debe ser
+   confiable en ese cliente; alternativamente configura ACME.</li>
+<li>Crea una copia de seguridad y conserva una forma de recuperación antes de
+   publicar servicios que utilices habitualmente.</li>
+</ol>
+<p>El acceso al panel desde el portal no demuestra por sí solo que el servicio
+publicado sea accesible por VPN: comprueba ambos recorridos.</p>
+<h2 id="actualizar">Actualizar</h2>
+<p>Si instalaste desde el repositorio público:</p>
+<pre tabindex="0"><code class="language-bash">sudo yunohost app upgrade headscale_gateway --url https://github.com/Gente-del-Condado/headscale-gateway-ynh
+</code></pre>
+<p>Si utilizas el clon privado de desarrollo:</p>
+<pre tabindex="0"><code class="language-bash">git -C &quot;$HOME/headscale-gateway-src&quot; pull --ff-only &amp;&amp;
+sudo yunohost app upgrade headscale_gateway --file &quot;$HOME/headscale-gateway-src/yunohost&quot;
+</code></pre>
+<p>Para otra instancia, sustituye <code>headscale_gateway</code> por su identificador real,
+como <code>headscale_gateway__2</code>. Mantén la copia de seguridad automática de YunoHost.
+No reemplaces a mano el ejecutable del servicio.</p>
+<p>El paquete público se genera desde el proyecto principal: Forgejo replica el
+proyecto a GitHub, Actions comprueba la seguridad y publica exclusivamente
+<code>yunohost/</code> en el repositorio de paquete de Forgejo, que se replica a GitHub.
+Las modificaciones se hacen en <code>packaging/yunohost/</code> del proyecto principal y
+se regeneran con <code>python3 tools/prepare_git_install.py</code>; no se edita a mano el
+repositorio de distribución. Publicar un paquete no actualiza por sí solo los
+servidores instalados: ejecuta la actualización de YunoHost cuando corresponda.</p>
+<p>Después de actualizar, abre el panel, revisa la versión, prueba un servicio y
+comprueba que conserva su identidad VPN. Si aparece un error, consulta el
+registro de la operación YunoHost antes de intentar una reinstalación.</p>
+<h2 id="red">Red</h2>
+<p>El paquete no abre un nuevo puerto público de entrada. El servicio HTTPS LAN
+comienza en loopback y el puerto 443 de tsnet pertenece a la identidad VPN
+independiente del Gateway. Para publicar servicios en la LAN, configura el
+puerto del Gateway y las reglas del anfitrión sin sustituir los puertos 80/443
+de nginx. El descubrimiento por multidifusión requiere conectividad LAN.</p>
+<p>El dominio HTTPS de YunoHost y el dominio privado de los servicios del Gateway
+son ajustes independientes.</p>
+<h2 id="datos-copias-y-restauración">Datos, copias y restauración</h2>
+<p>Los datos persistentes están en <code>$data_dir/gateway/</code>. El directorio padre
+permanece escribible para poder sustituir la subcarpeta durante una restauración
+completa. Las copias detienen el servicio para conservar juntos SQLite,
+<code>master.key</code>, certificados e identidad tsnet. También incluyen la configuración
+privada de nginx y el secreto de arranque que le corresponde.</p>
+<p>Protege las copias, porque contienen credenciales. No ejecutes una identidad
+restaurada al mismo tiempo que el nodo original. La desinstalación conserva
+los datos salvo que solicites su eliminación mediante la opción de purga.</p>
+<h2 id="cambiar-la-dirección-web">Cambiar la dirección web</h2>
+<p>Cambiar la URL de YunoHost solo cambia el acceso administrativo, no la identidad
+VPN ni el dominio privado. Los archivos privados del proxy se mantienen
+sincronizados. La ruta administrativa admite letras, números, guiones y guiones
+bajos.</p>
+<p>Si utilizas OIDC para el acceso directo, actualiza el callback en el proveedor
+y en el Gateway a <code>https://dominio/ruta/admin/auth/oidc/callback</code>.</p>
+<h2 id="recuperación">Recuperación</h2>
+<p>Utiliza primero una cuenta administradora del portal. Para recuperar el acceso
+propio del Gateway en una emergencia, detén el servicio y ejecuta el binario
+con el usuario Unix de la aplicación, la misma ruta <code>--db</code> y <code>--reset-recovery</code>.
+Vuelve a iniciarlo en una terminal interactiva para obtener el código de un
+solo uso, completa la recuperación y arranca otra vez el servicio normal.
+No abras la misma base de datos con dos procesos a la vez.</p>
+<h2 id="estado-de-validación">Estado de validación</h2>
+<p>El empaquetado sigue siendo experimental hasta completar <code>package_check</code> y
+las pruebas de instalación, actualización, cambio de URL y restauración en una
+máquina virtual real de YunoHost. Las pruebas aisladas usan nginx y NSS reales
+con una sesión de portal simulada; no equivalen a esa aceptación completa.
+Se conservan la licencia del proyecto y los avisos legales originales de terceros.</p>
+<h2 id="diagnóstico-rápido">Diagnóstico rápido</h2>
+<table>
+<thead>
+<tr>
+<th scope="col">Síntoma</th>
+<th scope="col">Comprobación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Acceso denegado desde el portal</td>
+<td>Pertenencia real a <code>admins</code>, versión de SSOwat y consulta NSS</td>
+</tr>
+<tr>
+<td>502 al abrir la aplicación</td>
+<td>Estado del servicio de la instancia y registro de nginx</td>
+</tr>
+<tr>
+<td>El servicio publicado falla, pero el panel abre</td>
+<td>Conectividad del backend, DNS privado, VPN y ACL</td>
+</tr>
+<tr>
+<td>Error después de cambiar URL</td>
+<td>URL del portal actual, configuración nginx y callback OIDC si se usa</td>
+</tr>
+<tr>
+<td>Copia o restauración fallida</td>
+<td>Registro YunoHost, espacio disponible y permisos de la carpeta de datos</td>
+</tr>
+</tbody>
+</table>
+<p>Para una instancia llamada <code>headscale_gateway</code>, consulta el proceso sin cambiarlo:</p>
+<pre tabindex="0"><code class="language-bash">sudo systemctl status headscale_gateway --no-pager
+sudo journalctl -u headscale_gateway -n 80 --no-pager
+</code></pre>
+<p>Sustituye el nombre por el identificador real si hay varias instancias.
+Comparte solo el fragmento relevante del error, revisado para excluir secretos.</p></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+          <li><a href="#preparación">Preparación</a></li>
+        
+          <li><a href="#instalar-desde-el-repositorio-público">Instalar desde el repositorio público</a></li>
+        
+          <li><a href="#alternativa-de-desarrollo-desde-el-repositorio-privado">Alternativa de desarrollo desde el repositorio privado</a></li>
+        
+          <li><a href="#entrar-desde-el-portal">Entrar desde el portal</a></li>
+        
+          <li><a href="#primera-configuración">Primera configuración</a></li>
+        
+          <li><a href="#actualizar">Actualizar</a></li>
+        
+          <li><a href="#red">Red</a></li>
+        
+          <li><a href="#datos-copias-y-restauración">Datos, copias y restauración</a></li>
+        
+          <li><a href="#cambiar-la-dirección-web">Cambiar la dirección web</a></li>
+        
+          <li><a href="#recuperación">Recuperación</a></li>
+        
+          <li><a href="#estado-de-validación">Estado de validación</a></li>
+        
+          <li><a href="#diagnóstico-rápido">Diagnóstico rápido</a></li>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>

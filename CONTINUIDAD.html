@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>Continuar con otra IA · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" >Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" >Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" >Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" >Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" >Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" >Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" >YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" >Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" >Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" >Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" >Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" >Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" >Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" >Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" >Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" >Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" aria-current="page">Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" >Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" >Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" >Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" >Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" >Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" >Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" >Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" >Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <p class="breadcrumb"><a href="index.html">Manual</a><span aria-hidden="true"> / </span>Continuar con otra IA</p>
+      <article class="prose"><h1 id="continuar-el-proyecto">Continuar el proyecto</h1>
+<p>Esta guía es el punto de entrada para programadores y asistentes de IA. Lee
+<code>README.md</code>, <code>docs/ESTRUCTURA.md</code> y la guía del componente antes de modificarlo.
+Comprueba <code>git status</code>, el último commit y las instrucciones locales al empezar.</p>
+<h2 id="qué-estamos-manteniendo">Qué estamos manteniendo</h2>
+<p>Headscale Gateway comparte un motor Go entre instalación directa, Home
+Assistant, YunoHost y Android. El motor, el panel y el cliente de bandeja viven
+en <code>src/</code>. Android adapta el ciclo de vida y el túnel desde <code>android/src/</code>.
+El proyecto se desarrolla principalmente en español.</p>
+<p>El código propio tiene la licencia indicada en <code>LICENSE</code>. Conserva los avisos,
+licencias, nombres y procedencia de terceros. Las dependencias originales se
+mantienen en su idioma. <code>src/third_party/</code> contiene avisos, no un vendor de Go.</p>
+<h2 id="dónde-editar">Dónde editar</h2>
+<table>
+<thead>
+<tr>
+<th scope="col">Trabajo</th>
+<th scope="col">Fuente</th>
+<th scope="col">Comprobación principal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Arranque y recarga</td>
+<td><code>src/main.go</code>, <code>startup_*.go</code>, <code>runtime_*.go</code></td>
+<td>Pruebas Go y despliegue aislado</td>
+</tr>
+<tr>
+<td>Proxy y DNS</td>
+<td><code>src/proxy*.go</code>, <code>src/dns_*.go</code></td>
+<td>Pruebas de transporte, propiedad y limpieza DNS</td>
+</tr>
+<tr>
+<td>Panel y API</td>
+<td><code>src/internal/admin/</code></td>
+<td>Go, pruebas JS, referencia e i18n</td>
+</tr>
+<tr>
+<td>SQLite y secretos</td>
+<td><code>src/internal/state/</code></td>
+<td>Restauración, concurrencia y migraciones</td>
+</tr>
+<tr>
+<td>Copias y perfiles</td>
+<td><code>src/internal/securebackup/</code>, <code>src/internal/configtransfer/</code>, <code>src/admin_backup_restore_*</code></td>
+<td>Integridad, permisos y compatibilidad</td>
+</tr>
+<tr>
+<td>Integración Home Assistant</td>
+<td><code>custom_components/headscale_gateway/</code></td>
+<td>Suite <code>tests/homeassistant/</code></td>
+</tr>
+<tr>
+<td>Complemento Home Assistant</td>
+<td><code>packaging/homeassistant/</code></td>
+<td>Pruebas Python y contenedor</td>
+</tr>
+<tr>
+<td>Paquete YunoHost</td>
+<td><code>packaging/yunohost/</code></td>
+<td>Pruebas Python, nginx/NSS y aceptación en VM</td>
+</tr>
+<tr>
+<td>Android</td>
+<td><code>android/src/</code>, <code>src/mobile_android.go</code></td>
+<td>Motor de ambas arquitecturas, Lint e instrumentación</td>
+</tr>
+<tr>
+<td>Bandeja</td>
+<td><code>src/desktop/</code></td>
+<td><code>npm test</code> y pruebas visuales específicas</td>
+</tr>
+<tr>
+<td>Manual</td>
+<td><code>docs/</code>, documentación de plataforma, <code>mkdocs.yml</code></td>
+<td>Compilación estricta y enlaces HTML</td>
+</tr>
+</tbody>
+</table>
+<p><code>packaging/homeassistant/config.yaml.in</code> es una plantilla. El generador la
+convierte en <code>addons/headscale_gateway/config.yaml</code>. Mantén el sufijo <code>.in</code> para
+que Home Assistant descubra un único complemento dentro del repositorio.</p>
+<p><code>addons/</code> y <code>yunohost/</code> se generan y están versionados porque se instalan desde
+Git privado. Cambia la fuente en <code>packaging/</code> o <code>src/</code> y ejecuta
+<code>python3 tools/prepare_git_install.py</code>. El manifiesto comprueba ambos árboles.</p>
+<h2 id="contratos-que-debe-respetar-cualquier-cambio">Contratos que debe respetar cualquier cambio</h2>
+<ul>
+<li>SQLite es la fuente de configuración persistente. El archivo de arranque
+  aporta opciones del proceso y valores iniciales del instalador.</li>
+<li>Actualizar conserva credenciales, MFA, identidad VPN, claves y datos.</li>
+<li>Un solo proceso utiliza cada base de datos y cada identidad tsnet.</li>
+<li>El panel, la API y los formatos de copia son comunes a todas las plataformas.</li>
+<li>La sesión web, el rol, los alcances Bearer y CSRF tienen comprobaciones distintas.
+  Una IP loopback o una cabecera recibida por sí sola no acredita un administrador.</li>
+<li>DNS solo elimina registros dentro del ámbito de propiedad del Gateway.</li>
+<li>La restauración valida la carpeta temporal antes de programar su limpieza.</li>
+<li>Los transportes del proxy conservan la escritura del cuerpo en respuestas 101.</li>
+<li>Los errores y registros excluyen tokens, contraseñas y claves privadas.</li>
+<li>La comprobación de i18n es de solo lectura. Extraer y comprobar son órdenes separadas.</li>
+</ul>
+<h2 id="cómo-escribir-y-documentar">Cómo escribir y documentar</h2>
+<p>Usa nombres descriptivos, funciones pequeñas y los componentes existentes.
+Escribe los comentarios del código propio en español. Explica la finalidad,
+las precondiciones, los límites de confianza y las decisiones de concurrencia
+cuando aporten información que el código no muestre por sí solo. Conserva los
+identificadores públicos y las directivas de herramientas como <code>//go:build</code>.</p>
+<p>Documenta nuevas rutas, parámetros, migraciones, formatos y cambios de uso en
+la misma modificación. Añade pruebas cuando el comportamiento nuevo o el fallo
+corregido las necesite. Para un cambio solo documental comprueba el manual,
+los enlaces y las sumas, sin inventar resultados de ejecución del producto.</p>
+<p>Los textos de Home Assistant y YunoHost se editan en <code>packaging/</code>. El manual
+web los incorpora automáticamente desde allí. La configuración de navegación
+está en <code>mkdocs.yml</code>, la presentación en <code>tools/manual_theme/</code> y la integración
+con documentos externos en <code>tools/manual_hooks.py</code>.</p>
+<h2 id="secuencia-de-trabajo">Secuencia de trabajo</h2>
+<ol>
+<li>Revisa el estado y los cambios ajenos. Delimita los archivos que vas a editar.</li>
+<li>Lee el recorrido normal del componente y sus pruebas existentes.</li>
+<li>Modifica las fuentes y actualiza sus comentarios y documentación.</li>
+<li>Si cambian rutas o mensajes, ejecuta los generadores de referencia e i18n.</li>
+<li>Si cambian fuentes del motor o plantillas, regenera los paquetes instalables.</li>
+<li>Ejecuta las comprobaciones correspondientes y registra sus resultados reales.</li>
+<li>Actualiza <code>CONTENIDO.sha256</code> al preparar los archivos del commit.</li>
+<li>Guarda un commit nuevo. Sube por SSH cuando esté autorizado y verifica las referencias.</li>
+</ol>
+<pre tabindex="0"><code class="language-bash">python3 -B tools/reference_catalog.py
+python3 -B tools/extract_i18n.py
+python3 -B tools/check_i18n.py
+python3 -B tools/prepare_git_install.py
+bash tools/verify.sh
+</code></pre>
+<p>Para el manual, instala <code>requirements-docs.txt</code> en un entorno virtual y ejecuta
+<code>python -m mkdocs build --strict</code>, seguido de
+<code>python3 tools/check_manual.py builds/manual</code>. Consulta <code>docs/MANUAL_WEB.md</code>.</p>
+<h2 id="versiones-y-publicación">Versiones y publicación</h2>
+<p><code>VERSION</code> es la versión del motor y de los paquetes. Se gestiona con
+<code>python3 tools/set_version.py X.Y.Z</code>. El proyecto utiliza tres componentes
+numéricos para los manifiestos. Las etiquetas Git identifican commits.
+<code>v0.1.0.1</code> fue una prueba de actualización documental, con motor <code>1.4.4</code>.
+Elige una política de versiones explícita antes de cambiar esa numeración.</p>
+<p>Las etiquetas ya publicadas pertenecen a su commit original. Los cambios
+posteriores se guardan en commits nuevos. Comprueba la rama, el remoto y la
+etiqueta antes de publicar. El repositorio se sube por SSH. El manual de GitHub
+Pages se habilita por separado siguiendo <code>docs/MANUAL_WEB.md</code>.</p>
+<h2 id="limpieza-y-datos-de-prueba">Limpieza y datos de prueba</h2>
+<p>Genera compilaciones en <code>bin/</code>, <code>builds/</code>, <code>releases/</code> o una carpeta temporal.
+Mantén cachés y entornos virtuales fuera de las fuentes. Revisa qué contiene
+un directorio antes de borrarlo. Los binarios de <code>yunohost/payload/</code> y el archivo
+<code>addons/headscale_gateway/source.tar.gz</code> son necesarios para los instaladores.</p>
+<p>Mantén bases de datos, perfiles, claves, credenciales y datos de instalaciones
+fuera de Git. Utiliza nombres y direcciones ficticios en pruebas y capturas.
+Antes de finalizar, revisa diferencias, archivos generados y estado de Git.
+Explica qué se verificó, qué queda pendiente y cómo repetir la comprobación.</p></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+          <li><a href="#qué-estamos-manteniendo">Qué estamos manteniendo</a></li>
+        
+          <li><a href="#dónde-editar">Dónde editar</a></li>
+        
+          <li><a href="#contratos-que-debe-respetar-cualquier-cambio">Contratos que debe respetar cualquier cambio</a></li>
+        
+          <li><a href="#cómo-escribir-y-documentar">Cómo escribir y documentar</a></li>
+        
+          <li><a href="#secuencia-de-trabajo">Secuencia de trabajo</a></li>
+        
+          <li><a href="#versiones-y-publicación">Versiones y publicación</a></li>
+        
+          <li><a href="#limpieza-y-datos-de-prueba">Limpieza y datos de prueba</a></li>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>

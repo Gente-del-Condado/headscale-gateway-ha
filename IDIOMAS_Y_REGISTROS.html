@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Manual de instalación, administración y desarrollo de Headscale Gateway.">
+  <title>Idiomas y registros · Headscale Gateway</title>
+  <link rel="stylesheet" href="assets/manual.css">
+  <script src="assets/search-data.js" defer></script>
+  <script src="assets/manual.js" defer></script>
+</head>
+<body data-base=".">
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <a class="brand" href="index.html"><span class="brand-symbol" aria-hidden="true">◇</span> Headscale Gateway</a>
+    <div class="header-links"><span>Manual · 1.4.6</span><a href="https://gentedelcondado.es/forgejo/wolfbelmi88/headscale-gateway">Repositorio ↗</a></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar">
+      <details id="manual-menu" open>
+        <summary>Índice del manual</summary>
+        <search>
+          <label for="manual-search">Buscar en el manual</label>
+          <input id="manual-search" type="search" placeholder="Copias, DNS, instalación…" aria-controls="search-results">
+          <p id="search-status" role="status"></p>
+          <ul id="search-results" hidden></ul>
+        </search>
+        <nav aria-label="Temas del manual">
+          
+            
+              <a class="nav-home" href="index.html" >Inicio</a>
+            
+          
+            
+              <p class="nav-group">Empezar</p>
+              <ul>
+                <li><a href="PRIMEROS_PASOS.html" >Primeros pasos</a></li>
+              
+                <li><a href="USO_COMPLETO.html" >Manual de uso</a></li>
+              
+                <li><a href="EJEMPLOS.html" >Ejemplos completos</a></li>
+              
+                <li><a href="CAPTURAS.html" >Capturas del panel</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Instalar</p>
+              <ul>
+                <li><a href="HOME_ASSISTANT.html" >Home Assistant</a></li>
+              
+                <li><a href="INTEGRACION_HA.html" >Entidades en Home Assistant</a></li>
+              
+                <li><a href="YUNOHOST.html" >YunoHost</a></li>
+              
+                <li><a href="ANDROID_USO.html" >Android</a></li>
+              
+                <li><a href="INSTALACION_PRIVADA.html" >Acceso al Git privado</a></li>
+              
+                <li><a href="PLATAFORMAS.html" >Plataformas y contratos</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Administrar</p>
+              <ul>
+                <li><a href="RED_Y_CA_LAN.html" >Red, puertos y CA</a></li>
+              
+                <li><a href="CA-FEDERACION.html" >Confianza y federación</a></li>
+              
+                <li><a href="RECUPERAR_ACCESO.html" >Recuperar el acceso</a></li>
+              
+                <li><a href="SOLUCION_PROBLEMAS.html" >Resolver problemas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Desarrollar</p>
+              <ul>
+                <li><a href="ESTRUCTURA.html" >Estructura del proyecto</a></li>
+              
+                <li><a href="ARQUITECTURA.html" >Arquitectura y flujos</a></li>
+              
+                <li><a href="DESARROLLO.html" >Guía de contribución</a></li>
+              
+                <li><a href="CONTINUIDAD.html" >Continuar con otra IA</a></li>
+              
+                <li><a href="MANUAL_WEB.html" >Editar y publicar el manual</a></li>
+              
+                <li><a href="MIGRACION_REPOSITORIO.html" >Git y entregas</a></li>
+              
+                <li><a href="PRUEBAS.html" >Pruebas</a></li>
+              </ul>
+            
+          
+            
+              <p class="nav-group">Referencia</p>
+              <ul>
+                <li><a href="MODELOS_API.html" >Modelos de la API</a></li>
+              
+                <li><a href="API_CLI.html" >Guía API y CLI</a></li>
+              
+                <li><a href="PORTAL_Y_FEDERACION.html" >Portal y federación</a></li>
+              
+                <li><a href="HELPER_CA.html" >Helper de certificados</a></li>
+              
+                <li><a href="IDIOMAS_Y_REGISTROS.html" aria-current="page">Idiomas y registros</a></li>
+              
+                <li><a href="ANDROID.html" >Android por dentro</a></li>
+              
+                <li><a href="FEDERACION_WINDOWS.html" >Prueba entre Windows y Linux</a></li>
+              
+                <li><a href="LEEME_BINARIOS.html" >Paquetes de ejecutables</a></li>
+              
+                <li><a href="VERIFICACION_FINAL.html" >Validación y límites</a></li>
+              
+                <li><a href="LICENCIAS.html" >Licencias</a></li>
+              
+                <li><a href="SUSCRIPCIONES.html" >Activación comercial</a></li>
+              </ul>
+            
+          
+        </nav>
+      </details>
+    </aside>
+    <main id="contenido" tabindex="-1">
+      <p class="breadcrumb"><a href="index.html">Manual</a><span aria-hidden="true"> / </span>Idiomas y registros</p>
+      <article class="prose"><h1 id="idiomas-y-registros-25102026">IDIOMAS Y REGISTROS — 25/10/2026</h1>
+<h2 id="documentación-del-proyecto">Documentación del proyecto</h2>
+<p>El manual y las guías de instalación, uso, actualización y recuperación se
+mantienen en español, incluidas las páginas que muestran Home Assistant y
+YunoHost. La guía general está en docs/USO_COMPLETO.md. Los identificadores de configuración, comandos y nombres
+de protocolos conservan su escritura técnica.</p>
+<p>La aplicación sigue admitiendo sus idiomas de interfaz y registros, que se
+eligen de forma independiente de la documentación. Los avisos legales y las
+licencias de terceros se conservan en su redacción original.</p>
+<h2 id="formato-de-los-registros-nuevos">Formato de los registros nuevos</h2>
+<p>[HGW] fecha UTC [INFORMACIÓN] [HGW-START-001] mensaje
+[HGW-PROXY] fecha UTC [ADVERTENCIA] [HGW-PROXY-HTTP] service="ejemplo" status=404</p>
+<p>Los cinco niveles visibles en español son ERROR, ADVERTENCIA, INFORMACIÓN,
+DEPURACIÓN y TRAZA. En inglés: ERROR, WARNING, INFORMATION, DEBUG y TRACE.
+Cada evento propio declara canal, nivel e identificador. Las líneas de un
+mensaje multilínea repiten nivel e identificador. Se redactan credenciales
+antes de escribir tanto a consola como a archivos.</p>
+<p>No se deduce el nivel buscando palabras en el mensaje. No hay conversión de
+WARN, [WARN ], WARNING: ni de registros históricos. Los nombres internos de
+configuración/API (error, warn, info, debug, trace) no son etiquetas visibles.
+El archivo docs/eventos-log.json enumera los eventos y sus ubicaciones.
+Auditoría: go -C src run -buildvcs=false ./tools/log-catalog</p>
+<p>Los mensajes de bibliotecas sin nivel estructurado se identifican como
+HGW-EXTERNAL-STDLOG; los detalles de tsnet como HGW-TSNET-DETAIL.
+Se preservan sus detalles técnicos originales (incluidos errores del SO);
+no se inventa una severidad a partir de sus frases. La salida nativa de
+Chromium/Electron no forma parte de gateway.log, proxy.log o admin.log.</p>
+<p>El visor filtra por severidad acumulativa, texto y prefijo de identificador
+de evento (por ejemplo HGW-PROXY o HGW-PROXY-HTTP). Fecha y zona horaria son
+opciones del visor; el archivo conserva UTC. La API publica las etiquetas
+de todos los idiomas compilados para que el filtro también admita idiomas
+añadidos en el futuro.</p>
+<h2 id="idioma">Idioma</h2>
+<p>Panel: selector de idioma; se recuerda en este navegador.
+Mini GUI: selector Idioma; se guarda junto a las preferencias de conexión.
+Afecta a interfaz, menú de bandeja y notificaciones.
+Servidor/CLI: variable GATEWAY_LANG=en antes de arrancar, o es para español.
+Cada proceso conserva su elección; cambiar el panel no cambia el idioma de
+los registros del servidor ni reescribe eventos anteriores.</p>
+<p>Catálogos: src/locale/*.po (editables con Poedit). Español es el idioma fuente;
+es.json vacío es intencionado, no implica que falten traducciones españolas.
+La misma compilación genera los catálogos embebidos del servidor/panel y
+src/desktop/locales para la mini GUI. No editar los JSON generados a mano.</p>
+<p>Añadir un idioma, por ejemplo francés:
+  python3 tools/add_language.py fr
+  [abrir src/locale/fr.po en Poedit y traducir]
+  python3 tools/check_i18n.py
+  go -C src build -buildvcs=false -o headscale-gateway .
+  node src/desktop/pack.cjs linux
+  node src/desktop/pack.cjs win32</p>
+<p>El idioma aparecerá automáticamente después de actualizar los ejecutables.
+Las entradas todavía no traducidas de idiomas nuevos usan el español.
+El inglés exige cobertura completa del catálogo extraído; el comprobador
+también detecta cambios de variables %s, %d, %v y {nombre}. No traducir
+nombres técnicos, claves de configuración, nombres de archivo ni comandos.
+Mantener el significado y el orden de los parámetros de formato Go.</p>
+<h2 id="mantenimiento">Mantenimiento</h2>
+<p>Al añadir texto dinámico de interfaz, usar:
+  window.tr('Página {page} de {total}', {page: pagina, total: paginas})
+No concatenar frases traducibles con números o nombres.
+Al añadir registros, usar diagnostics.Emit con nivel explícito, identificador
+HGW-* estable y plantilla española literal. Emit traduce antes de formatear.
+Después de modificar registros:
+  go -C src run -buildvcs=false ./tools/log-catalog
+  python3 tools/check_i18n.py</p>
+<p>Los errores técnicos externos, nombres de equipos, políticas ACL y datos
+introducidos por usuarios se conservan como datos, sin traducirlos.</p></article>
+      <footer class="page-footer">
+        <p>Headscale Gateway · Documentación en español</p>
+        <a href="MANUAL_WEB.html">Cómo editar este manual</a>
+      </footer>
+    </main>
+    <aside class="page-toc">
+      <nav aria-label="En esta página"><p>En esta página</p><ul>
+        
+          <li><a href="#documentación-del-proyecto">Documentación del proyecto</a></li>
+        
+          <li><a href="#formato-de-los-registros-nuevos">Formato de los registros nuevos</a></li>
+        
+          <li><a href="#idioma">Idioma</a></li>
+        
+          <li><a href="#mantenimiento">Mantenimiento</a></li>
+        
+      </ul></nav>
+    </aside>
+  </div>
+</body>
+</html>
